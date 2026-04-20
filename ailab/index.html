@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI LAB — Benevsky IT Hub</title>
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.cdnfonts.com/css/gilroy-free');
+
+/* ═══════════════════════════════════════
+   SHADCN-UI THEME TOKENS
+   ═══════════════════════════════════════ */
+:root[data-theme="dark"] {
+  --background:    #09090b;
+  --background-2:  #0d0d10;
+  --background-3:  #111115;
+  --background-4:  #18181b;
+  --background-5:  #1c1c20;
+  --foreground:    #fafafa;
+  --foreground-2:  #a1a1aa;
+  --foreground-3:  #52525b;
+  --card:          #111115;
+  --card-hover:    #18181b;
+  --border:        rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.12);
+  --input:         #27272a;
+  --ring:          rgba(184,147,90,0.5);
+  --gold:          #B8935A;
+  --gold-2:        #D4AF78;
+  --gold-3:        #E8C97A;
+  --gold-glow:     rgba(184,147,90,0.10);
+  --gold-border:   rgba(184,147,90,0.22);
+  --cyan:          #22D3EE;
+  --cyan-glow:     rgba(34,211,238,0.08);
+  --green:         #34D399;
+  --green-glow:    rgba(52,211,153,0.08);
+  --purple:        #A78BFA;
+  --purple-glow:   rgba(167,139,250,0.08);
+  --shadow-sm:     0 1px 8px rgba(0,0,0,0.4);
+  --shadow-md:     0 4px 24px rgba(0,0,0,0.5);
+  --shadow-lg:     0 16px 60px rgba(0,0,0,0.6);
+  --radius:        16px;
+}
+:root[data-theme="light"] {
+  --background:    #ffffff;
+  --background-2:  #f8f8fa;
+  --background-3:  #f1f1f5;
+  --background-4:  #e9e9ef;
+  --background-5:  #e2e2ea;
+  --foreground:    #09090b;
+  --foreground-2:  #52525b;
+  --foreground-3:  #a1a1aa;
+  --card:          #ffffff;
+  --card-hover:    #f8f8fa;
+  --border:        rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.14);
+  --input:         #f4f4f8;
+  --ring:          rgba(184,147,90,0.4);
+  --gold:          #9a7440;
+  --gold-2:        #b8935a;
+  --gold-3:        #c9a568;
+  --gold-glow:     rgba(184,147,90,0.08);
+  --gold-border:   rgba(184,147,90,0.28);
+  --cyan:          #0891b2;
+  --cyan-glow:     rgba(8,145,178,0.08);
+  --green:         #059669;
+  --green-glow:    rgba(5,150,105,0.08);
+  --purple:        #7c3aed;
+  --purple-glow:   rgba(124,58,237,0.08);
+  --shadow-sm:     0 1px 8px rgba(0,0,0,0.06);
+  --shadow-md:     0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg:     0 16px 60px rgba(0,0,0,0.1);
+  --radius:        16px;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, 'Helvetica Neue', sans-serif;
+  font-weight: 400; line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--gold-border); border-radius: 4px; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ─── TYPOGRAPHY ─── */
+.text-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-2) 50%, var(--gold-3) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.g-title {
+  font-family: 'Gilroy-ExtraBold', sans-serif;
+  letter-spacing: -0.03em; line-height: 1.05;
+}
+.g-label {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+  display: block; margin-bottom: 14px;
+}
+
+/* ─── LAYOUT ─── */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px,5vw,80px); }
+.section { padding: clamp(80px,11vh,140px) 0; position: relative; }
+
+/* ─── ICON BASE (animated SVG icons) ─── */
+.icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.icon svg { display: block; }
+.icon-wrap {
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 14px;
+  background: var(--gold-glow); border: 1px solid var(--gold-border);
+  transition: background 0.3s, border-color 0.3s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.4s;
+}
+.icon-wrap.cyan   { background: var(--cyan-glow);   border-color: rgba(34,211,238,0.25); }
+.icon-wrap.green  { background: var(--green-glow);  border-color: rgba(52,211,153,0.25); }
+.icon-wrap.purple { background: var(--purple-glow); border-color: rgba(167,139,250,0.25); }
+
+/* Stroke animation on SVG paths */
+@keyframes stroke-draw {
+  from { stroke-dashoffset: 200; opacity: 0.4; }
+  to   { stroke-dashoffset: 0;   opacity: 1;   }
+}
+.icon-anim path, .icon-anim circle, .icon-anim rect, .icon-anim line, .icon-anim polyline {
+  stroke-dasharray: 200; stroke-dashoffset: 200;
+}
+*:hover .icon-anim path, *:hover .icon-anim circle,
+*:hover .icon-anim rect,  *:hover .icon-anim line,
+*:hover .icon-anim polyline {
+  animation: stroke-draw 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+/* Scoped icon-wrap hover — only within clickable parent elements, no layout shift */
+.about-pillar:hover    .icon-wrap,
+.cap-item:hover        .icon-wrap,
+.approach-step:hover   .icon-wrap,
+.sector-tab:hover      .icon-wrap,
+.sector-tab.active     .icon-wrap,
+.partners-exp-item:hover .icon-wrap {
+  background: rgba(184,147,90,0.18); border-color: var(--gold);
+  transform: scale(1.1) rotate(-4deg);
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Gilroy-ExtraBold', sans-serif;
+  font-size: 14px; letter-spacing: 0.01em;
+  padding: 13px 32px; border-radius: 100px;
+  border: none; cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+  position: relative; overflow: hidden;
+}
+.btn-gold { background: var(--gold); color: #000; }
+.btn-gold:hover { background: var(--gold-2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(184,147,90,0.4); }
+.btn-outline { background: transparent; color: var(--foreground); border: 1px solid var(--border-strong); }
+.btn-outline:hover { background: var(--background-3); transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: 58px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(16px,4vw,48px);
+  background: rgba(9,9,11,0.6);
+  backdrop-filter: blur(32px) saturate(1.6);
+  -webkit-backdrop-filter: blur(32px) saturate(1.6);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.4s, border-color 0.4s;
+}
+[data-theme="light"] .nav { background: rgba(255,255,255,0.75); }
+.nav.scrolled { background: rgba(9,9,11,0.95); }
+[data-theme="light"] .nav.scrolled { background: rgba(255,255,255,0.96); box-shadow: var(--shadow-sm); }
+
+.nav-brand { display: flex; flex-direction: column; gap: 0px; }
+.nav-brand-sup { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--foreground-3); }
+.nav-brand-name { font-family: 'Gilroy-ExtraBold', sans-serif; font-size: 15px; letter-spacing: 0.05em; }
+.nav-brand-name span { color: var(--gold); }
+
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-link {
+  font-size: 12px; letter-spacing: 0.04em; color: var(--foreground-2);
+  transition: color 0.3s; position: relative;
+}
+.nav-link::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px;
+  background: var(--gold); transform: scaleX(0); transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.nav-link:hover { color: var(--foreground); }
+.nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.nav-controls { display: flex; align-items: center; gap: 10px; }
+
+/* Language switcher */
+.lang-switcher {
+  display: flex; align-items: center; gap: 2px;
+  background: var(--background-3); border: 1px solid var(--border);
+  border-radius: 100px; padding: 3px;
+}
+.lang-btn {
+  font-size: 11px; letter-spacing: 0.06em; font-weight: 600;
+  padding: 4px 10px; border-radius: 100px; border: none; cursor: pointer;
+  background: transparent; color: var(--foreground-3);
+  transition: all 0.25s;
+}
+.lang-btn.active { background: var(--gold); color: #000; }
+.lang-btn:not(.active):hover { color: var(--foreground); background: var(--background-4); }
+
+/* Theme toggle */
+.theme-toggle {
+  width: 38px; height: 38px; border-radius: 100px;
+  background: var(--background-3); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.3s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover { background: var(--background-4); border-color: var(--border-strong); }
+
+.nav-cta {
+  display: inline-flex; align-items: center;
+  background: var(--gold); color: #000;
+  font-family: 'Gilroy-ExtraBold', sans-serif;
+  font-size: 12px; padding: 8px 20px; border-radius: 100px;
+  transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--gold-2); box-shadow: 0 4px 20px rgba(184,147,90,0.4); }
+
+@media (max-width: 1080px) { .nav-links { display: none; } }
+@media (max-width: 600px) { .lang-switcher { display: none; } }
+
+/* ═══════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px clamp(20px,5vw,80px) clamp(60px,8vh,100px);
+  position: relative; overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--gold-glow) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gold-glow) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black, transparent);
+  animation: grid-drift 25s linear infinite;
+}
+@keyframes grid-drift { to { transform: translateY(72px); } }
+.hero-glow {
+  position: absolute; top: 45%; left: 50%; transform: translate(-50%,-50%);
+  width: 120vw; height: 120vw; max-width: 1400px; max-height: 1400px;
+  background: radial-gradient(circle, rgba(184,147,90,0.08) 0%, rgba(184,147,90,0.03) 30%, transparent 60%);
+  pointer-events: none; animation: glow-pulse 9s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%,100% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  50%      { opacity: 0.5; transform: translate(-50%,-50%) scale(1.06); }
+}
+.hero-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.particle {
+  position: absolute; border-radius: 50%; opacity: 0;
+  width: var(--s,2px); height: var(--s,2px);
+  background: var(--c, var(--gold));
+  animation: pfloat var(--d,8s) var(--dl,0s) ease-in-out infinite;
+}
+@keyframes pfloat {
+  0%   { opacity:0; transform:translateY(100vh); }
+  10%  { opacity: var(--o,.4); }
+  90%  { opacity: var(--o,.4); }
+  100% { opacity:0; transform:translateY(-20vh); }
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold-glow); border: 1px solid var(--gold-border);
+  border-radius: 100px; padding: 7px 18px;
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-2);
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both;
+}
+.badge-dot { width:6px; height:6px; background:var(--gold-3); border-radius:50%; animation: dotpulse 2s infinite; }
+@keyframes dotpulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.6)} }
+.hero-eyebrow {
+  font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--foreground-3);
+  margin-bottom:18px; animation:fadeUp .9s cubic-bezier(.16,1,.3,1) .08s both;
+}
+.hero-title {
+  font-family:'Gilroy-ExtraBold',sans-serif;
+  font-size:clamp(60px,10vw,128px); line-height:.92; letter-spacing:-.04em;
+  margin-bottom:28px; animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .14s both;
+}
+.hero-sub {
+  font-size:clamp(15px,1.6vw,18px); color:var(--foreground-2);
+  max-width:600px; line-height:1.75; margin-bottom:44px;
+  animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .22s both;
+}
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .30s both; }
+.hero-stats {
+  display:flex; gap:clamp(28px,5vw,60px); flex-wrap:wrap; justify-content:center;
+  margin-top:clamp(56px,8vh,88px);
+  padding-top:clamp(36px,5vh,56px);
+  border-top:1px solid var(--border);
+  animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .40s both;
+}
+.hero-stat-num { font-family:'Gilroy-ExtraBold',sans-serif; font-size:clamp(26px,4vw,42px); letter-spacing:-.03em; line-height:1; margin-bottom:5px; }
+.hero-stat-label { font-size:11px; color:var(--foreground-3); letter-spacing:.08em; text-transform:uppercase; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+/* ─── TICKER ─── */
+.ticker-bar {
+  background: var(--background-2);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 13px 0; overflow: hidden;
+}
+.ticker-track { display:flex; white-space:nowrap; animation: tick 44s linear infinite; }
+.ticker-item {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:0 36px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--foreground-3); flex-shrink:0;
+}
+.ticker-item b { color:var(--gold); font-weight:600; }
+.ticker-sep { width:4px; height:4px; border-radius:50%; background:var(--gold-border); flex-shrink:0; }
+@keyframes tick { to { transform:translateX(-50%); } }
+
+/* ═══════════════════════════════════════
+   PARTNERS
+   ═══════════════════════════════════════ */
+.partners-section {
+  padding: clamp(80px,11vh,140px) 0;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.partners-section::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse 55% 70% at 20% 60%, rgba(184,147,90,0.04), transparent),
+              radial-gradient(ellipse 45% 60% at 80% 40%, rgba(34,211,238,0.03), transparent);
+}
+.partners-headline { font-size:clamp(32px,4.5vw,52px); margin-bottom:14px; }
+.partners-sub { font-size:clamp(14px,1.4vw,16px); color:var(--foreground-2); line-height:1.8; max-width:620px; margin:0 auto clamp(52px,7vh,76px); }
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+@media(max-width:900px){ .partners-grid{ grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .partners-grid{ grid-template-columns: 1fr; } }
+
+.partner-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: clamp(22px,2.5vw,34px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: visible;
+  transition: border-color .45s cubic-bezier(.16,1,.3,1),
+              box-shadow .45s cubic-bezier(.16,1,.3,1),
+              transform .45s cubic-bezier(.16,1,.3,1);
+  text-decoration: none;
+  color: inherit;
+}
+/* Top accent line — uses clip-path instead of overflow:hidden */
+.partner-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 20px; right: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--pc, var(--gold)), transparent);
+  opacity: 0;
+  transition: opacity .4s;
+}
+.partner-card:hover {
+  border-color: var(--gold-border);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+.partner-card:hover::before { opacity: 1; }
+/* Icon animation scoped only to partner cards to avoid global layout shifts */
+.partner-card:hover .partner-icon-wrap.icon-wrap {
+  transform: scale(1.1) rotate(-4deg);
+  box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.partner-icon-wrap {
+  margin-bottom: 18px;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+.partner-role { font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.partner-name { font-family:'Gilroy-ExtraBold',sans-serif; font-size:clamp(17px,1.8vw,21px); letter-spacing:-.02em; line-height:1.15; margin-bottom:11px; }
+.partner-desc { font-size:13px; color:var(--foreground-2); line-height:1.7; flex:1; }
+.partner-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:18px; }
+.partner-tag {
+  background:var(--background-3); border:1px solid var(--border);
+  border-radius:100px; padding:3px 10px; font-size:10px; color:var(--foreground-3); letter-spacing:.04em;
+}
+.partner-url { display:inline-flex; align-items:center; gap:5px; margin-top:16px; font-size:11px; color:var(--foreground-3); transition:color .3s; }
+.partner-card:hover .partner-url { color:var(--gold-2); }
+
+.partners-exp-row {
+  margin-top:clamp(40px,5vh,60px);
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
+  background:var(--border); border-radius:18px; overflow:hidden;
+  border:1px solid var(--border);
+}
+@media(max-width:660px){ .partners-exp-row{grid-template-columns:1fr;} }
+.partners-exp-item {
+  background:var(--background); padding:22px 26px;
+  display:flex; align-items:center; gap:14px; transition:background .3s;
+}
+.partners-exp-item:hover { background:var(--background-3); }
+.pei-title { font-family:'Gilroy-ExtraBold',sans-serif; font-size:14px; margin-bottom:3px; }
+.pei-sub { font-size:12px; color:var(--foreground-3); }
+
+/* ═══════════════════════════════════════
+   ABOUT
+   ═══════════════════════════════════════ */
+.about-section { background:var(--background-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.about-inner { max-width:760px; }
+.about-pillars { display:flex; flex-direction:column; gap:14px; margin-top:36px; }
+.about-pillar {
+  display:flex; align-items:flex-start; gap:16px;
+  background:var(--card); border:1px solid var(--border); border-radius:14px;
+  padding:18px 22px; transition:all .4s cubic-bezier(.16,1,.3,1);
+}
+.about-pillar:hover { border-color:var(--gold-border); transform:translateX(5px); box-shadow:var(--shadow-sm); }
+.pillar-icon { width:40px; height:40px; flex-shrink:0; }
+.pillar-title { font-family:'Gilroy-ExtraBold',sans-serif; font-size:15px; margin-bottom:4px; }
+.pillar-desc { font-size:13px; color:var(--foreground-2); line-height:1.65; }
+
+/* ═══════════════════════════════════════
+   PRODUCTS
+   ═══════════════════════════════════════ */
+.products-section { background:var(--background); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.products-header { text-align:center; max-width:680px; margin:0 auto clamp(52px,7vh,72px); }
+.products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+@media(max-width:900px){ .products-grid{grid-template-columns:1fr;} }
+
+.product-card {
+  background:var(--card); border:1px solid var(--border); border-radius:22px;
+  padding:clamp(26px,3vw,42px); display:flex; flex-direction:column;
+  position:relative; overflow:hidden; transition:all .5s cubic-bezier(.16,1,.3,1);
+}
+.product-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--pc,var(--gold)),transparent);
+  opacity:0; transition:opacity .4s;
+}
+.product-card:hover { transform:translateY(-6px); border-color:var(--border-strong); box-shadow:var(--shadow-lg); }
+.product-card:hover::before { opacity:1; }
+.product-card:hover .icon-wrap { transform:scale(1.12) rotate(-5deg); box-shadow:0 0 28px var(--gold-glow); }
+
+.nova-card {
+  grid-column:span 2; --pc:var(--gold);
+  background:linear-gradient(135deg, var(--gold-glow) 0%, var(--background-3) 60%);
+  border-color:var(--gold-border);
+}
+@media(max-width:900px){ .nova-card{grid-column:span 1;} }
+.nova-inner { display:grid; grid-template-columns:1fr 1fr; gap:36px; height:100%; }
+@media(max-width:680px){ .nova-inner{grid-template-columns:1fr;} }
+
+.prod-tag {
+  display:inline-flex; align-items:center; gap:6px;
+  border-radius:100px; padding:4px 12px; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  margin-bottom:22px; width:fit-content;
+}
+.prod-tag.gold   { background:var(--gold-glow);   border:1px solid var(--gold-border);               color:var(--gold-2); }
+.prod-tag.cyan   { background:var(--cyan-glow);   border:1px solid rgba(34,211,238,.2);               color:var(--cyan); }
+.prod-tag.purple { background:var(--purple-glow); border:1px solid rgba(167,139,250,.2);              color:var(--purple); }
+
+.prod-name { font-family:'Gilroy-ExtraBold',sans-serif; font-size:clamp(22px,2.6vw,32px); letter-spacing:-.02em; line-height:1.1; margin-bottom:5px; }
+.prod-type { font-size:11px; color:var(--foreground-3); letter-spacing:.08em; text-transform:uppercase; margin-bottom:18px; }
+.prod-desc { font-size:clamp(13px,1.3vw,14px); color:var(--foreground-2); line-height:1.78; flex:1; }
+.prod-features { list-style:none; margin-top:24px; display:flex; flex-direction:column; gap:9px; }
+.prod-features li { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--foreground-2); line-height:1.5; }
+.prod-features li::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:6px; }
+.prod-link { display:inline-flex; align-items:center; gap:6px; margin-top:28px; font-size:13px; color:var(--gold); font-family:'Gilroy-ExtraBold',sans-serif; letter-spacing:.03em; transition:gap .3s cubic-bezier(.34,1.56,.64,1); }
+.prod-link:hover { gap:10px; }
+
+.nova-metrics { display:flex; flex-direction:column; gap:14px; margin-top:8px; }
+.nova-metric { background:rgba(0,0,0,0.25); border:1px solid var(--gold-border); border-radius:13px; padding:14px 18px; }
+[data-theme="light"] .nova-metric { background:rgba(255,255,255,0.6); }
+.nm-num { font-family:'Gilroy-ExtraBold',sans-serif; font-size:26px; letter-spacing:-.03em; line-height:1; }
+.nm-label { font-size:11px; color:var(--foreground-3); margin-top:3px; }
+.nova-badges { display:flex; flex-wrap:wrap; gap:7px; margin-top:16px; }
+.nova-badge { background:var(--background-3); border:1px solid var(--border); border-radius:100px; padding:4px 11px; font-size:11px; color:var(--foreground-3); }
+
+/* ═══════════════════════════════════════
+   CAPABILITIES
+   ═══════════════════════════════════════ */
+.cap-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--border); border-radius:22px; overflow:hidden; border:1px solid var(--border); }
+@media(max-width:768px){ .cap-grid{grid-template-columns:repeat(2,1fr);} }
+@media(max-width:460px){ .cap-grid{grid-template-columns:1fr;} }
+.cap-item { background:var(--background); padding:clamp(26px,3vw,40px); transition:background .3s; }
+.cap-item:hover { background:var(--background-3); }
+.cap-icon-wrap { width:48px; height:48px; margin-bottom:18px; }
+.cap-title { font-family:'Gilroy-ExtraBold',sans-serif; font-size:15px; margin-bottom:9px; line-height:1.3; }
+.cap-desc { font-size:13px; color:var(--foreground-2); line-height:1.7; }
+
+/* ═══════════════════════════════════════
+   SECTORS
+   ═══════════════════════════════════════ */
+.sectors-section { background:var(--background-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.sectors-layout { display:grid; grid-template-columns:340px 1fr; gap:72px; align-items:start; }
+@media(max-width:960px){ .sectors-layout{grid-template-columns:1fr; gap:40px;} }
+.sector-tabs { display:flex; flex-direction:column; gap:4px; }
+.sector-tab {
+  display:flex; align-items:center; gap:14px; padding:16px 20px; border-radius:14px; cursor:pointer;
+  border:1px solid transparent; transition:all .35s cubic-bezier(.16,1,.3,1);
+}
+.sector-tab.active { background:var(--card); border-color:var(--gold-border); }
+.sector-tab:hover:not(.active) { background:var(--background-3); }
+.sector-tab-icon { width:38px; height:38px; flex-shrink:0; }
+.sector-tab-name { font-family:'Gilroy-ExtraBold',sans-serif; font-size:14px; margin-bottom:2px; }
+.sector-tab-sub { font-size:11px; color:var(--foreground-3); }
+.sector-panel { display:none; }
+.sector-panel.active { display:block; animation:fadeIn .4s ease both; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.sector-ph { display:flex; align-items:center; gap:18px; margin-bottom:26px; }
+.sector-ph-icon { width:60px; height:60px; }
+.sector-ph-title { font-family:'Gilroy-ExtraBold',sans-serif; font-size:clamp(22px,3vw,34px); letter-spacing:-.02em; line-height:1.1; }
+.sector-desc { font-size:15px; color:var(--foreground-2); line-height:1.8; margin-bottom:28px; }
+.sector-hl { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media(max-width:560px){ .sector-hl{grid-template-columns:1fr;} }
+.hl-item { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:18px 20px; }
+.hl-title { font-family:'Gilroy-ExtraBold',sans-serif; font-size:13px; margin-bottom:5px; }
+.hl-desc { font-size:12px; color:var(--foreground-3); line-height:1.6; }
+
+/* ═══════════════════════════════════════
+   SIGNAL / GOV
+   ═══════════════════════════════════════ */
+.signal-section { position:relative; overflow:hidden; }
+.signal-glow { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:900px; height:500px; background:radial-gradient(ellipse, rgba(184,147,90,0.06), transparent 60%); pointer-events:none; }
+.signal-banner {
+  background:linear-gradient(135deg, var(--gold-glow) 0%, var(--background-3) 100%);
+  border:1px solid var(--gold-border); border-radius:28px;
+  padding:clamp(32px,5vw,60px); position:relative; overflow:hidden;
+}
+.signal-banner::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:.35; }
+.signal-top-row { display:flex; align-items:center; gap:14px; margin-bottom:24px; flex-wrap:wrap; }
+.signal-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--green-glow); border:1px solid rgba(52,211,153,.2);
+  border-radius:100px; padding:6px 16px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--green);
+}
+.sig-dot { width:6px; height:6px; background:var(--green); border-radius:50%; animation:dotpulse 2s infinite; }
+.signal-title { font-family:'Gilroy-ExtraBold',sans-serif; font-size:clamp(26px,3.5vw,44px); letter-spacing:-.02em; line-height:1.1; margin-bottom:18px; }
+.signal-desc { font-size:clamp(14px,1.5vw,17px); color:var(--foreground-2); line-height:1.8; max-width:700px; margin-bottom:32px; }
+.signal-areas { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:36px; }
+.signal-area {
+  display:inline-flex; align-items:center; gap:7px;
+  background:var(--card); border:1px solid var(--border); border-radius:100px;
+  padding:8px 16px; font-size:13px; color:var(--foreground-2); transition:border-color .3s;
+}
+.signal-area:hover { border-color:var(--gold-border); }
+.signal-area-icon { width:16px; height:16px; }
+.signal-quote { background:var(--background-2); border-left:3px solid var(--gold); border-radius:0 12px 12px 0; padding:18px 22px; font-size:14px; color:var(--foreground-2); line-height:1.7; font-style:italic; }
+.signal-quote cite { display:block; margin-top:8px; font-style:normal; font-size:11px; color:var(--foreground-3); }
+
+/* ═══════════════════════════════════════
+   APPROACH
+   ═══════════════════════════════════════ */
+.approach-section { background:var(--background-2); border-top:1px solid var(--border); }
+.approach-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:52px; }
+@media(max-width:900px){ .approach-grid{grid-template-columns:repeat(2,1fr);} }
+@media(max-width:480px){ .approach-grid{grid-template-columns:1fr;} }
+.approach-step {
+  background:var(--card); border:1px solid var(--border); border-radius:20px;
+  padding:clamp(22px,2.5vw,34px); transition:all .45s cubic-bezier(.16,1,.3,1); position:relative; overflow:hidden;
+}
+.approach-step:hover { border-color:var(--gold-border); transform:translateY(-4px); box-shadow:var(--shadow-md); }
+.approach-step:hover .icon-wrap { transform:scale(1.1) rotate(-4deg); box-shadow:0 0 20px var(--gold-glow); }
+.step-num { font-family:'Gilroy-ExtraBold',sans-serif; font-size:56px; color:var(--gold-glow); line-height:1; margin-bottom:14px; }
+[data-theme="light"] .step-num { color:rgba(184,147,90,.12); }
+.step-icon { width:44px; height:44px; margin-bottom:16px; }
+.step-title { font-family:'Gilroy-ExtraBold',sans-serif; font-size:15px; margin-bottom:8px; }
+.step-desc { font-size:13px; color:var(--foreground-2); line-height:1.65; }
+
+/* ═══════════════════════════════════════
+   CTA
+   ═══════════════════════════════════════ */
+.cta-section { text-align:center; padding:clamp(100px,14vh,180px) clamp(20px,5vw,80px); position:relative; overflow:hidden; }
+.cta-glow { position:absolute; top:40%; left:50%; transform:translate(-50%,-50%); width:900px; height:550px; background:radial-gradient(ellipse, rgba(184,147,90,0.07), transparent 60%); pointer-events:none; }
+.cta-title { font-family:'Gilroy-ExtraBold',sans-serif; font-size:clamp(40px,7vw,90px); letter-spacing:-.04em; line-height:.93; margin-bottom:26px; }
+.cta-sub { font-size:clamp(14px,1.5vw,17px); color:var(--foreground-2); max-width:520px; margin:0 auto 44px; line-height:1.75; }
+.cta-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.cta-contacts { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:40px; }
+.cta-contact {
+  display:flex; align-items:center; gap:9px;
+  background:var(--card); border:1px solid var(--border); border-radius:100px;
+  padding:11px 22px; font-size:13px; color:var(--foreground-2); transition:all .3s;
+}
+.cta-contact:hover { border-color:var(--gold-border); color:var(--foreground); }
+.cta-contact-icon { width:16px; height:16px; flex-shrink:0; }
+
+/* ─── FOOTER ─── */
+footer {
+  background:var(--background-2); border-top:1px solid var(--border);
+  padding:36px clamp(20px,5vw,80px);
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px;
+}
+.footer-brand { font-family:'Gilroy-ExtraBold',sans-serif; font-size:13px; letter-spacing:.06em; color:var(--foreground-3); }
+.footer-brand span { color:var(--gold); }
+.footer-copy { font-size:12px; color:var(--foreground-3); }
+.footer-links { display:flex; gap:22px; }
+.footer-link { font-size:12px; color:var(--foreground-3); transition:color .3s; }
+.footer-link:hover { color:var(--foreground); }
+
+/* ─── SCROLL REVEAL ─── */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s} .d4{transition-delay:.32s}
+
+/* ─── VENTURES PORTFOLIO ─── */
+.ven-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  gap: 16px;
+}
+@media(max-width:1000px){ .ven-grid{ grid-template-columns: repeat(2,1fr); } }
+@media(max-width:520px){ .ven-grid{ grid-template-columns: 1fr; } }
+
+.ven-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+  padding: clamp(20px,2.5vw,30px); display: flex; flex-direction: column;
+  transition: all .45s cubic-bezier(.16,1,.3,1);
+  text-decoration: none; color: inherit;
+}
+.ven-card:hover { border-color: var(--gold-border); transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.ven-featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--gold-glow) 0%, var(--background-3) 100%);
+  border-color: var(--gold-border);
+}
+@media(max-width:1000px){ .ven-featured{ grid-column: span 2; } }
+@media(max-width:520px){ .ven-featured{ grid-column: span 1; } }
+
+.ven-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.ven-sector-badge {
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold);
+  font-weight: 600;
+}
+.ven-sector-badge.cyan   { color: var(--cyan); }
+.ven-sector-badge.green  { color: var(--green); }
+.ven-sector-badge.purple { color: var(--purple); }
+
+.ven-status {
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+  padding: 3px 10px; border-radius: 100px;
+}
+.s-active  { background: rgba(52,211,153,.12);  color: var(--green);  border: 1px solid rgba(52,211,153,.25); }
+.s-partner { background: rgba(34,211,238,.10);  color: var(--cyan);   border: 1px solid rgba(34,211,238,.25); }
+.s-launch  { background: var(--gold-glow);      color: var(--gold-2); border: 1px solid var(--gold-border); }
+.s-inlaunch{ background: rgba(167,139,250,.10); color: var(--purple); border: 1px solid rgba(167,139,250,.25); }
+
+.ven-name { font-family:'Gilroy-ExtraBold',sans-serif; font-size:clamp(18px,2vw,24px); letter-spacing:-.02em; line-height:1.15; margin-bottom:10px; }
+.ven-desc { font-size:13px; color:var(--foreground-2); line-height:1.7; flex:1; }
+.ven-stats { display:flex; gap:20px; margin-top:20px; flex-wrap:wrap; }
+.ven-stat-n { font-family:'Gilroy-ExtraBold',sans-serif; font-size:22px; letter-spacing:-.03em; }
+.ven-stat-l { font-size:11px; color:var(--foreground-3); margin-top:2px; }
+.ven-link { display:inline-flex; align-items:center; gap:5px; margin-top:18px; font-size:12px; color:var(--gold); font-family:'Gilroy-ExtraBold',sans-serif; letter-spacing:.03em; transition:gap .3s cubic-bezier(.34,1.56,.64,1); }
+.ven-link:hover { gap:9px; }
+
+/* ─── CLIENTS ROW ─── */
+.clients-row { display:flex; flex-wrap:wrap; gap:8px; }
+.client-chip {
+  background: var(--background-3); border: 1px solid var(--border); border-radius:100px;
+  padding: 6px 16px; font-size:12px; color:var(--foreground-2); font-weight:500;
+  transition: border-color .3s, color .3s;
+}
+.client-chip:hover { border-color:var(--gold-border); color:var(--foreground); }
+
+/* ─── ICON COLOR overrides for light theme ─── */
+[data-theme="light"] .icon-stroke { stroke:var(--foreground); }
+</style>
+</head>
+
+<body>
+
+<!-- ════════ NAVIGATION ════════ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-brand">
+    <span class="nav-brand-sup">Benevsky IT Hub</span>
+    <span class="nav-brand-name">AI <span>LAB</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#partners" class="nav-link" data-i18n="nav.partners">Партнёры</a>
+    <a href="#products" class="nav-link" data-i18n="nav.products">Проекты</a>
+    <a href="#sectors" class="nav-link" data-i18n="nav.sectors">Отрасли</a>
+    <a href="#approach" class="nav-link" data-i18n="nav.approach">Подход</a>
+  </div>
+  <div class="nav-controls">
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="kz">KZ</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <!-- Sun icon (shown in dark mode) -->
+      <svg id="iconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <!-- Moon icon (shown in light mode, hidden by default) -->
+      <svg id="iconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+    <a href="#contact" class="nav-cta" data-i18n="nav.cta">Обсудить проект</a>
+  </div>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-particles" id="particles"></div>
+  <span class="hero-badge"><span class="badge-dot"></span> Benevsky IT Hub · AI Division</span>
+  <p class="hero-eyebrow" data-i18n="hero.eyebrow">Комплексная лаборатория искусственного интеллекта</p>
+  <h1 class="hero-title"><span class="text-gold">AI LAB</span></h1>
+  <p class="hero-sub" data-i18n="hero.sub">Разработка, внедрение и масштабирование AI-систем для здравоохранения, государственного управления, транспорта и финансов. От исследований до production-решений.</p>
+  <div class="hero-actions">
+    <a href="#products" class="btn btn-gold" data-i18n="hero.btn1">Наши проекты</a>
+    <a href="#contact" class="btn btn-outline" data-i18n="hero.btn2">Связаться с командой</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num text-gold">14+</div><div class="hero-stat-label" data-i18n="hero.stat1">Лет в IT</div></div>
+    <div class="hero-stat"><div class="hero-stat-num text-gold">35+</div><div class="hero-stat-label" data-i18n="hero.stat2">Проектов</div></div>
+    <div class="hero-stat"><div class="hero-stat-num text-gold">$15M+</div><div class="hero-stat-label" data-i18n="hero.stat3">Портфель</div></div>
+    <div class="hero-stat"><div class="hero-stat-num text-gold">9</div><div class="hero-stat-label" data-i18n="hero.stat4">Стартапов</div></div>
+  </div>
+</section>
+
+<!-- ════════ TICKER ════════ -->
+<div class="ticker-bar">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="ticker-item"><b>Novaterica</b> · HealthTech AI<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>Strayl.Dev</b> · AI Dev Ecosystem<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>CASE</b> · Central Asia Startup Platform<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>ChefUP</b> · HoReCa Ecosystem<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>Aither AI</b> · PropTech<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>JASAU.pro</b> · AEC<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>X5 Group</b> · Transneft · Halyk Bank<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>CoreGit</b> · DevOps AI<span class="ticker-sep"></span></span>
+    <span class="ticker-item">14+ лет в IT · 35+ проектов · $15M+<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Central Eurasia · Since 2016<span class="ticker-sep"></span></span>
+    <!-- duplicate -->
+    <span class="ticker-item"><b>Novaterica</b> · HealthTech AI<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>Strayl.Dev</b> · AI Dev Ecosystem<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>CASE</b> · Central Asia Startup Platform<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>ChefUP</b> · HoReCa Ecosystem<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>Aither AI</b> · PropTech<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>JASAU.pro</b> · AEC<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>X5 Group</b> · Transneft · Halyk Bank<span class="ticker-sep"></span></span>
+    <span class="ticker-item"><b>CoreGit</b> · DevOps AI<span class="ticker-sep"></span></span>
+    <span class="ticker-item">14+ лет в IT · 35+ проектов · $15M+<span class="ticker-sep"></span></span>
+    <span class="ticker-item">Central Eurasia · Since 2016<span class="ticker-sep"></span></span>
+  </div>
+</div>
+
+<!-- ════════ PARTNERS ════════ -->
+<section class="partners-section" id="partners">
+  <div class="container" style="position:relative; text-align:center;">
+    <span class="g-label reveal" data-i18n="partners.label">Стратегические партнёры</span>
+    <h2 class="g-title partners-headline reveal d1" data-i18n="partners.headline">Экосистема экспертизы</h2>
+    <p class="partners-sub reveal d2" data-i18n="partners.sub">AI LAB работает в связке с ведущими технологическими организациями Казахстана. Вместе мы закрываем полный спектр компетенций — от инфраструктуры и консалтинга до отраслевых внедрений.</p>
+
+    <div class="partners-grid">
+
+      <!-- Benevsky IT Hub -->
+      <a href="https://benevsky.work/" target="_blank" class="partner-card reveal" style="--pc:var(--gold);">
+        <div class="partner-icon-wrap icon-wrap" style="width:50px;height:50px;">
+          <svg class="icon-anim" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="partner-role" data-i18n="partners.benevsky.role">Головная структура</div>
+        <div class="partner-name">Benevsky IT Hub</div>
+        <div class="partner-desc" data-i18n="partners.benevsky.desc">Технологический хаб полного цикла. Разработка ПО, системная интеграция и цифровая трансформация.</div>
+        <div class="partner-tags">
+          <span class="partner-tag" data-i18n="partners.tag.dev">IT-разработка</span>
+          <span class="partner-tag" data-i18n="partners.tag.int">Интеграция</span>
+          <span class="partner-tag">Digital</span>
+        </div>
+        <span class="partner-url">benevsky.work →</span>
+      </a>
+
+      <!-- ITK -->
+      <a href="https://itk-itk-it-kazakhstan.strayl.app/" target="_blank" class="partner-card reveal d1" style="--pc:var(--cyan);">
+        <div class="partner-icon-wrap icon-wrap cyan" style="width:50px;height:50px;">
+          <svg class="icon-anim" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>
+          </svg>
+        </div>
+        <div class="partner-role" style="color:var(--cyan);" data-i18n="partners.itk.role">Технологический партнёр</div>
+        <div class="partner-name">ITK</div>
+        <div class="partner-desc" data-i18n="partners.itk.desc">IT Kazakhstan — экспертиза в корпоративных технологических решениях, инфраструктуре и автоматизации.</div>
+        <div class="partner-tags">
+          <span class="partner-tag" data-i18n="partners.tag.infra">Инфраструктура</span>
+          <span class="partner-tag" data-i18n="partners.tag.auto">Автоматизация</span>
+          <span class="partner-tag">Enterprise</span>
+        </div>
+        <span class="partner-url">itk.strayl.app →</span>
+      </a>
+
+      <!-- НИЦАС -->
+      <a href="https://innovation-allience.vercel.app/" target="_blank" class="partner-card reveal d2" style="--pc:var(--purple);">
+        <div class="partner-icon-wrap icon-wrap purple" style="width:50px;height:50px;">
+          <svg class="icon-anim" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.58 16.5a6.5 6.5 0 0 0 12.84 0"/>
+          </svg>
+        </div>
+        <div class="partner-role" style="color:var(--purple);" data-i18n="partners.nicas.role">Научно-исследовательский партнёр</div>
+        <div class="partner-name">НИЦАС</div>
+        <div class="partner-desc" data-i18n="partners.nicas.desc">Национальный инновационный центр. R&D в области AI и цифровых технологий, мост между наукой и производством.</div>
+        <div class="partner-tags">
+          <span class="partner-tag" data-i18n="partners.tag.innov">Инновации</span>
+          <span class="partner-tag">R&amp;D</span>
+          <span class="partner-tag" data-i18n="partners.tag.science">Наука</span>
+        </div>
+        <span class="partner-url">innovation-allience.vercel.app →</span>
+      </a>
+
+      <!-- Telematika -->
+      <a href="https://telematika.kz/" target="_blank" class="partner-card reveal d3" style="--pc:var(--green);">
+        <div class="partner-icon-wrap icon-wrap green" style="width:50px;height:50px;">
+          <svg class="icon-anim" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1.2 5C1.2 5 5 1 12 1s10.8 4 10.8 4"/><path d="M4.8 9C4.8 9 7.5 6 12 6s7.2 3 7.2 3"/>
+            <path d="M9 13c0 0 1.5-1.5 3-1.5S15 13 15 13"/><circle cx="12" cy="17" r="1"/><line x1="12" y1="18" x2="12" y2="22"/>
+          </svg>
+        </div>
+        <div class="partner-role" style="color:var(--green);" data-i18n="partners.telematika.role">Телематика & IoT</div>
+        <div class="partner-name">Telematika</div>
+        <div class="partner-desc" data-i18n="partners.telematika.desc">Ведущий провайдер телематических решений РК. Мониторинг транспорта, GPS-трекинг и IoT-платформы.</div>
+        <div class="partner-tags">
+          <span class="partner-tag" data-i18n="partners.tag.telematics">Телематика</span>
+          <span class="partner-tag">IoT</span>
+          <span class="partner-tag">GPS</span>
+        </div>
+        <span class="partner-url">telematika.kz →</span>
+      </a>
+    </div>
+
+    <div class="partners-exp-row reveal">
+      <div class="partners-exp-item">
+        <div class="icon-wrap" style="width:44px;height:44px;flex-shrink:0;">
+          <svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div><div class="pei-title" data-i18n="partners.exp1.title">Совместные внедрения</div><div class="pei-sub" data-i18n="partners.exp1.sub">Полный цикл от разработки до развёртывания</div></div>
+      </div>
+      <div class="partners-exp-item">
+        <div class="icon-wrap" style="width:44px;height:44px;flex-shrink:0;">
+          <svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
+            <line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/>
+          </svg>
+        </div>
+        <div><div class="pei-title" data-i18n="partners.exp2.title">Государственный опыт</div><div class="pei-sub" data-i18n="partners.exp2.sub">Подтверждённая экспертиза работы с госструктурами</div></div>
+      </div>
+      <div class="partners-exp-item">
+        <div class="icon-wrap" style="width:44px;height:44px;flex-shrink:0;">
+          <svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div><div class="pei-title" data-i18n="partners.exp3.title">Локальная экспертиза</div><div class="pei-sub" data-i18n="partners.exp3.sub">Глубокое понимание рынка и регуляторики Казахстана</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ABOUT ════════ -->
+<section class="section about-section" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <span class="g-label reveal" data-i18n="about.label">О лаборатории</span>
+      <h2 class="g-title reveal d1" style="font-size:clamp(32px,4.5vw,52px);margin-bottom:20px;" data-i18n="about.title">От идеи до экосистемы</h2>
+      <p style="font-size:clamp(14px,1.4vw,16px);color:var(--foreground-2);line-height:1.8;margin-bottom:10px;" class="reveal d2" data-i18n="about.p1">Benevsky IT Hub — первая экосистема инновационного менеджмента полного цикла в Центральной Евразии. То, что началось в 2016 году как digital-студия, превратилось в IT-студию, венчурный хаб, научный центр и региональную стартап-платформу под одной крышей.</p>
+      <p style="font-size:clamp(14px,1.4vw,16px);color:var(--foreground-2);line-height:1.8;" class="reveal d2" data-i18n="about.p2">AI LAB — технологическое ядро экосистемы: здесь рождаются AI-продукты для наших стартапов и корпоративных клиентов. Наука подтверждает практику, студия создаёт продукты, венчур масштабирует их.</p>
+
+      <!-- Real 4-pillar structure from benevsky.work -->
+      <div class="about-pillars reveal d3">
+        <div class="about-pillar">
+          <div class="pillar-icon icon-wrap">
+            <svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="pillar-title">BenevskyLab · Digital Studio</div>
+            <div class="pillar-desc" data-i18n="about.pillar1.desc">IT-студия полного цикла: разработка, дизайн, AI, консалтинг. 35+ проектов, 50+ клиентов по СНГ и Центральной Азии. С 2016 года.</div>
+          </div>
+        </div>
+        <div class="about-pillar">
+          <div class="pillar-icon icon-wrap">
+            <svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+            </svg>
+          </div>
+          <div>
+            <div class="pillar-title">Benevsky Ventures · Startup Hub</div>
+            <div class="pillar-desc" data-i18n="about.pillar2.desc">10+ стартапов, $15M+ совокупная капитализация, 30+ инвесторов в сети. Со-основание технологических компаний нового поколения в Центральной Евразии.</div>
+          </div>
+        </div>
+        <div class="about-pillar">
+          <div class="pillar-icon icon-wrap">
+            <svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+            </svg>
+          </div>
+          <div>
+            <div class="pillar-title">Benevsky Research · Science</div>
+            <div class="pillar-desc" data-i18n="about.pillar3.desc">PhD в Satbayev University (AI-скоринг стартапов). Senior Researcher в RTU MIREA. Научный фундамент экосистемы — методология CASEM.</div>
+          </div>
+        </div>
+        <div class="about-pillar">
+          <div class="pillar-icon icon-wrap">
+            <svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="pillar-title">CASE Ecosystem · Platform</div>
+            <div class="pillar-desc" data-i18n="about.pillar4.desc">Первая платформа инновационного менеджмента Центральной Азии. 150+ стартапов, 50+ инвесторов, $10M+ фандинг. Запуск Q2 2026.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real clients row -->
+    <div class="reveal" style="margin-top:clamp(52px,7vh,72px);">
+      <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--foreground-3);margin-bottom:20px;" data-i18n="about.clients.label">Клиенты Benevsky IT Hub</div>
+      <div class="clients-row">
+        <span class="client-chip">X5 Group</span>
+        <span class="client-chip">Transneft</span>
+        <span class="client-chip">Halyk Bank</span>
+        <span class="client-chip">InDrive</span>
+        <span class="client-chip">ITK Kazakhstan</span>
+        <span class="client-chip">VkusVill</span>
+        <span class="client-chip">Magnit</span>
+        <span class="client-chip">Sheremetyevo</span>
+        <span class="client-chip">CentralCredit</span>
+        <span class="client-chip">Choco</span>
+        <span class="client-chip">Zebra</span>
+        <span class="client-chip">URBO Coffee</span>
+        <span class="client-chip" style="color:var(--foreground-3)">+20 NDA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PRODUCTS ════════ -->
+<section class="section products-section" id="products">
+  <div class="container">
+    <div class="products-header reveal">
+      <span class="g-label" data-i18n="products.label">Флагманские продукты</span>
+      <h2 class="g-title" style="font-size:clamp(32px,4.5vw,52px);margin-bottom:14px;" data-i18n="products.title">Три направления. Реальный результат.</h2>
+      <p style="font-size:clamp(14px,1.4vw,16px);color:var(--foreground-2);line-height:1.8;" data-i18n="products.sub">Продукты AI LAB — это не концепты. Каждый решает конкретные задачи и прошёл путь от прототипа до production.</p>
+    </div>
+    <div class="products-grid">
+      <!-- NOVATERICA -->
+      <div class="product-card nova-card reveal">
+        <div class="nova-inner">
+          <div>
+            <div class="prod-tag gold">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--gold-2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <span data-i18n="products.nova.tag">Здравоохранение</span>
+            </div>
+            <div class="prod-name">Novaterica</div>
+            <div class="prod-type">Clinical Research Platform</div>
+            <p class="prod-desc" data-i18n="products.nova.desc">Программный комплекс для оптимизации клинических и биомедицинских исследований. Помогает фармацевтическим компаниям и клиникам ускорить процессы, снизить затраты и повысить точность результатов.</p>
+            <ul class="prod-features">
+              <li data-i18n="products.nova.f1">Систематизация всех исследований и автоматизация документооборота</li>
+              <li data-i18n="products.nova.f2">Управление командой, ресурсами и делегирование задач</li>
+              <li data-i18n="products.nova.f3">Мониторинг пациентов в реальном времени и обратная связь</li>
+              <li data-i18n="products.nova.f4">Мобильное приложение для врачей и участников исследований</li>
+            </ul>
+            <a href="https://novaterica.webflow.io/" target="_blank" class="prod-link">novaterica.webflow.io →</a>
+          </div>
+          <div>
+            <div class="nova-metrics">
+              <div class="nova-metric"><div class="nm-num text-gold">Faster</div><div class="nm-label" data-i18n="products.nova.m1">Сокращение времени и трудоёмкости исследований</div></div>
+              <div class="nova-metric"><div class="nm-num" style="color:var(--cyan);">Cheaper</div><div class="nm-label" data-i18n="products.nova.m2">Оптимизация команды и финансовых затрат</div></div>
+              <div class="nova-metric"><div class="nm-num" style="color:var(--green);">Effective</div><div class="nm-label" data-i18n="products.nova.m3">Повышение точности и снижение вероятности ошибок</div></div>
+            </div>
+            <div style="margin-top:16px;">
+              <div style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:9px;" data-i18n="products.nova.relabel">Релевантно для</div>
+              <div class="nova-badges">
+                <span class="nova-badge">НАО «ФСМС»</span>
+                <span class="nova-badge">Минздрав РК</span>
+                <span class="nova-badge">АО «НИТ»</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COREGIT -->
+      <div class="product-card reveal d1" style="--pc:var(--cyan);">
+        <div class="prod-tag cyan">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>DevOps & AI</span>
+        </div>
+        <div class="prod-name">CoreGit</div>
+        <div class="prod-type">AI-Powered DevOps</div>
+        <p class="prod-desc" data-i18n="products.coregit.desc">Интеллектуальная платформа для автоматизации разработки. AI-ревью кода, обнаружение уязвимостей, оптимизация CI/CD.</p>
+        <ul class="prod-features">
+          <li data-i18n="products.coregit.f1">Автоматическое AI-ревью и улучшение кода</li>
+          <li data-i18n="products.coregit.f2">Интеллектуальный мониторинг и алертинг</li>
+          <li data-i18n="products.coregit.f3">On-premise и суверенное облако</li>
+          <li data-i18n="products.coregit.f4">DevSecOps для государственных ИС</li>
+        </ul>
+        <a href="https://coregit.dev/" target="_blank" class="prod-link" style="color:var(--cyan);" data-i18n="products.learn">Узнать подробнее →</a>
+      </div>
+
+      <!-- STRAYL -->
+      <div class="product-card reveal d2" style="--pc:var(--purple);">
+        <div class="prod-tag purple">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span data-i18n="products.strayl.tag">Аналитика</span>
+        </div>
+        <div class="prod-name">Strayl</div>
+        <div class="prod-type">AI Analytics Engine</div>
+        <p class="prod-desc" data-i18n="products.strayl.desc">Движок предиктивной аналитики для бизнеса и государственных структур. Обработка больших данных и поддержка принятия решений в реальном времени.</p>
+        <ul class="prod-features">
+          <li data-i18n="products.strayl.f1">Дашборды реального времени с AI-инсайтами</li>
+          <li data-i18n="products.strayl.f2">Предиктивные модели для отраслевых KPI</li>
+          <li data-i18n="products.strayl.f3">Интеграция с любыми источниками данных</li>
+          <li data-i18n="products.strayl.f4">Суверенное развёртывание у заказчика</li>
+        </ul>
+        <a href="https://strayl.dev/" target="_blank" class="prod-link" style="color:var(--purple);" data-i18n="products.learn">Узнать подробнее →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CAPABILITIES ════════ -->
+<section class="section" id="capabilities" style="background:var(--background-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div style="text-align:center;max-width:640px;margin:0 auto clamp(52px,7vh,68px);" class="reveal">
+      <span class="g-label" data-i18n="cap.label">Компетенции лаборатории</span>
+      <h2 class="g-title" style="font-size:clamp(30px,4vw,50px);" data-i18n="cap.title">Полный стек AI-разработки</h2>
+    </div>
+    <div class="cap-grid reveal d1">
+      <div class="cap-item">
+        <div class="cap-icon-wrap icon-wrap"><svg class="icon-anim" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="cap-title" data-i18n="cap.cv.title">Компьютерное зрение</div>
+        <div class="cap-desc" data-i18n="cap.cv.desc">Распознавание объектов, сегментация, анализ медицинских изображений, видеоаналитика в реальном времени.</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon-wrap icon-wrap"><svg class="icon-anim" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/></svg></div>
+        <div class="cap-title" data-i18n="cap.nlp.title">NLP & LLM</div>
+        <div class="cap-desc" data-i18n="cap.nlp.desc">Обработка текста на русском и казахском, RAG-системы, fine-tuning моделей под отраслевые задачи.</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon-wrap icon-wrap"><svg class="icon-anim" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <div class="cap-title" data-i18n="cap.pred.title">Предиктивная аналитика</div>
+        <div class="cap-desc" data-i18n="cap.pred.desc">Прогнозирование спроса, выявление аномалий, оценка рисков, поддержка управленческих решений.</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon-wrap icon-wrap"><svg class="icon-anim" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/></svg></div>
+        <div class="cap-title" data-i18n="cap.multi.title">Мультиагентные системы</div>
+        <div class="cap-desc" data-i18n="cap.multi.desc">Автономные AI-агенты для автоматизации сложных процессов. Documentolog 8N — мультиагентная AI-платформа.</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon-wrap icon-wrap"><svg class="icon-anim" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="cap-title" data-i18n="cap.sov.title">Суверенный AI</div>
+        <div class="cap-desc" data-i18n="cap.sov.desc">On-premise развёртывание, локальные LLM, соответствие закону о персональных данных РК.</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon-wrap icon-wrap"><svg class="icon-anim" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <div class="cap-title" data-i18n="cap.api.title">Интеграции & API</div>
+        <div class="cap-desc" data-i18n="cap.api.desc">Подключение к QazTech, ГБД, МИС, ERP и любым корпоративным системам через стандартизированные API.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ VENTURES PORTFOLIO ════════ -->
+<section class="section sectors-section" id="sectors">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:clamp(44px,6vh,60px);">
+      <span class="g-label" data-i18n="ventures.label">Портфель стартапов</span>
+      <h2 class="g-title" style="font-size:clamp(30px,4vw,50px);" data-i18n="ventures.title">Benevsky Ventures</h2>
+      <p style="font-size:15px;color:var(--foreground-2);line-height:1.75;margin-top:12px;max-width:680px;" data-i18n="ventures.sub">Строим следующее поколение технологических компаний в Центральной Евразии через со-основание, капитал и инфраструктуру экосистемы.</p>
+    </div>
+
+    <div class="ven-grid reveal d1">
+
+      <a href="https://benevsky.space/" target="_blank" class="ven-card ven-featured">
+        <div class="ven-card-top">
+          <div class="ven-sector-badge">Ecosystem · CA</div>
+          <div class="ven-status s-launch">Q2 2026</div>
+        </div>
+        <div class="ven-name">CASE Ecosystem</div>
+        <p class="ven-desc" data-i18n="ven.case.desc">Первая платформа инновационного менеджмента Центральной Азии. Объединяет стартапы, инвесторов и экспертов через AI-скоринг CASEM, основанный на PhD-исследованиях.</p>
+        <div class="ven-stats">
+          <div class="ven-stat"><div class="ven-stat-n">15+</div><div class="ven-stat-l" data-i18n="ven.case.s1">Стартапов-резидентов</div></div>
+          <div class="ven-stat"><div class="ven-stat-n">12+</div><div class="ven-stat-l" data-i18n="ven.case.s2">Партнёров</div></div>
+          <div class="ven-stat"><div class="ven-stat-n">40+</div><div class="ven-stat-l" data-i18n="ven.case.s3">AI-метрик</div></div>
+        </div>
+        <div class="ven-link">benevsky.space →</div>
+      </a>
+
+      <a href="https://strayl.dev/" target="_blank" class="ven-card">
+        <div class="ven-card-top">
+          <div class="ven-sector-badge cyan">AI · Dev · Partnership</div>
+          <div class="ven-status s-partner">Partnership</div>
+        </div>
+        <div class="ven-name">Strayl.Dev</div>
+        <p class="ven-desc" data-i18n="ven.strayl.desc">«Figma для кода» — революционная платформа на собственном Async Git Engine. AI-нативная экосистема: код, деплой и масштабирование с глубоким контекстом.</p>
+        <div class="ven-link" style="color:var(--cyan)">strayl.dev →</div>
+      </a>
+
+      <a href="https://novaterica.webflow.io/" target="_blank" class="ven-card">
+        <div class="ven-card-top">
+          <div class="ven-sector-badge green">HealthTech · CA</div>
+          <div class="ven-status s-inlaunch" data-i18n="ven.status.launch">В запуске</div>
+        </div>
+        <div class="ven-name">Novaterica</div>
+        <p class="ven-desc" data-i18n="ven.nova.desc">AI-экосистема ранней диагностики здоровья с полным циклом лечения — выявляем заболевания на ранних стадиях, спасая жизни людей.</p>
+        <div class="ven-link" style="color:var(--green)">novaterica.webflow.io →</div>
+      </a>
+
+      <div class="ven-card">
+        <div class="ven-card-top">
+          <div class="ven-sector-badge" style="color:var(--gold)">HoReCa · AI</div>
+          <div class="ven-status s-active" data-i18n="ven.status.active">Активен</div>
+        </div>
+        <div class="ven-name">ChefUP</div>
+        <p class="ven-desc" data-i18n="ven.chefup.desc">Первая HoReCa-экосистема в Центральной Евразии — единая платформа для поиска сотрудников, нетворкинга, обучения и закупок оборудования.</p>
+      </div>
+
+      <div class="ven-card">
+        <div class="ven-card-top">
+          <div class="ven-sector-badge purple">PropTech · AI</div>
+          <div class="ven-status s-inlaunch" data-i18n="ven.status.launch">В запуске</div>
+        </div>
+        <div class="ven-name">Aither AI</div>
+        <p class="ven-desc" data-i18n="ven.aither.desc">Первая в мире полностью AI-powered PropTech-платформа для аренды и туризма. Smart Travel & Real Estate на базе AI.</p>
+      </div>
+
+      <div class="ven-card">
+        <div class="ven-card-top">
+          <div class="ven-sector-badge" style="color:var(--foreground-2)">AEC · CA</div>
+          <div class="ven-status s-inlaunch" data-i18n="ven.status.launch">В запуске</div>
+        </div>
+        <div class="ven-name">JASAU.pro</div>
+        <p class="ven-desc" data-i18n="ven.jasau.desc">Первая цифровая экосистема для рынка архитектуры, инжиниринга и строительства в Центральной Азии — безопасные сделки в один клик.</p>
+      </div>
+
+      <div class="ven-card">
+        <div class="ven-card-top">
+          <div class="ven-sector-badge" style="color:var(--red)">Security · CA</div>
+          <div class="ven-status s-launch">Q2 2026</div>
+        </div>
+        <div class="ven-name">Securix</div>
+        <p class="ven-desc" data-i18n="ven.securix.desc">Первая экосистема услуг приватной безопасности в Центральной Азии — комплексная защита вас и вашей семьи в один клик.</p>
+      </div>
+
+      <div class="ven-card">
+        <div class="ven-card-top">
+          <div class="ven-sector-badge" style="color:var(--foreground-2)">Marketplace · CA</div>
+          <div class="ven-status s-inlaunch" data-i18n="ven.status.launch">В запуске</div>
+        </div>
+        <div class="ven-name">Avocado Experience</div>
+        <p class="ven-desc" data-i18n="ven.avocado.desc">Первый P2P маркетплейс впечатлений в Центральной Азии — каждый предприниматель создаёт, продвигает и продаёт свой авторский продукт.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CASE ECOSYSTEM ════════ -->
+<section class="section signal-section" id="signal">
+  <div class="container" style="position:relative;">
+    <div class="signal-glow"></div>
+    <div class="signal-banner reveal">
+      <div class="signal-top-row">
+        <span class="signal-badge"><span class="sig-dot"></span><span data-i18n="signal.badge">Флагманский проект · Q2 2026</span></span>
+      </div>
+      <h2 class="signal-title" data-i18n="signal.title">CASE Ecosystem — первая платформа стартап-рынка Центральной Азии</h2>
+      <p class="signal-desc" data-i18n="signal.desc">Рынок венчурных инвестиций ЦА фрагментирован: высокая субъективность оценок, отсутствие прозрачной инфраструктуры для сделок. CASE создаёт единую точку входа с AI-скорингом CASEM — академической разработкой на базе PhD-диссертации основателя.</p>
+
+      <div class="signal-areas">
+        <span class="signal-area">
+          <svg class="signal-area-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span data-i18n="signal.a1">Стартапы · Инвесторы · Университеты</span>
+        </span>
+        <span class="signal-area">
+          <svg class="signal-area-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/></svg>
+          <span data-i18n="signal.a2">CASEM · 5 категорий · 40+ метрик</span>
+        </span>
+        <span class="signal-area">
+          <svg class="signal-area-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span data-i18n="signal.a3">PhD · Satbayev University</span>
+        </span>
+        <span class="signal-area">
+          <svg class="signal-area-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          <span data-i18n="signal.a4">$10M+ · 150+ стартапов · 50+ инвесторов</span>
+        </span>
+        <span class="signal-area">
+          <svg class="signal-area-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span data-i18n="signal.a5">30+ инвесторов в сети</span>
+        </span>
+        <span class="signal-area">
+          <svg class="signal-area-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          <span>3 unicorns by 2030</span>
+        </span>
+      </div>
+
+      <div class="signal-quote" data-i18n="signal.quote">CASE делает венчурную экосистему Казахстана и Центральной Азии прозрачной, измеримой и привлекательной для международного капитала — первая платформа, которая объединяет всех игроков рынка в единой точке.<cite>— Benevsky IT Hub · benevsky.space</cite></div>
+    </div>
+  </div>
+</section>
+
+
+        <div class="sector-tab active" data-sector="health">
+          <div class="sector-tab-icon icon-wrap"><svg class="icon-anim" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div><div class="sector-tab-name" data-i18n="sectors.health.name">Здравоохранение</div><div class="sector-tab-sub">Novaterica · Medical AI</div></div>
+        </div>
+<!-- ════════ APPROACH ════════ -->
+<section class="section approach-section" id="approach">
+  <div class="container">
+    <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
+      <span class="g-label" data-i18n="approach.label">Методология</span>
+      <h2 class="g-title" style="font-size:clamp(30px,4vw,50px);" data-i18n="approach.title">От задачи до результата</h2>
+      <p style="font-size:15px;color:var(--foreground-2);line-height:1.75;margin-top:14px;" data-i18n="approach.sub">Четыре шага, которые превращают бизнес-задачу в работающее AI-решение.</p>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-step reveal d1">
+        <div class="step-num">01</div>
+        <div class="step-icon icon-wrap"><svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="step-title" data-i18n="approach.s1.title">Discovery & Аудит</div>
+        <div class="step-desc" data-i18n="approach.s1.desc">Анализ бизнес-задачи, данных и инфраструктуры. Оценка применимости AI и ROI.</div>
+      </div>
+      <div class="approach-step reveal d2">
+        <div class="step-num">02</div>
+        <div class="step-icon icon-wrap"><svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="step-title" data-i18n="approach.s2.title">Прототип & Валидация</div>
+        <div class="step-desc" data-i18n="approach.s2.desc">Быстрый MVP. Тестирование на реальных данных. Итерации до нужного качества.</div>
+      </div>
+      <div class="approach-step reveal d3">
+        <div class="step-num">03</div>
+        <div class="step-icon icon-wrap"><svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        <div class="step-title" data-i18n="approach.s3.title">Production-внедрение</div>
+        <div class="step-desc" data-i18n="approach.s3.desc">Развёртывание, интеграция с системами заказчика, обучение персонала, мониторинг.</div>
+      </div>
+      <div class="approach-step reveal d4">
+        <div class="step-num">04</div>
+        <div class="step-icon icon-wrap"><svg class="icon-anim" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <div class="step-title" data-i18n="approach.s4.title">Поддержка & Масштаб</div>
+        <div class="step-desc" data-i18n="approach.s4.desc">Мониторинг моделей, дообучение, расширение функциональности. AI-система, улучшающаяся со временем.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CTA ════════ -->
+<section class="cta-section" id="contact">
+  <div class="cta-glow"></div>
+  <div class="container" style="position:relative;">
+    <p style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--foreground-3);margin-bottom:22px;" class="reveal" data-i18n="cta.eyebrow">Начать сотрудничество</p>
+    <h2 class="cta-title reveal d1">
+      <span data-i18n="cta.title1">Обсудим</span><br><span class="text-gold" data-i18n="cta.title2">ваш AI-проект</span>
+    </h2>
+    <p class="cta-sub reveal d2" data-i18n="cta.sub">Государственные структуры, медицинские организации, enterprise-бизнес — мы готовы к партнёрству на любом масштабе.</p>
+    <div class="cta-actions reveal d3">
+      <a href="https://benevsky.work/" target="_blank" class="btn btn-gold">benevsky.work</a>
+      <a href="mailto:info@benevsky.work" class="btn btn-outline" data-i18n="cta.btn">Написать команде</a>
+    </div>
+    <div class="cta-contacts reveal d4">
+      <a href="https://benevsky.work/" target="_blank" class="cta-contact">
+        <svg class="cta-contact-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-3)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        benevsky.work
+      </a>
+      <a href="mailto:info@benevsky.work" class="cta-contact">
+        <svg class="cta-contact-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-3)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        info@benevsky.work
+      </a>
+      <span class="cta-contact">
+        <svg class="cta-contact-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-3)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span data-i18n="cta.loc1">Алматы</span>
+      </span>
+      <span class="cta-contact">
+        <svg class="cta-contact-icon" viewBox="0 0 24 24" fill="none" stroke="var(--foreground-3)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span data-i18n="cta.loc2">Астана</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="footer-brand">BENEVSKY <span>AI LAB</span> · IT Hub</div>
+  <div class="footer-copy">© 2026 Benevsky IT Hub. <span data-i18n="footer.rights">Все права защищены.</span></div>
+  <div class="footer-links">
+    <a href="https://benevsky.work/" target="_blank" class="footer-link" data-i18n="footer.main">Главный сайт</a>
+    <a href="https://novaterica.webflow.io/" target="_blank" class="footer-link">Novaterica</a>
+    <a href="#contact" class="footer-link" data-i18n="footer.contacts">Контакты</a>
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════
+   I18N DATA
+   ════════════════════════════════════════ */
+const i18n = {
+  ru: {
+    'nav.partners':'Партнёры','nav.products':'Проекты','nav.sectors':'Отрасли','nav.approach':'Подход','nav.cta':'Обсудить проект',
+    'hero.eyebrow':'Комплексная лаборатория искусственного интеллекта',
+    'hero.sub':'Разработка, внедрение и масштабирование AI-систем для здравоохранения, государственного управления, транспорта и финансов. От исследований до production-решений.',
+    'hero.btn1':'Наши проекты','hero.btn2':'Связаться с командой',
+    'hero.stat1':'Лет в IT','hero.stat2':'Проектов','hero.stat3':'Портфель','hero.stat4':'Стартапов',
+    'ticker.health':'Здравоохранение','ticker.gov':'Государственный сектор','ticker.transport':'Транспорт & Логистика','ticker.digital':'Цифровизация RK','ticker.cv':'Компьютерное зрение',
+    'partners.label':'Стратегические партнёры','partners.headline':'Экосистема экспертизы',
+    'partners.sub':'AI LAB работает в связке с ведущими технологическими организациями Казахстана. Вместе мы закрываем полный спектр компетенций.',
+    'partners.benevsky.role':'Головная структура','partners.benevsky.desc':'Технологический хаб полного цикла. Разработка ПО, системная интеграция и цифровая трансформация.',
+    'partners.itk.role':'Технологический партнёр','partners.itk.desc':'IT Kazakhstan — экспертиза в корпоративных технологических решениях, инфраструктуре и автоматизации.',
+    'partners.nicas.role':'Научно-исследовательский партнёр','partners.nicas.desc':'Национальный инновационный центр. R&D в области AI и цифровых технологий.',
+    'partners.telematika.role':'Телематика & IoT','partners.telematika.desc':'Ведущий провайдер телематических решений РК. Мониторинг транспорта, GPS и IoT-платформы.',
+    'partners.tag.dev':'IT-разработка','partners.tag.int':'Интеграция','partners.tag.infra':'Инфраструктура','partners.tag.auto':'Автоматизация','partners.tag.innov':'Инновации','partners.tag.science':'Наука','partners.tag.telematics':'Телематика',
+    'partners.exp1.title':'Совместные внедрения','partners.exp1.sub':'Полный цикл от разработки до развёртывания',
+    'partners.exp2.title':'Государственный опыт','partners.exp2.sub':'Подтверждённая экспертиза работы с госструктурами',
+    'partners.exp3.title':'Локальная экспертиза','partners.exp3.sub':'Глубокое понимание рынка и регуляторики Казахстана',
+    'about.label':'О лаборатории','about.title':'От идеи до экосистемы',
+    'about.p1':'Benevsky IT Hub — первая экосистема инновационного менеджмента полного цикла в Центральной Евразии. С 2016 года: digital-студия, венчурный хаб, научный центр и стартап-платформа.',
+    'about.p2':'AI LAB — технологическое ядро экосистемы. Наука подтверждает практику, студия создаёт продукты, венчур масштабирует их.',
+    'about.pillar1.desc':'IT-студия полного цикла: разработка, дизайн, AI, консалтинг. 35+ проектов, 50+ клиентов по СНГ и Центральной Азии.',
+    'about.pillar2.desc':'10+ стартапов, $15M+ совокупная капитализация, 30+ инвесторов. Со-основание технологических компаний в Центральной Евразии.',
+    'about.pillar3.desc':'PhD в Satbayev University (AI-скоринг). Senior Researcher в RTU MIREA. Научный фундамент экосистемы — методология CASEM.',
+    'about.pillar4.desc':'Первая платформа инновационного менеджмента ЦА. 150+ стартапов, 50+ инвесторов, $10M+ фандинг. Запуск Q2 2026.',
+    'about.clients.label':'Клиенты Benevsky IT Hub',
+    'ventures.label':'Портфель стартапов','ventures.title':'Benevsky Ventures',
+    'ventures.sub':'Строим следующее поколение технологических компаний в Центральной Евразии через со-основание, капитал и инфраструктуру.',
+    'ven.case.desc':'Первая платформа инновационного менеджмента Центральной Азии. AI-скоринг CASEM на основе PhD-исследований объединяет стартапы, инвесторов и экспертов.',
+    'ven.case.s1':'Стартапов-резидентов','ven.case.s2':'Партнёров','ven.case.s3':'AI-метрик',
+    'ven.strayl.desc':'«Figma для кода» — AI-нативная экосистема на собственном Async Git Engine. Код, деплой и масштабирование с глубоким контекстом.',
+    'ven.nova.desc':'AI-экосистема ранней диагностики здоровья с полным циклом лечения — выявляем заболевания на ранних стадиях.',
+    'ven.chefup.desc':'Первая HoReCa-экосистема в Центральной Евразии — поиск сотрудников, нетворкинг, обучение и закупки оборудования.',
+    'ven.aither.desc':'Первая в мире полностью AI-powered PropTech-платформа для аренды и туризма.',
+    'ven.jasau.desc':'Первая цифровая экосистема для архитектуры, инжиниринга и строительства в Центральной Азии — безопасные сделки в один клик.',
+    'ven.securix.desc':'Первая экосистема услуг приватной безопасности в ЦА — комплексная защита в один клик.',
+    'ven.avocado.desc':'Первый P2P маркетплейс впечатлений в Центральной Азии — создавай, продвигай и продавай авторский продукт.',
+    'ven.status.active':'Активен','ven.status.launch':'В запуске',
+    'signal.badge':'Флагманский проект · Q2 2026',
+    'signal.title':'CASE Ecosystem — первая платформа стартап-рынка Центральной Азии',
+    'signal.desc':'Рынок венчурных инвестиций ЦА фрагментирован. CASE создаёт единую точку входа с AI-скорингом CASEM — академической разработкой на базе PhD-диссертации основателя.',
+    'signal.a1':'Стартапы · Инвесторы · Университеты','signal.a2':'CASEM · 5 категорий · 40+ метрик',
+    'signal.a3':'PhD · Satbayev University','signal.a4':'$10M+ · 150+ стартапов · 50+ инвесторов','signal.a5':'30+ инвесторов в сети',
+    'signal.quote':'CASE делает венчурную экосистему Казахстана прозрачной, измеримой и привлекательной для международного капитала — первая платформа, объединяющая всех игроков рынка.',
+    'products.label':'Флагманские продукты','products.title':'Три направления. Реальный результат.',
+    'products.sub':'Продукты AI LAB — это не концепты. Каждый решает конкретные задачи и прошёл путь от прототипа до production.',
+    'products.nova.tag':'Здравоохранение','products.nova.desc':'Программный комплекс для оптимизации клинических и биомедицинских исследований. Помогает фармацевтическим компаниям и клиникам ускорить процессы, снизить затраты и повысить точность результатов.',
+    'products.nova.f1':'Систематизация исследований и автоматизация документооборота','products.nova.f2':'Управление командой, ресурсами и делегирование задач','products.nova.f3':'Мониторинг пациентов в реальном времени и обратная связь','products.nova.f4':'Мобильное приложение для врачей и участников исследований',
+    'products.nova.m1':'Сокращение времени и трудоёмкости','products.nova.m2':'Оптимизация команды и затрат','products.nova.m3':'Повышение точности и снижение ошибок','products.nova.relabel':'Релевантно для',
+    'products.coregit.desc':'Интеллектуальная платформа для автоматизации разработки. AI-ревью кода, обнаружение уязвимостей, оптимизация CI/CD.',
+    'products.coregit.f1':'Автоматическое AI-ревью и улучшение кода','products.coregit.f2':'Интеллектуальный мониторинг и алертинг','products.coregit.f3':'On-premise и суверенное облако','products.coregit.f4':'DevSecOps для государственных ИС',
+    'products.strayl.tag':'Аналитика','products.strayl.desc':'Движок предиктивной аналитики. Обработка больших данных и поддержка решений в реальном времени.',
+    'products.strayl.f1':'Дашборды реального времени с AI-инсайтами','products.strayl.f2':'Предиктивные модели для KPI','products.strayl.f3':'Интеграция с любыми источниками данных','products.strayl.f4':'Суверенное развёртывание',
+    'products.learn':'Узнать подробнее →',
+    'cap.label':'Компетенции лаборатории','cap.title':'Полный стек AI-разработки',
+    'cap.cv.title':'Компьютерное зрение','cap.cv.desc':'Распознавание объектов, сегментация, анализ медицинских изображений, видеоаналитика.',
+    'cap.nlp.title':'NLP & LLM','cap.nlp.desc':'Обработка текста на русском и казахском, RAG-системы, fine-tuning под задачи.',
+    'cap.pred.title':'Предиктивная аналитика','cap.pred.desc':'Прогнозирование спроса, выявление аномалий, оценка рисков.',
+    'cap.multi.title':'Мультиагентные системы','cap.multi.desc':'Автономные AI-агенты для сложных процессов. Documentolog 8N — мультиагентная платформа.',
+    'cap.sov.title':'Суверенный AI','cap.sov.desc':'On-premise развёртывание, локальные LLM, соответствие закону о персональных данных РК.',
+    'cap.api.title':'Интеграции & API','cap.api.desc':'Подключение к QazTech, ГБД, МИС, ERP через стандартизированные API.',
+    'sectors.label':'Отраслевая экспертиза','sectors.title':'Где работает наш AI',
+    'sectors.health.name':'Здравоохранение','sectors.health.title':'AI в здравоохранении','sectors.health.desc':'Novaterica помогает врачам анализировать снимки, ускорять диагностику и интегрировать AI в клинические процессы.',
+    'sectors.health.h1.t':'Радиология с AI','sectors.health.h1.d':'Анализ КТ, МРТ, рентгена с выделением зон внимания.','sectors.health.h2.t':'Централизация данных','sectors.health.h2.d':'Интеграция с МИС в рамках проектов централизации Минздрава.','sectors.health.h3.t':'ФСМС & страхование','sectors.health.h3.d':'Оцифровка процессов фонда медицинского страхования.','sectors.health.h4.t':'Исследовательские песочницы','sectors.health.h4.d':'Изолированные среды без персональных данных.',
+    'sectors.gov.name':'Государственное управление','sectors.gov.sub':'Цифровизация госорганов РК','sectors.gov.title':'AI для государства','sectors.gov.desc':'Решения, совместимые с QazTech, e-Otinish, Digital ID и государственными платформами.',
+    'sectors.gov.h1.d':'AI-модули для ИС на QazTech.','sectors.gov.h2.t':'Документооборот','sectors.gov.h2.d':'Мультиагентные системы для госдокументооборота.','sectors.gov.h3.d':'AI-инструменты для госслужащих с ЭЦП.','sectors.gov.h4.t':'Суверенные данные','sectors.gov.h4.d':'On-premise без передачи данных третьим сторонам.',
+    'sectors.transport.name':'Транспорт & Логистика','sectors.transport.title':'AI в транспорте','sectors.transport.desc':'Видеоаналитика дорог, мониторинг потоков, оптимизация логистики. Smart Cargo и Q-Gate.',
+    'sectors.transport.h1.t':'Видеоаналитика','sectors.transport.h1.d':'Мониторинг автодорог с AI-распознаванием инцидентов.','sectors.transport.h2.d':'AI-ассистенты для железнодорожной сети.','sectors.transport.h3.d':'AI-управление электронными гейтами.','sectors.transport.h4.t':'Прогноз нагрузки','sectors.transport.h4.d':'Предиктивные модели инфраструктурной нагрузки.',
+    'sectors.finance.name':'Финансы & FinTech','sectors.finance.sub':'Антифрод · Аналитика рисков','sectors.finance.title':'AI в финансах','sectors.finance.desc':'Strayl и ML-модели для финансовых организаций: антифрод, скоринг, поведенческая аналитика.',
+    'sectors.finance.h1.d':'AI для антифрод-сервисов второго уровня.','sectors.finance.h2.t':'Кредитный скоринг','sectors.finance.h2.d':'ML-модели оценки кредитоспособности.','sectors.finance.h3.t':'FinTech-интеграции','sectors.finance.h3.d':'AI-модули для банковских экосистем.','sectors.finance.h4.d':'AI для финансовых коммуникаций в мессенджере.',
+    'sectors.devops.title':'DevOps & AI-автоматизация','sectors.devops.desc':'CoreGit автоматизирует цикл разработки с AI на каждом этапе.',
+    'sectors.devops.h1.t':'AI Code Review','sectors.devops.h1.d':'Обнаружение багов и уязвимостей в PR.','sectors.devops.h2.d':'Пайплайны с AI-оптимизацией сборки.','sectors.devops.h3.d':'Стандарты безопасности для государственных ИС.','sectors.devops.h4.t':'On-premise','sectors.devops.h4.d':'Полная изоляция кодовой базы у заказчика.',
+    'signal.badge':'Государственный контекст','signal.title':'Мы работаем на приоритетных направлениях РК',
+    'signal.desc':'AI LAB развивает решения в рамках государственной повестки цифровизации Казахстана.','signal.a1':'Централизация радиологии','signal.a3':'ФСМС','signal.a7':'Мультиагентный AI','signal.a8':'Суверенное облако',
+    'signal.quote':'AI LAB готов выступить технологическим партнёром в реализации AI-проектов — от пилота до промышленного масштабирования.','signal.cite':'— BENEVSKY AI LAB, 2026',
+    'approach.label':'Методология','approach.title':'От задачи до результата','approach.sub':'Четыре шага, которые превращают бизнес-задачу в работающее AI-решение.',
+    'approach.s1.title':'Discovery & Аудит','approach.s1.desc':'Анализ задачи, данных и инфраструктуры. Оценка применимости AI и ROI.',
+    'approach.s2.title':'Прототип & Валидация','approach.s2.desc':'Быстрый MVP. Тестирование на реальных данных. Итерации.',
+    'approach.s3.title':'Production-внедрение','approach.s3.desc':'Развёртывание, интеграция с системами заказчика, обучение персонала.',
+    'approach.s4.title':'Поддержка & Масштаб','approach.s4.desc':'Мониторинг моделей, дообучение, расширение функциональности.',
+    'cta.eyebrow':'Начать сотрудничество','cta.title1':'Обсудим','cta.title2':'ваш AI-проект','cta.sub':'Государственные структуры, медицинские организации, enterprise-бизнес — мы готовы к партнёрству.','cta.btn':'Написать команде','cta.loc1':'Алматы, Казахстан','cta.loc2':'Астана, Казахстан',
+    'footer.rights':'Все права защищены.','footer.main':'Главный сайт','footer.contacts':'Контакты'
+  },
+  kz: {
+    'nav.partners':'Серіктестер','nav.products':'Жобалар','nav.sectors':'Салалар','nav.approach':'Тәсіл','nav.cta':'Жобаны талқылау',
+    'hero.eyebrow':'Жасанды интеллекттің кешенді зертханасы',
+    'hero.sub':'Денсаулық сақтау, мемлекеттік басқару, көлік және қаржы салаларына арналған AI жүйелерін әзірлеу, енгізу және масштабтау.',
+    'hero.btn1':'Біздің жобалар','hero.btn2':'Командамен байланысу',
+    'hero.stat1':'IT жылы','hero.stat2':'Жобалар','hero.stat3':'Портфель','hero.stat4':'Стартаптар',
+    'ticker.health':'Денсаулық сақтау','ticker.gov':'Мемлекеттік сектор','ticker.transport':'Көлік & Логистика','ticker.digital':'ҚР цифрландыру','ticker.cv':'Компьютерлік көру',
+    'partners.label':'Стратегиялық серіктестер','partners.headline':'Тәжірибе экожүйесі',
+    'partners.sub':'AI LAB Қазақстанның жетекші технологиялық ұйымдарымен бірлесіп жұмыс істейді.',
+    'partners.benevsky.role':'Бас құрылым','partners.benevsky.desc':'Толық циклді технологиялық хаб. Бағдарламалық жасақтама, жүйелік интеграция.',
+    'partners.itk.role':'Технологиялық серіктес','partners.itk.desc':'IT Kazakhstan — корпоративтік шешімдер, инфрақұрылым және автоматтандыру.',
+    'partners.nicas.role':'Ғылыми-зерттеу серіктесі','partners.nicas.desc':'Ұлттық инновациялық орталық. AI және цифрлық технологиялар саласындағы R&D.',
+    'partners.telematika.role':'Телематика & IoT','partners.telematika.desc':'ҚР-ның жетекші телематикалық шешімдер провайдері. GPS-бақылау және IoT.',
+    'partners.tag.dev':'IT-әзірлеу','partners.tag.int':'Интеграция','partners.tag.infra':'Инфрақұрылым','partners.tag.auto':'Автоматтандыру','partners.tag.innov':'Инновация','partners.tag.science':'Ғылым','partners.tag.telematics':'Телематика',
+    'partners.exp1.title':'Бірлескен енгізу','partners.exp1.sub':'Әзірлеуден орналастыруға дейін',
+    'partners.exp2.title':'Мемлекеттік тәжірибе','partners.exp2.sub':'Мемлекеттік органдармен жұмыс тәжірибесі',
+    'partners.exp3.title':'Жергілікті тәжірибе','partners.exp3.sub':'Қазақстан нарығын терең түсіну',
+    'about.label':'Зертхана туралы','about.title':'Жаңа буын AI-зертханасы',
+    'about.p1':'BENEVSKY AI LAB — Benevsky IT Hub-тың зерттеу және инженерлік бөлімшесі, маңызды салалар үшін кешенді AI шешімдерін жасауға мамандандырылған.',
+    'about.p2':'Біз машиналық оқытуды engineering excellence-пен ұштастырамыз — нақты жағдайларда жұмыс істейтін жүйелерді қурамыз.',
+    'about.pillar1.title':'Зерттеу & әзірлеу','about.pillar1.desc':'CV, NLP, болжамды аналитика саласындағы меншікті R&D.',
+    'about.pillar2.title':'Production-енгізу','about.pillar2.desc':'Деректер егемендігі талаптарын сақтай отырып AI интеграциясы.',
+    'about.pillar3.title':'Мемлекеттік масштаб','about.pillar3.desc':'Мемлекеттік органдармен жұмыс тәжірибесі.',
+    'products.label':'Флагмандық өнімдер','products.title':'Үш бағыт. Нақты нәтиже.',
+    'products.sub':'AI LAB өнімдері — концепт емес. Әрқайсысы нақты мәселелерді шешеді.',
+    'products.nova.tag':'Денсаулық сақтау','products.nova.desc':'Клиникалық және биомедициналық зерттеулерді оңтайландыруға арналған бағдарламалық кешен. Фармацевтикалық компаниялар мен клиникаларға процестерді жеделдетуге және шығындарды азайтуға көмектеседі.',
+    'products.nova.f1':'Зерттеулерді жүйелеу және жұмыс процесін автоматтандыру','products.nova.f2':'Команданы, ресурстарды басқару және тапсырмаларды бөлу','products.nova.f3':'Науқастарды нақты уақытта бақылау және кері байланыс','products.nova.f4':'Дәрігерлер мен зерттеу қатысушыларына арналған мобильді қосымша',
+    'products.nova.m1':'Уақыт пен еңбек сыйымдылығын қысқарту','products.nova.m2':'Команда мен шығындарды оңтайландыру','products.nova.m3':'Дәлдікті арттыру және қателерді азайту','products.nova.relabel':'Байланысты',
+    'products.coregit.desc':'Әзірлеуді автоматтандыруға арналған интеллектуалды платформа. AI код шолуы, осалдықтарды анықтау.',
+    'products.coregit.f1':'Автоматты AI код шолуы','products.coregit.f2':'Интеллектуалды мониторинг','products.coregit.f3':'On-premise деплой','products.coregit.f4':'DevSecOps',
+    'products.strayl.tag':'Аналитика','products.strayl.desc':'Бизнес пен мемлекеттік органдарға арналған болжамды аналитика қозғалтқышы.',
+    'products.strayl.f1':'Нақты уақыттағы дашбордтар','products.strayl.f2':'Болжамды модельдер','products.strayl.f3':'Кез келген деректер көздерімен интеграция','products.strayl.f4':'Тапсырыс берушіде орналастыру',
+    'products.learn':'Толығырақ →',
+    'cap.label':'Зертхана құзыреттері','cap.title':'AI-әзірлеудің толық стегі',
+    'cap.cv.title':'Компьютерлік көру','cap.cv.desc':'Объектілерді тану, медициналық суреттерді талдау, бейне аналитика.',
+    'cap.nlp.title':'NLP & LLM','cap.nlp.desc':'Орыс және қазақ тілдеріндегі мәтіндерді өңдеу, RAG жүйелері.',
+    'cap.pred.title':'Болжамды аналитика','cap.pred.desc':'Сұранысты болжау, аномалияларды анықтау, тәуекелдерді бағалау.',
+    'cap.multi.title':'Мультиагентті жүйелер','cap.multi.desc':'Күрделі процестерді автоматтандыруға арналған AI агенттері.',
+    'cap.sov.title':'Егемен AI','cap.sov.desc':'On-premise орналастыру, жергілікті LLM, ҚР заңнамасына сәйкестік.',
+    'cap.api.title':'Интеграция & API','cap.api.desc':'QazTech, МАЖ, ERP жүйелерімен қосылу.',
+    'sectors.label':'Салалық тәжірибе','sectors.title':'AI қайда жұмыс істейді',
+    'sectors.health.name':'Денсаулық сақтау','sectors.health.title':'Денсаулық сақтаудағы AI','sectors.health.desc':'Novaterica дәрігерлерге сурет талдауды, диагностиканы жеделдетуге көмектеседі.',
+    'sectors.health.h1.t':'Радиология + AI','sectors.health.h1.d':'КТ, МРТ, рентген талдауы.','sectors.health.h2.t':'Деректерді орталықтандыру','sectors.health.h2.d':'ДСМ жобаларымен интеграция.','sectors.health.h3.t':'МӘМС','sectors.health.h3.d':'МӘМС процестерін цифрландыру.','sectors.health.h4.t':'Зерттеу sandbox','sectors.health.h4.d':'Жеке деректерсіз оқшауланған орталар.',
+    'sectors.gov.name':'Мемлекеттік басқару','sectors.gov.sub':'ҚР мемлекеттік органдарын цифрландыру','sectors.gov.title':'Мемлекетке арналған AI','sectors.gov.desc':'QazTech, e-Otinish, Digital ID платформаларымен үйлесімді шешімдер.',
+    'sectors.gov.h1.d':'QazTech-тегі АЖ үшін AI модульдері.','sectors.gov.h2.t':'Құжат айналымы','sectors.gov.h2.d':'Мемлекеттік құжат айналымын автоматтандыру.','sectors.gov.h3.d':'ЭЦҚ-мен мемлекеттік қызметшілерге AI.','sectors.gov.h4.t':'Егемен деректер','sectors.gov.h4.d':'Үшінші тараптарсыз on-premise AI.',
+    'sectors.transport.name':'Көлік & Логистика','sectors.transport.title':'Көліктегі AI','sectors.transport.desc':'Жол видеоаналитика, ағын мониторингі, логистика оңтайландыру.',
+    'sectors.transport.h1.t':'Видеоаналитика','sectors.transport.h1.d':'Инциденттерді AI тануы бар жол мониторингі.','sectors.transport.h2.d':'Темір жол желісі үшін AI.','sectors.transport.h3.d':'Электронды гейттерді AI басқару.','sectors.transport.h4.t':'Жүктеме болжауы','sectors.transport.h4.d':'Инфрақұрылымды жоспарлауға болжамды модельдер.',
+    'sectors.finance.name':'Қаржы & FinTech','sectors.finance.sub':'Антифрод · Тәуекел аналитикасы','sectors.finance.title':'Қаржыдағы AI','sectors.finance.desc':'Антифрод жүйелер, несиелік скоринг, мінез-құлық аналитикасы.',
+    'sectors.finance.h1.d':'Антифрод сервистерге AI.','sectors.finance.h2.t':'Несиелік скоринг','sectors.finance.h2.d':'Несиеқабілеттілікті бағалау ML модельдері.','sectors.finance.h3.t':'FinTech интеграциялар','sectors.finance.h3.d':'Банктік экожүйелерге AI.','sectors.finance.h4.d':'Мессенджерде қаржылық коммуникация.',
+    'sectors.devops.title':'DevOps & AI автоматтандыру','sectors.devops.desc':'CoreGit әзірлеу циклін AI-мен автоматтандырады.',
+    'sectors.devops.h1.t':'AI Code Review','sectors.devops.h1.d':'PR-дегі қателер мен осалдықтарды анықтау.','sectors.devops.h2.d':'AI оңтайландырылған CI/CD.','sectors.devops.h3.d':'МАЖ қауіпсіздік стандарттары.','sectors.devops.h4.t':'On-premise','sectors.devops.h4.d':'Тапсырыс берушіде толық оқшаулау.',
+    'signal.badge':'Мемлекеттік контекст','signal.title':'Біз ҚР басымдықты бағыттарында жұмыс істейміз',
+    'signal.desc':'AI LAB Қазақстанның цифрландыру күн тәртібіне тікелей сәйкес шешімдер жасайды.','signal.a1':'Радиологияны орталықтандыру','signal.a3':'МӘМС','signal.a7':'Мультиагентті AI','signal.a8':'Егемен бұлт',
+    'signal.quote':'AI LAB ҚР мемлекеттік құрылымдарының мүддесінде AI жобаларын іске асырудың технологиялық серіктесі болуға дайын.','signal.cite':'— BENEVSKY AI LAB, 2026',
+    'approach.label':'Методология','approach.title':'Тапсырмадан нәтижеге дейін','approach.sub':'Бизнес мәселесін жұмыс істейтін AI шешіміне айналдыратын төрт қадам.',
+    'approach.s1.title':'Discovery & Аудит','approach.s1.desc':'Тапсырма, деректер және инфрақұрылымды талдау. AI қолданылуын бағалау.',
+    'approach.s2.title':'Прототип & Валидация','approach.s2.desc':'Жылдам MVP. Нақты деректерде тестілеу.',
+    'approach.s3.title':'Production-енгізу','approach.s3.desc':'Орналастыру, тапсырыс беруші жүйелерімен интеграция.',
+    'approach.s4.title':'Қолдау & Масштаб','approach.s4.desc':'Модельдерді мониторинг, қайта оқыту, функционалдылықты кеңейту.',
+    'cta.eyebrow':'Ынтымақтастықты бастау','cta.title1':'Талқылайық','cta.title2':'сіздің AI жобаңызды','cta.sub':'Мемлекеттік органдар, медициналық ұйымдар, enterprise бизнес — кез келген масштабта серіктестікке дайынбыз.','cta.btn':'Командаға жазу','cta.loc1':'Алматы, Қазақстан','cta.loc2':'Астана, Қазақстан',
+    'footer.rights':'Барлық құқықтар қорғалған.','footer.main':'Негізгі сайт','footer.contacts':'Байланыс'
+  },
+  en: {
+    'nav.partners':'Partners','nav.products':'Products','nav.sectors':'Sectors','nav.approach':'Approach','nav.cta':'Discuss a project',
+    'hero.eyebrow':'Comprehensive Artificial Intelligence Laboratory',
+    'hero.sub':'Developing, deploying and scaling AI systems for healthcare, government, transport and finance. From research to production-grade solutions.',
+    'hero.btn1':'Our Products','hero.btn2':'Contact the team',
+    'hero.stat1':'Flagship products','hero.stat2':'Sectors covered','hero.stat3':'Government scale','hero.stat4':'Architecture approach',
+    'ticker.health':'Healthcare','ticker.gov':'Public Sector','ticker.transport':'Transport & Logistics','ticker.digital':'Kazakhstan Digitalization','ticker.cv':'Computer Vision',
+    'partners.label':'Strategic Partners','partners.headline':'Expertise Ecosystem',
+    'partners.sub':'AI LAB works alongside Kazakhstan\'s leading technology organizations, covering the full spectrum of competencies.',
+    'partners.benevsky.role':'Parent organization','partners.benevsky.desc':'Full-cycle technology hub. Software development, system integration and digital transformation.',
+    'partners.itk.role':'Technology partner','partners.itk.desc':'IT Kazakhstan — expertise in enterprise technology solutions, infrastructure and automation.',
+    'partners.nicas.role':'Research partner','partners.nicas.desc':'National Innovation Center. R&D in AI and digital technologies, bridging science and industry.',
+    'partners.telematika.role':'Telematics & IoT','partners.telematika.desc':'Leading telematics provider in Kazakhstan. Fleet monitoring, GPS tracking and IoT platforms.',
+    'partners.tag.dev':'IT development','partners.tag.int':'Integration','partners.tag.infra':'Infrastructure','partners.tag.auto':'Automation','partners.tag.innov':'Innovation','partners.tag.science':'Science','partners.tag.telematics':'Telematics',
+    'partners.exp1.title':'Joint deployments','partners.exp1.sub':'Full cycle from development to delivery',
+    'partners.exp2.title':'Government experience','partners.exp2.sub':'Proven track record with state institutions',
+    'partners.exp3.title':'Local expertise','partners.exp3.sub':'Deep understanding of Kazakhstan\'s market and regulations',
+    'about.label':'About the Lab','about.title':'Next-generation AI Laboratory',
+    'about.p1':'BENEVSKY AI LAB is the research and engineering arm of Benevsky IT Hub, focused on building comprehensive AI solutions for mission-critical industries.',
+    'about.p2':'We combine machine learning research with engineering excellence — building systems that work in real-world conditions.',
+    'about.pillar1.title':'Research & Development','about.pillar1.desc':'Proprietary R&D in CV, NLP, predictive analytics and multi-agent systems.',
+    'about.pillar2.title':'Production deployment','about.pillar2.desc':'AI integration into existing infrastructure while meeting security and data sovereignty requirements.',
+    'about.pillar3.title':'Government scale','about.pillar3.desc':'Experience working with state institutions. Understanding Kazakhstan\'s regulatory environment.',
+    'products.label':'Flagship products','products.title':'Three directions. Real results.',
+    'products.sub':'AI LAB products are not concepts. Each solves specific problems and has gone from prototype to production.',
+    'products.nova.tag':'Healthcare','products.nova.desc':'A software platform for optimizing clinical and biomedical research. Helps pharmaceutical companies and clinics make research faster, cheaper and more effective.',
+    'products.nova.f1':'Systematization of studies and workflow automation','products.nova.f2':'Team management, resource allocation and task delegation','products.nova.f3':'Real-time patient monitoring and instant feedback','products.nova.f4':'Mobile app for physicians and research participants',
+    'products.nova.m1':'Reduces time & labor intensity','products.nova.m2':'Optimizes team size & costs','products.nova.m3':'Improves accuracy, reduces errors','products.nova.relabel':'Relevant for',
+    'products.coregit.desc':'Intelligent platform for development automation. AI code review, vulnerability detection, CI/CD optimization.',
+    'products.coregit.f1':'Automatic AI code review and improvement','products.coregit.f2':'Intelligent monitoring and alerting','products.coregit.f3':'On-premise and sovereign cloud','products.coregit.f4':'DevSecOps for government systems',
+    'products.strayl.tag':'Analytics','products.strayl.desc':'Predictive analytics engine for business and government. Big data processing and real-time decision support.',
+    'products.strayl.f1':'Real-time dashboards with AI insights','products.strayl.f2':'Predictive models for sector KPIs','products.strayl.f3':'Integration with any data sources','products.strayl.f4':'Sovereign on-premise deployment',
+    'products.learn':'Learn more →',
+    'cap.label':'Lab competencies','cap.title':'Full AI development stack',
+    'cap.cv.title':'Computer Vision','cap.cv.desc':'Object recognition, segmentation, medical image analysis, real-time video analytics.',
+    'cap.nlp.title':'NLP & LLM','cap.nlp.desc':'Russian and Kazakh text processing, RAG systems, domain-specific fine-tuning.',
+    'cap.pred.title':'Predictive Analytics','cap.pred.desc':'Demand forecasting, anomaly detection, risk assessment, decision support.',
+    'cap.multi.title':'Multi-agent Systems','cap.multi.desc':'Autonomous AI agents for complex process automation. Documentolog 8N — multi-agent platform.',
+    'cap.sov.title':'Sovereign AI','cap.sov.desc':'On-premise deployment, local LLMs, compliance with Kazakhstan data protection law.',
+    'cap.api.title':'Integrations & API','cap.api.desc':'Connecting to QazTech, state registries, HIS, ERP via standardized APIs.',
+    'sectors.label':'Industry expertise','sectors.title':'Where our AI works',
+    'sectors.health.name':'Healthcare','sectors.health.title':'AI in Healthcare','sectors.health.desc':'Novaterica helps clinicians analyze scans, accelerate diagnosis and integrate AI into clinical workflows.',
+    'sectors.health.h1.t':'Radiology with AI','sectors.health.h1.d':'CT, MRI, X-ray analysis with attention zone highlighting.','sectors.health.h2.t':'Data centralization','sectors.health.h2.d':'Integration with HIS in Ministry of Health centralization projects.','sectors.health.h3.t':'MSHI & insurance','sectors.health.h3.d':'Digitalization of mandatory health insurance processes.','sectors.health.h4.t':'Research sandboxes','sectors.health.h4.d':'Isolated environments without personal data.',
+    'sectors.gov.name':'Government','sectors.gov.sub':'Digitalization of Kazakhstan state bodies','sectors.gov.title':'AI for Government','sectors.gov.desc':'Solutions compatible with QazTech, e-Otinish, Digital ID and other state platforms.',
+    'sectors.gov.h1.d':'AI modules for IS on the QazTech platform.','sectors.gov.h2.t':'Document management','sectors.gov.h2.d':'Multi-agent systems for state document workflows.','sectors.gov.h3.d':'AI tools for civil servants with EDS.','sectors.gov.h4.t':'Sovereign data','sectors.gov.h4.d':'On-premise AI without third-party data transfer.',
+    'sectors.transport.name':'Transport & Logistics','sectors.transport.title':'AI in Transport','sectors.transport.desc':'Road video analytics, traffic monitoring and logistics optimization. Smart Cargo and Q-Gate.',
+    'sectors.transport.h1.t':'Video analytics','sectors.transport.h1.d':'Real-time road monitoring with AI incident detection.','sectors.transport.h2.d':'Industrial AI assistants for railway network.','sectors.transport.h3.d':'AI management of electronic gates.','sectors.transport.h4.t':'Load forecasting','sectors.transport.h4.d':'Predictive models for infrastructure planning.',
+    'sectors.finance.name':'Finance & FinTech','sectors.finance.sub':'Antifraud · Risk analytics','sectors.finance.title':'AI in Finance','sectors.finance.desc':'Strayl and ML models for financial organizations: antifraud, credit scoring, behavioral analytics.',
+    'sectors.finance.h1.d':'AI for second-tier bank antifraud services.','sectors.finance.h2.t':'Credit scoring','sectors.finance.h2.d':'ML models for creditworthiness assessment.','sectors.finance.h3.t':'FinTech integrations','sectors.finance.h3.d':'AI modules for banking ecosystems.','sectors.finance.h4.d':'AI tools for financial communication in Aitu.',
+    'sectors.devops.title':'DevOps & AI Automation','sectors.devops.desc':'CoreGit automates the entire development lifecycle with AI at every stage.',
+    'sectors.devops.h1.t':'AI Code Review','sectors.devops.h1.d':'Automatic bug and vulnerability detection in PRs.','sectors.devops.h2.d':'AI-optimized CI/CD pipelines.','sectors.devops.h3.d':'Security standards for government IS.','sectors.devops.h4.t':'On-premise','sectors.devops.h4.d':'Complete codebase isolation at client infrastructure.',
+    'signal.badge':'Government context','signal.title':'We work on Kazakhstan\'s priority directions',
+    'signal.desc':'AI LAB develops solutions that align directly with Kazakhstan\'s digitalization agenda, as outlined at the Presidential Administration level.',
+    'signal.a1':'Radiology centralization','signal.a3':'MSHI','signal.a7':'Multi-agent AI','signal.a8':'Sovereign cloud',
+    'signal.quote':'AI LAB is ready to be a technology partner in delivering priority AI projects — from pilot to industrial scaling for the benefit of state institutions of the Republic of Kazakhstan.',
+    'signal.cite':'— BENEVSKY AI LAB, 2026',
+    'approach.label':'Methodology','approach.title':'From problem to result','approach.sub':'Four steps that turn a business challenge into a working AI solution.',
+    'approach.s1.title':'Discovery & Audit','approach.s1.desc':'Analysis of the task, data and infrastructure. AI feasibility and ROI assessment.',
+    'approach.s2.title':'Prototype & Validation','approach.s2.desc':'Rapid MVP. Testing on real data. Iterations to target quality.',
+    'approach.s3.title':'Production deployment','approach.s3.desc':'Full deployment, integration with client systems, staff training and monitoring.',
+    'approach.s4.title':'Support & Scale','approach.s4.desc':'Model monitoring, retraining, feature expansion. An AI system that improves over time.',
+    'cta.eyebrow':'Start a partnership','cta.title1':'Let\'s discuss','cta.title2':'your AI project','cta.sub':'Government bodies, medical organizations, enterprise business — we are ready to partner at any scale.','cta.btn':'Write to us','cta.loc1':'Almaty, Kazakhstan','cta.loc2':'Astana, Kazakhstan',
+    'footer.rights':'All rights reserved.','footer.main':'Main website','footer.contacts':'Contacts'
+  }
+};
+
+let currentLang = 'ru';
+
+function applyLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang === 'kz' ? 'kk' : lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang][key] !== undefined) el.textContent = i18n[lang][key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+/* ════════ THEME ════════ */
+const html = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+const iconSun = document.getElementById('iconSun');
+const iconMoon = document.getElementById('iconMoon');
+
+function setTheme(theme) {
+  html.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  if (theme === 'dark') { iconSun.style.display='block'; iconMoon.style.display='none'; }
+  else                  { iconSun.style.display='none';  iconMoon.style.display='block'; }
+}
+themeToggle.addEventListener('click', () => {
+  setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+const saved = localStorage.getItem('theme');
+if (saved) setTheme(saved);
+
+/* ════════ NAV SCROLL ════════ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+
+/* ════════ PARTICLES ════════ */
+const pContainer = document.getElementById('particles');
+const pColors = ['var(--gold)','var(--cyan)','rgba(184,147,90,0.7)','rgba(34,211,238,0.5)'];
+for (let i = 0; i < 28; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const s = Math.random()*3+1.5;
+  p.style.cssText = `left:${Math.random()*100}%;--s:${s}px;--d:${Math.random()*10+6}s;--dl:${Math.random()*9}s;--o:${Math.random()*.4+.15};--c:${pColors[Math.floor(Math.random()*pColors.length)]}`;
+  pContainer.appendChild(p);
+}
+
+/* ════════ SECTOR TABS ════════ */
+document.querySelectorAll('.sector-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const s = tab.dataset.sector;
+    document.querySelectorAll('.sector-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.sector-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('sector-'+s).classList.add('active');
+  });
+});
+
+/* ════════ SCROLL REVEAL ════════ */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
