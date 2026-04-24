@@ -1,0 +1,2318 @@
+<!DOCTYPE html>
+<html lang="kk" data-theme="dark" data-lang="kz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meta Frame x AI Lab × Allosta Partners · Коммерческое Предложение</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #000000;
+      --bg2:      #070707;
+      --bg3:      #0F0F0F;
+      --bg4:      #161616;
+      --bg5:      #1C1C1C;
+      --gold:     #B8935A;
+      --gold2:    #D4AF78;
+      --gold3:    #8B6B3D;
+      --silver:   #7A8A9E;
+      --green:    #2E8A6E;
+      --green2:   #1A5C49;
+      --accent:   #C9A96E;
+      --text:     #F0F0F2;
+      --text2:    #C2C2D2;
+      --text3:    #828298;
+      --border:   rgba(184,147,90,0.18);
+      --border2:  rgba(255,255,255,0.08);
+      --card-bg:  rgba(10,10,10,0.98);
+      --shadow:   0 24px 72px rgba(0,0,0,0.75);
+      --nav-h:    72px;
+      --radius:   12px;
+      --radius-lg:20px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Urbanist', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold3); border-radius: 2px; }
+
+    h1,h2,h3,h4,.fw-bold { font-weight: 800; }
+    .fw-light  { font-weight: 300; }
+    .fw-medium { font-weight: 500; }
+    .fw-semi   { font-weight: 600; }
+    .gold  { color: var(--gold); }
+    .gold2 { color: var(--gold2); }
+    .silver{ color: var(--silver); }
+    .text2 { color: var(--text2); }
+    .text3 { color: var(--text3); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h);
+      background: rgba(0,0,0,0.94);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      height: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; gap: 16px;
+    }
+    .nav-logo { display: flex; flex-direction: column; gap: 1px; text-decoration: none; flex-shrink: 0; }
+    .nav-logo-main { font-size: 13px; font-weight: 900; color: var(--text); letter-spacing: 0.08em; text-transform: uppercase; transition: color .2s; }
+    .nav-logo-sub  { font-size: 9px; font-weight: 600; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; }
+    .nav-logo:hover .nav-logo-main { color: var(--gold); }
+    .nav-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    /* lang switcher */
+    .lang-switcher { display: flex; align-items: center; background: var(--bg4); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .lang-btn { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; padding: 6px 10px; cursor: pointer; color: var(--text3); background: transparent; border: none; transition: all .2s; font-family: 'Urbanist', sans-serif; }
+    .lang-btn.active { background: var(--gold); color: #000; }
+    .lang-btn:hover:not(.active) { color: var(--gold); }
+    /* theme toggle */
+    
+    
+    
+    
+    
+    
+    /* burger */
+    .burger-btn { width: 34px; height: 34px; border-radius: 8px; background: var(--bg4); border: 1px solid var(--border2); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; transition: all .2s; }
+    .burger-btn:hover { border-color: var(--gold3); }
+    .burger-line { width: 16px; height: 1.5px; background: var(--text3); border-radius: 2px; transition: all .25s; }
+    .burger-btn.open .burger-line:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+    .burger-btn.open .burger-line:nth-child(2) { opacity: 0; }
+    .burger-btn.open .burger-line:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+    /* nav drawer */
+    .nav-drawer { position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 199; background: rgba(0,0,0,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 16px 24px 24px; display: none; flex-direction: column; gap: 4px; }
+    
+    .nav-drawer.open { display: flex; }
+    .nav-drawer-link { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text2); text-decoration: none; padding: 12px 16px; border-radius: 8px; transition: all .2s; border: 1px solid transparent; }
+    .nav-drawer-link:hover { color: var(--gold); background: rgba(184,147,90,0.06); border-color: var(--border); }
+    .nav-drawer-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); padding: 10px 16px 4px; }
+    /* i18n */
+    [data-lang="kz"] [data-ru],[data-lang="kz"] [data-en]{display:none!important;}
+    [data-lang="ru"] [data-kz],[data-lang="ru"] [data-en]{display:none!important;}
+    [data-lang="en"] [data-kz],[data-lang="en"] [data-ru]{display:none!important;}
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      padding-top: calc(var(--nav-h) + 90px);
+      padding-bottom: 80px;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(184,147,90,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(184,147,90,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184,147,90,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 32px;
+    }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold2);
+      background: rgba(184,147,90,0.07);
+      border: 1px solid rgba(184,147,90,0.2);
+      border-radius: 100px; padding: 7px 16px;
+      margin-bottom: 32px;
+    }
+    .hero-label-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(.8); }
+    }
+    .hero-title {
+      font-size: clamp(36px, 5.5vw, 72px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .hero-gradient-text {
+      background: linear-gradient(135deg, #F0F0F2 0%, #B8935A 40%, #D4AF78 55%, #F0F0F2 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px; font-weight: 400; color: var(--text2);
+      max-width: 660px; line-height: 1.65; margin-bottom: 48px;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 10px;
+      background: var(--gold); color: #000;
+      font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 10px;
+      background: transparent; color: var(--text2);
+      border: 1px solid var(--border2);
+      font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-outline:hover { border-color: var(--gold3); color: var(--gold); }
+
+    /* ─── TRACTION ─── */
+    .traction {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 0;
+    }
+    .traction-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 32px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px;
+    }
+    .traction-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      transition: all .25s;
+      cursor: default;
+    }
+    .traction-card:hover {
+      border-color: var(--gold3);
+      transform: translateY(-2px);
+    }
+    .traction-num {
+      font-size: 36px; font-weight: 900; color: var(--gold); line-height: 1;
+      margin-bottom: 6px;
+    }
+    .traction-label { font-size: 12px; font-weight: 600; color: var(--text3); letter-spacing: 0.01em; line-height: 1.4; }
+
+    /* ─── SECTION ─── */
+    .section {
+      padding: 96px 0;
+    }
+    .section-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 32px;
+    }
+    .section-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold3); margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 900; line-height: 1.15; margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--text2); max-width: 680px; line-height: 1.65;
+    }
+    .section-header { margin-bottom: 56px; }
+
+    /* ─── BEVI CARD ─── */
+    .bevi-card {
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all .25s;
+    }
+    .bevi-card:hover {
+      border-color: var(--gold3);
+      background: var(--bg4);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(184,147,90,0.08);
+    }
+    .bevi-card-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+    .gold-bg  { background: rgba(184,147,90,0.12); }
+    .blue-bg  { background: rgba(46,138,110,0.12); }
+    .green-bg { background: rgba(26,92,73,0.18); }
+    .silver-bg{ background: rgba(122,138,158,0.12); }
+    .red-bg   { background: rgba(180,60,60,0.12); }
+    .purple-bg{ background: rgba(120,80,180,0.12); }
+    .bevi-card-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+    .bevi-card-text  { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+    /* ─── GRID ─── */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    @media (max-width: 768px) {
+      .grid-2,.grid-3,.grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* ─── FORMAT CARDS ─── */
+    .format-card {
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid;
+    }
+    .format-card.commercial {
+      background: linear-gradient(135deg, #0D0A06 0%, #161008 100%);
+      border-color: rgba(184,147,90,0.3);
+    }
+    .format-card.cofound {
+      background: linear-gradient(135deg, #06100D 0%, #081612 100%);
+      border-color: rgba(46,138,110,0.3);
+    }
+    .format-badge {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.01em;
+      padding: 5px 12px; border-radius: 6px; margin-bottom: 20px;
+    }
+    .format-badge.gold { background: rgba(184,147,90,0.15); color: var(--gold2); border: 1px solid rgba(184,147,90,0.25); }
+    .format-badge.green { background: rgba(46,138,110,0.15); color: #4EB89A; border: 1px solid rgba(46,138,110,0.3); }
+    .format-title { font-size: 26px; font-weight: 900; margin-bottom: 12px; }
+    .format-sub { font-size: 14px; color: var(--text2); margin-bottom: 24px; line-height: 1.6; }
+    .format-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .format-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text2); }
+    .format-list li::before { content: '→'; color: var(--gold); font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+    .format-list.green-list li::before { color: #4EB89A; }
+    .format-price {
+      font-size: 13px; font-weight: 700; color: var(--text3);
+      border-top: 1px solid var(--border2);
+      padding-top: 20px; margin-top: 20px;
+    }
+    .format-price span { color: var(--gold2); font-size: 20px; }
+
+    /* ─── MODULE SECTION ─── */
+    .module-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border2);
+    }
+    .module-header {
+      display: flex; align-items: flex-start; gap: 20px;
+      margin-bottom: 40px;
+    }
+    .module-num {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.01em;
+      color: var(--bg);
+      background: var(--gold); border-radius: 8px;
+      padding: 6px 12px; flex-shrink: 0; margin-top: 4px;
+    }
+    .module-num.new-mod { background: var(--gold); }
+    .module-num.adapt-mod { background: var(--silver); }
+    .module-title { font-size: clamp(22px, 3vw, 32px); font-weight: 900; margin-bottom: 8px; }
+    .module-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.01em;
+      padding: 4px 10px; border-radius: 6px;
+    }
+    .status-new    { background: rgba(184,147,90,0.12); color: var(--gold2); border: 1px solid rgba(184,147,90,0.2); }
+    .status-adapt  { background: rgba(122,138,158,0.12); color: var(--silver); border: 1px solid rgba(122,138,158,0.2); }
+    .status-ready  { background: rgba(46,138,110,0.12); color: #4EB89A; border: 1px solid rgba(46,138,110,0.25); }
+
+    /* ─── TECH TAG ─── */
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tech-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+      background: var(--bg4); border: 1px solid var(--border2);
+      color: var(--text3); border-radius: 6px; padding: 4px 10px;
+    }
+
+    /* ─── TABLE ─── */
+    .req-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 13px; margin-top: 20px;
+    }
+    .req-table th {
+      background: var(--bg4); color: var(--text3);
+      font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 10px 14px; text-align: left;
+      border-bottom: 1px solid var(--border2);
+    }
+    .req-table th:first-child { width: 76px; }
+    .req-table td {
+      padding: 10px 14px; border-bottom: 1px solid var(--border2);
+      color: var(--text2); vertical-align: top;
+      line-height: 1.5;
+    }
+    .req-table td:first-child { white-space: nowrap; width: 76px; }
+    .req-table tr:last-child td { border-bottom: none; }
+    .req-table tr:hover td { background: rgba(184,147,90,0.03); }
+    .prio-must   { color: var(--gold2); font-weight: 700; font-size: 11px; }
+    .prio-should { color: var(--silver); font-weight: 700; font-size: 11px; }
+
+    /* ─── DIAGRAM BOX ─── */
+    .diagram-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin: 28px 0;
+      overflow-x: auto;
+      cursor: pointer;
+      position: relative;
+      transition: border-color .2s;
+    }
+    .diagram-box:hover { border-color: var(--gold3); }
+    .diagram-box:hover .diagram-expand { opacity: 1; }
+    .diagram-box svg { display: block; }
+    .diagram-title {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text3); margin-bottom: 20px;
+    }
+    .diagram-expand {
+      position: absolute; top: 14px; right: 14px;
+      background: var(--bg4); border: 1px solid var(--border2); border-radius: 6px;
+      padding: 5px 9px; display: flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 700; color: var(--text3);
+      opacity: 0; transition: opacity .2s; pointer-events: none;
+      font-family: 'Urbanist', sans-serif;
+    }
+    /* lightbox */
+    .lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; padding: 20px; }
+    .lightbox.open { display: flex; }
+    .lightbox-inner { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; max-width: 1400px; width: 100%; max-height: 90vh; overflow: auto; position: relative; }
+    
+    .lightbox-close { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 8px; background: var(--bg4); border: 1px solid var(--border2); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .lightbox-title { font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); margin-bottom: 20px; }
+
+    /* ─── TIMELINE ─── */
+    .timeline {
+      position: relative; padding-left: 28px;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 10px; top: 12px; bottom: 12px;
+      width: 2px; background: linear-gradient(to bottom, var(--gold3), var(--border2));
+    }
+    .timeline-step {
+      position: relative; padding: 20px 0 20px 28px;
+    }
+    .timeline-dot {
+      position: absolute; left: -24px; top: 24px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--bg4); border: 2px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; font-weight: 900; color: var(--text3);
+    }
+    .timeline-step.active .timeline-dot {
+      background: rgba(184,147,90,0.2); border-color: var(--gold);
+      color: var(--gold);
+    }
+    .tl-phase {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold3); margin-bottom: 6px;
+    }
+    .tl-title { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+    .tl-duration {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      background: var(--bg4); border: 1px solid var(--border2);
+      color: var(--text3); border-radius: 6px; padding: 3px 10px; margin-bottom: 12px;
+    }
+    .tl-items { display: flex; flex-direction: column; gap: 6px; }
+    .tl-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 14px; color: var(--text2);
+    }
+    .tl-item::before { content: '·'; color: var(--gold3); font-size: 18px; line-height: 1.2; flex-shrink: 0; }
+
+    /* ─── ALIGNMENT PANEL ─── */
+    .alignment-panel {
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: start;
+    }
+    .alignment-col-title {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text3); margin-bottom: 20px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .alignment-arrow {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--bg4); color: var(--gold);
+      font-size: 18px; margin-top: 36px; flex-shrink: 0;
+    }
+    .alignment-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      margin-bottom: 14px; font-size: 14px; color: var(--text2);
+    }
+    .alignment-item-num {
+      font-size: 10px; font-weight: 900; color: var(--gold3);
+      background: rgba(184,147,90,0.1); border-radius: 4px;
+      padding: 2px 6px; flex-shrink: 0; margin-top: 2px;
+    }
+    @media (max-width: 768px) {
+      .alignment-panel { grid-template-columns: 1fr; }
+      .alignment-arrow { transform: rotate(90deg); margin: 0 auto; }
+    }
+
+    /* ─── QUOTE ─── */
+    .quote-block {
+      background: var(--bg3);
+      border-left: 3px solid var(--gold3);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 20px 24px; margin: 24px 0;
+      font-size: 15px; color: var(--text2); font-style: italic;
+      line-height: 1.65;
+    }
+
+    /* ─── PARTNERS STRIP ─── */
+    .stack-row {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px;
+    }
+    .stack-pill {
+      display: flex; align-items: center; gap: 7px;
+      background: var(--bg4); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 8px 14px;
+      font-size: 12px; font-weight: 700; color: var(--text2);
+    }
+    .stack-pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      position: relative; padding: 96px 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      overflow: hidden;
+      text-align: center;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 70% at 50% 50%, rgba(184,147,90,0.05) 0%, transparent 70%);
+    }
+    .cta-section > * { position: relative; z-index: 1; }
+    .cta-inner { max-width: 700px; margin: 0 auto; padding: 0 32px; }
+
+    /* ─── SIGNOFF / FOOTER ─── */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border2);
+      padding: 40px 0 32px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo { font-size: 13px; font-weight: 800; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; }
+    .footer-meta { font-size: 12px; color: var(--text3); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-link {
+      font-size: 12px; font-weight: 600; color: var(--text3);
+      text-decoration: none; transition: color .2s;
+    }
+    .footer-link:hover { color: var(--gold); }
+
+    /* ─── FLOW STEP ─── */
+    .flow-steps {
+      display: flex; gap: 0; align-items: stretch;
+      overflow-x: auto; padding: 4px 0;
+    }
+    .flow-step {
+      flex: 1; min-width: 140px;
+      background: var(--bg3); border: 1px solid var(--border2);
+      border-radius: var(--radius); padding: 16px 14px;
+      position: relative; text-align: center;
+    }
+    .flow-step:not(:last-child)::after {
+      content: '→';
+      position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+      font-size: 16px; color: var(--gold3); z-index: 2;
+      background: var(--bg); width: 28px; text-align: center;
+    }
+    .flow-step:not(:first-child) { margin-left: 28px; border-left: 1px solid var(--border2); }
+    .flow-step-num { font-size: 10px; font-weight: 900; color: var(--gold3); margin-bottom: 6px; letter-spacing: 0.1em; }
+    .flow-step-title { font-size: 12px; font-weight: 800; margin-bottom: 4px; }
+    .flow-step-sub { font-size: 11px; color: var(--text3); }
+    @media (max-width: 768px) {
+      .flow-steps { flex-direction: column; }
+      .flow-step:not(:last-child)::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -14px; transform: translateX(-50%); }
+      .flow-step:not(:first-child) { margin-left: 0; margin-top: 28px; }
+    }
+
+    /* ─── DETAIL BOX ─── */
+    .detail-box {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+    }
+    .detail-box-title { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold3); margin-bottom: 14px; }
+    .detail-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 8px 0; border-bottom: 1px solid var(--border2);
+      font-size: 13px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key { color: var(--text3); flex-shrink: 0; margin-right: 12px; }
+    .detail-val { color: var(--text2); font-weight: 600; text-align: right; }
+
+    /* animations */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade-up { animation: fadeUp .6s ease both; }
+    .delay-1 { animation-delay: .1s; }
+    .delay-2 { animation-delay: .2s; }
+    .delay-3 { animation-delay: .3s; }
+    .delay-4 { animation-delay: .4s; }
+
+    /* divider */
+    .divider { height: 1px; background: var(--border2); margin: 40px 0; }
+    .highlight-box {
+      background: rgba(184,147,90,0.06); border: 1px solid rgba(184,147,90,0.2);
+      border-radius: var(--radius); padding: 20px 24px; margin: 20px 0;
+    }
+    .highlight-box p { font-size: 14px; color: var(--text2); line-height: 1.65; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+      background: var(--bg4); border: 1px solid var(--border2);
+      color: var(--text3); border-radius: 6px; padding: 3px 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner" id="lightboxInner">
+    <button class="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+    <div class="lightbox-title" id="lightboxTitle"></div>
+    <div id="lightboxContent"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-main">Meta Frame x AI Lab</span>
+      <span class="nav-logo-sub">Allosta Partners</span>
+    </a>
+    <div class="nav-controls">
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="kz" onclick="setLang('kz')">KZ</button>
+        <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">ENG</button>
+      </div>
+
+      <button class="burger-btn" id="burgerBtn" onclick="toggleMenu()">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <div class="nav-drawer-badge"><span data-i18n="nav.badge">Апрель 2026 · Конфиденциально</span></div>
+  <a href="#formats" class="nav-drawer-link" onclick="toggleMenu()"><span data-i18n="nav.formats">Форматы сотрудничества</span></a>
+  <a href="#tz-analysis" class="nav-drawer-link" onclick="toggleMenu()"><span data-i18n="nav.tz">Анализ ТЗ</span></a>
+  <a href="#architecture" class="nav-drawer-link" onclick="toggleMenu()"><span data-i18n="nav.arch">Архитектура</span></a>
+  <a href="#modules" class="nav-drawer-link" onclick="toggleMenu()"><span data-i18n="nav.modules">Модули</span></a>
+  <a href="#timeline" class="nav-drawer-link" onclick="toggleMenu()"><span data-i18n="nav.timeline">Сроки</span></a>
+  <a href="#cta" class="nav-drawer-link" onclick="toggleMenu()"><span data-i18n="nav.contact">Контакт</span></a>
+</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label fade-up">
+      <span class="hero-label-dot"></span>
+      <span data-i18n="hero.label">B2B · ИТ-Разработка · Специальные Ситуации</span>
+    </div>
+    <h1 class="hero-title fade-up delay-1">
+      <span class="hero-gradient-text" data-i18n="hero.title">Автоматизация платформы<br>Allosta Partners</span>
+      <br><span class="fw-light" style="font-size:.55em;color:var(--text3);"><span data-i18n="hero.kp">Коммерческое предложение от Meta Frame x AI Lab</span>
+    </h1>
+    <p class="hero-sub fade-up delay-2">
+      <span data-i18n="hero.sub">Полный технический контур: от AI-скрининга и Scoring Engine до Investor Portal и генератора тизеров. 5 модулей с нуля + адаптация 3 существующих — за одну непрерывную итерацию.</span>
+    </p>
+    <div class="hero-btns fade-up delay-3">
+      <a href="#formats" class="btn-primary"><span data-i18n="hero.btn1">Выбрать формат сотрудничества →</span></a>
+      <a href="#modules" class="btn-outline"><span data-i18n="hero.btn2">Разбивка по модулям</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TRACTION ═══════════ -->
+<div class="traction">
+  <div class="traction-inner">
+    <div class="traction-card">
+      <div class="traction-num">5</div>
+      <div class="traction-label"><span data-i18n="tr.m1">Модулей<br>с нуля</span></div>
+    </div>
+    <div class="traction-card">
+      <div class="traction-num">3</div>
+      <div class="traction-label"><span data-i18n="tr.m2">Модулей<br>на адаптацию</span></div>
+    </div>
+    <div class="traction-card">
+      <div class="traction-num">8–12</div>
+      <div class="traction-label"><span data-i18n="tr.m3">Недель<br>реализации</span></div>
+    </div>
+    <div class="traction-card">
+      <div class="traction-num">9</div>
+      <div class="traction-label"><span data-i18n="tr.m4">Этапов<br>deal pipeline</span></div>
+    </div>
+    <div class="traction-card">
+      <div class="traction-num">2 мин</div>
+      <div class="traction-label">AI-скрининг<br>e-scoring SLA</div>
+    </div>
+    <div class="traction-card">
+      <div class="traction-num">500+</div>
+      <div class="traction-label"><span data-i18n="tr.m6">Заявок/мес<br>throughput</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FORMATS ═══════════ -->
+<section class="section" id="formats">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag"><span data-i18n="sec.formats">Формат сотрудничества</span></span>
+      <h2 class="section-title"><span data-i18n="formats.title">Два пути — один результат</span></h2>
+      <p class="section-sub">Мы гибко подстраиваемся под бизнес-модель Кайзен-Центра: можем войти как подрядчик или стать техническими со-фаундерами платформы.</p>
+    </div>
+
+    <div class="grid-2">
+      <!-- FORMAT A -->
+      <div class="format-card commercial">
+        <div class="format-badge gold"><span data-i18n="fa.badge">Формат A — Коммерческий заказ</span></div>
+        <h3 class="format-title"><span data-i18n="fa.title">Фиксированный контракт</span></h3>
+        <p class="format-sub"><span data-i18n="fa.sub">Классическая модель разработки с фиксированным бюджетом, Agile-спринтами и полной передачей исходного кода и документации по завершению.</span></p>
+        <ul class="format-list">
+          <li>Фиксированная стоимость разработки согласно ТЗ</li>
+          <li>Спринты по 2 недели с демо и акцептацией</li>
+          <li>Полная техническая документация API + ERD</li>
+          <li>Передача репозитория и CI/CD пайплайна</li>
+          <li>Гарантийная поддержка 3 месяца post-launch</li>
+          <li>Опция: retainer на обслуживание инфраструктуры</li>
+        </ul>
+        <div class="format-price" style="font-size:13px;color:var(--text3);border-top:1px solid var(--border2);padding-top:18px;margin-top:18px;">
+          <span data-i18n="cost.txt">Стоимость высчитывается после согласования архитектуры.</span>
+        </div>
+      </div>
+      <!-- FORMAT B -->
+      <div class="format-card cofound">
+        <div class="format-badge green"><span data-i18n="fb.badge">Формат B — Технические со-фаундеры</span></div>
+        <h3 class="format-title"><span data-i18n="fb.title">Equity / Rev-Share партнёрство</span></h3>
+        <p class="format-sub"><span data-i18n="fb.sub">Meta Frame x AI Lab входит как технический партнёр: вы покрываете инфраструктуру и лицензии — разработка, архитектура и операционная поддержка с нашей стороны.</span></p>
+        <ul class="format-list green-list">
+          <li>Вы платите только за серверы, API-ключи, SaaS-лицензии</li>
+          <li>Разработка и архитектура — наш вклад в проект</li>
+          <li>Взамен: equity 5–15% или revenue share от success fee</li>
+          <li>Долгосрочный технический CTO-as-a-Service</li>
+          <li>Мотивация максимальная — мы заинтересованы в успехе</li>
+          <li>Постоянное Dev-Ops обслуживание как часть партнёрства</li>
+        </ul>
+        <div class="format-price" style="font-size:13px;color:var(--text3);border-top:1px solid var(--border2);padding-top:18px;margin-top:18px;">
+          Стоимость высчитывается после согласования архитектуры.
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- ═══════════ TZ ANALYSIS ═══════════ -->
+<style>
+.tz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px;}
+@media(max-width:900px){.tz-grid{grid-template-columns:1fr;}}
+.tz-card{border-radius:var(--radius-lg);padding:24px;border:1px solid;}
+.tz-card.done{background:rgba(46,138,110,0.05);border-color:rgba(46,138,110,0.25);}
+.tz-card.adapt{background:rgba(122,138,158,0.05);border-color:rgba(122,138,158,0.2);}
+.tz-card.new{background:rgba(184,147,90,0.05);border-color:rgba(184,147,90,0.22);}
+.tz-card-tag{font-size:11px;font-weight:700;letter-spacing:0.01em;margin-bottom:12px;display:block;}
+.tz-card.done .tz-card-tag{color:#4EB89A;}
+.tz-card.adapt .tz-card-tag{color:var(--silver);}
+.tz-card.new .tz-card-tag{color:var(--gold2);}
+.tz-card-title{font-size:15px;font-weight:800;margin-bottom:10px;}
+.tz-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2);margin-bottom:8px;line-height:1.5;}
+.tz-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+</style>
+<section class="section" id="tz-analysis" style="background:var(--bg2);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag"><span data-i18n="sec.tz">Анализ технического задания</span></span>
+      <h2 class="section-title"><span data-i18n="tz.title">Как мы поняли ТЗ</span></h2>
+      <p class="section-sub"><span data-i18n="tz.sub">Детально изучили ТЗ и разделили все модули на три категории: готово, требует адаптации, нужно с нуля.</span></p>
+    </div>
+    <div class="tz-grid">
+      <div class="tz-card done">
+        <span class="tz-card-tag"><span data-i18n="tz.c.tag">Категория C — Готово</span>
+        <div class="tz-card-title"><span data-i18n="tz.c.title">Разработка не требуется</span></div>
+        <div class="tz-item"><div class="tz-dot" style="background:#4EB89A;"></div><div><strong>Модуль 4: AI-скрининг</strong><br><span style="font-size:12px;color:var(--text3);">Kill Criteria (8 критериев), Red Flags, предварительный скоринг блоков 1/6/7 — полностью соответствует требованиям ТЗ. Берём как есть.</span></div></div>
+      </div>
+      <div class="tz-card adapt">
+        <span class="tz-card-tag"><span data-i18n="tz.b.tag">Категория B — Адаптация</span>
+        <div class="tz-card-title"><span data-i18n="tz.b.title">Обновление под методологию</span></div>
+        <div class="tz-item"><div class="tz-dot" style="background:var(--silver);"></div><div><strong>Модуль 3: Веб-формы Q1/Q2/Investor</strong><br><span style="font-size:12px;color:var(--text3);">Добавить 6-групповой классификатор, маппинг полей на блоки скоринга</span></div></div>
+        <div class="tz-item"><div class="tz-dot" style="background:var(--silver);"></div><div><strong>Модуль 5: Scoring Engine</strong><br><span style="font-size:12px;color:var(--text3);">Обновить веса 8 блоков, Veto Rule, зоны Green/Yellow/Red/Black</span></div></div>
+        <div class="tz-item"><div class="tz-dot" style="background:var(--silver);"></div><div><strong>Модуль 6: Deal Pipeline Bitrix24</strong><br><span style="font-size:12px;color:var(--text3);">Новые стадии AI_INTERVIEW, POSITION_CLOSED; custom fields; SLA-таймеры</span></div></div>
+      </div>
+      <div class="tz-card new">
+        <span class="tz-card-tag"><span data-i18n="tz.a.tag">Категория A — С нуля</span>
+        <div class="tz-card-title"><span data-i18n="tz.a.title">Основной скоуп разработки</span></div>
+        <div class="tz-item"><div class="tz-dot" style="background:var(--gold);"></div><div><strong>М7:</strong> Investor Pipeline AmoCRM — Level 1–4, партнёрская иерархия SP/GP/MP/DP</div></div>
+        <div class="tz-item"><div class="tz-dot" style="background:var(--gold);"></div><div><strong>М8:</strong> Генератор тизеров — 13 секций, docxtpl + AI + PDF</div></div>
+        <div class="tz-item"><div class="tz-dot" style="background:var(--gold);"></div><div><strong>М9:</strong> Инвесторский портал — OTP auth, P&amp;L, Level-guard</div></div>
+        <div class="tz-item"><div class="tz-dot" style="background:var(--gold);"></div><div><strong>М10:</strong> SLA-мониторинг — Celery + 3 канала уведомлений</div></div>
+        <div class="tz-item"><div class="tz-dot" style="background:var(--gold);"></div><div><strong>М11:</strong> Дашборды — Deal/Portfolio/Investor real-time</div></div>
+        <div class="tz-item" style="margin-top:6px;"><div class="tz-dot" style="background:#4EB89A;"></div><div><strong>E-агент «Игорь»:</strong> LangChain оркестратор: Q1 intake → скрининг → Q2 Telegram → Doc analysis → AI Avatar</div></div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:24px;">
+      <p><span data-i18n="tz.conclusion"><strong style="color:var(--gold2);">Вывод:</strong> ~60% объёма — Категория A (5 новых модулей + E-агент). Категория B работает — переписывать с нуля нет смысла, только обновим методологию. Категорию C не трогаем.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SYSTEM ARCHITECTURE ═══════════ -->
+<section class="section" id="architecture" style="background:var(--bg2);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag"><span data-i18n="sec.arch">Системная архитектура</span></span>
+      <h2 class="section-title"><span data-i18n="arch.title">Как это устроено внутри</span></h2>
+      <p class="section-sub"><span data-i18n="arch.sub">Микросервисная архитектура с центральным API Gateway. E-агент «Игорь» оркестрирует весь intake-процесс автономно.</span></p>
+    </div>
+
+    <div class="diagram-box" onclick="openDiagram('arch')" title="Открыть в полном размере">
+      <div class="diagram-title">Архитектурная схема — Allosta Platform v1.0 (нажмите для полного просмотра)</div>
+      <div class="diagram-expand">&#x26F6; Развернуть</div>
+      <svg id="svg-arch" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#B8935A" opacity="0.7"/>
+          </marker>
+          <marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#2E8A6E" opacity="0.7"/>
+          </marker>
+          <marker id="arr-s" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#7A8A9E" opacity="0.6"/>
+          </marker>
+        </defs>
+
+        <!-- Layer labels -->
+        <text x="14" y="54" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700" letter-spacing="1.5">FRONTEND</text>
+        <text x="14" y="144" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700" letter-spacing="1.5">GATEWAY</text>
+        <text x="14" y="244" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700" letter-spacing="1.5">SERVICES</text>
+        <text x="14" y="354" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700" letter-spacing="1.5">AI / ML</text>
+        <text x="14" y="454" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700" letter-spacing="1.5">DATA</text>
+
+        <!-- Horizontal separators -->
+        <line x1="80" y1="70" x2="890" y2="70" stroke="#B8935A" stroke-width="0.5" opacity="0.2"/>
+        <line x1="80" y1="165" x2="890" y2="165" stroke="#B8935A" stroke-width="0.5" opacity="0.2"/>
+        <line x1="80" y1="270" x2="890" y2="270" stroke="#B8935A" stroke-width="0.5" opacity="0.2"/>
+        <line x1="80" y1="375" x2="890" y2="375" stroke="#B8935A" stroke-width="0.5" opacity="0.2"/>
+
+        <!-- FRONTEND LAYER -->
+        <rect x="88" y="30" width="130" height="36" rx="7" fill="#1C1C1C" stroke="#B8935A" stroke-width="1" opacity="0.8"/>
+        <text x="153" y="51" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="11" font-weight="700">Web Forms Q1/Q2</text>
+
+        <rect x="234" y="30" width="130" height="36" rx="7" fill="#1C1C1C" stroke="#B8935A" stroke-width="1" opacity="0.8"/>
+        <text x="299" y="51" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="11" font-weight="700">Investor Portal</text>
+
+        <rect x="380" y="30" width="130" height="36" rx="7" fill="#1C1C1C" stroke="#B8935A" stroke-width="1" opacity="0.8"/>
+        <text x="445" y="51" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="11" font-weight="700">Admin Dashboard</text>
+
+        <rect x="526" y="30" width="130" height="36" rx="7" fill="#1C1C1C" stroke="#7A8A9E" stroke-width="1" opacity="0.8"/>
+        <text x="591" y="51" text-anchor="middle" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="11" font-weight="700">Telegram Bot</text>
+
+        <rect x="672" y="30" width="130" height="36" rx="7" fill="#1C1C1C" stroke="#7A8A9E" stroke-width="1" opacity="0.8"/>
+        <text x="737" y="51" text-anchor="middle" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="11" font-weight="700">AI Avatar UI</text>
+
+        <!-- GATEWAY -->
+        <rect x="88" y="120" width="714" height="38" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1.5"/>
+        <text x="445" y="143" text-anchor="middle" fill="#B8935A" font-family="Urbanist,sans-serif" font-size="12" font-weight="800">API GATEWAY — Node.js / Kong · Auth (JWT+MFA) · Rate Limiting · RBAC</text>
+
+        <!-- ARROWS frontend → gateway -->
+        <line x1="153" y1="66" x2="153" y2="120" stroke="#B8935A" stroke-width="1" stroke-dasharray="4,3" opacity="0.4" marker-end="url(#arr)"/>
+        <line x1="299" y1="66" x2="299" y2="120" stroke="#B8935A" stroke-width="1" stroke-dasharray="4,3" opacity="0.4" marker-end="url(#arr)"/>
+        <line x1="445" y1="66" x2="445" y2="120" stroke="#B8935A" stroke-width="1" stroke-dasharray="4,3" opacity="0.4" marker-end="url(#arr)"/>
+        <line x1="591" y1="66" x2="591" y2="120" stroke="#7A8A9E" stroke-width="1" stroke-dasharray="4,3" opacity="0.4" marker-end="url(#arr-s)"/>
+        <line x1="737" y1="66" x2="737" y2="120" stroke="#7A8A9E" stroke-width="1" stroke-dasharray="4,3" opacity="0.4" marker-end="url(#arr-s)"/>
+
+        <!-- SERVICES LAYER -->
+        <rect x="88" y="180" width="100" height="80" rx="7" fill="#161616" stroke="#2E8A6E" stroke-width="1.2"/>
+        <text x="138" y="214" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Scoring</text>
+        <text x="138" y="228" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Engine</text>
+        <text x="138" y="248" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">FastAPI/Python</text>
+
+        <rect x="204" y="180" width="100" height="80" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1.2"/>
+        <text x="254" y="214" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">AI Screening</text>
+        <text x="254" y="228" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Module</text>
+        <text x="254" y="248" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Python + OpenAI</text>
+
+        <rect x="320" y="180" width="100" height="80" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1.2"/>
+        <text x="370" y="214" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Teaser</text>
+        <text x="370" y="228" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Generator</text>
+        <text x="370" y="248" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Python + docxtpl</text>
+
+        <rect x="436" y="180" width="100" height="80" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1.2"/>
+        <text x="486" y="214" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Notification</text>
+        <text x="486" y="228" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Service</text>
+        <text x="486" y="248" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">SendGrid+TG API</text>
+
+        <rect x="552" y="180" width="100" height="80" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1.2"/>
+        <text x="602" y="214" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">SLA</text>
+        <text x="602" y="228" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Monitor</text>
+        <text x="602" y="248" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Celery + Redis</text>
+
+        <rect x="668" y="180" width="110" height="80" rx="7" fill="#0A1A14" stroke="#2E8A6E" stroke-width="1.5"/>
+        <text x="723" y="208" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="900">E-АГЕНТ</text>
+        <text x="723" y="222" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">«ИГОРЬ»</text>
+        <text x="723" y="236" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">LangChain + Claude</text>
+        <text x="723" y="250" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Orchestrator</text>
+
+        <!-- Arrows gateway → services -->
+        <line x1="280" y1="158" x2="138" y2="180" stroke="#B8935A" stroke-width="1" opacity="0.3" marker-end="url(#arr)"/>
+        <line x1="350" y1="158" x2="254" y2="180" stroke="#B8935A" stroke-width="1" opacity="0.3" marker-end="url(#arr)"/>
+        <line x1="420" y1="158" x2="370" y2="180" stroke="#B8935A" stroke-width="1" opacity="0.3" marker-end="url(#arr)"/>
+        <line x1="490" y1="158" x2="486" y2="180" stroke="#B8935A" stroke-width="1" opacity="0.3" marker-end="url(#arr)"/>
+        <line x1="560" y1="158" x2="602" y2="180" stroke="#B8935A" stroke-width="1" opacity="0.3" marker-end="url(#arr)"/>
+        <line x1="650" y1="158" x2="723" y2="180" stroke="#2E8A6E" stroke-width="1.5" opacity="0.5" marker-end="url(#arr-g)"/>
+
+        <!-- AI LAYER -->
+        <rect x="88" y="290" width="160" height="70" rx="7" fill="#0D0D0D" stroke="#7A8A9E" stroke-width="1"/>
+        <text x="168" y="318" text-anchor="middle" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="11" font-weight="800">OpenAI / Claude API</text>
+        <text x="168" y="338" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">NLP · Kill Criteria · Scoring AI</text>
+        <text x="168" y="352" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">gpt-4o · claude-sonnet</text>
+
+        <rect x="264" y="290" width="130" height="70" rx="7" fill="#0D0D0D" stroke="#7A8A9E" stroke-width="1"/>
+        <text x="329" y="318" text-anchor="middle" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="11" font-weight="800">AI Avatar</text>
+        <text x="329" y="335" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">HeyGen / Tavus</text>
+        <text x="329" y="351" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Whisper transcription</text>
+
+        <rect x="410" y="290" width="130" height="70" rx="7" fill="#0D0D0D" stroke="#7A8A9E" stroke-width="1"/>
+        <text x="475" y="318" text-anchor="middle" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="11" font-weight="800">Sanctions API</text>
+        <text x="475" y="335" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">SDN / EU / UK Lists</text>
+        <text x="475" y="351" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">ComplyAdvantage</text>
+
+        <rect x="556" y="290" width="130" height="70" rx="7" fill="#0D1A12" stroke="#2E8A6E" stroke-width="1"/>
+        <text x="621" y="310" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="11" font-weight="800">CRM Layer</text>
+        <text x="621" y="326" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Bitrix24 REST API</text>
+        <text x="621" y="342" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">AmoCRM REST v4</text>
+        <text x="621" y="356" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">bidirectional sync</text>
+
+        <!-- Services → AI arrows -->
+        <line x1="254" y1="260" x2="200" y2="290" stroke="#7A8A9E" stroke-width="1" stroke-dasharray="3,3" opacity="0.4" marker-end="url(#arr-s)"/>
+        <line x1="370" y1="260" x2="329" y2="290" stroke="#7A8A9E" stroke-width="1" stroke-dasharray="3,3" opacity="0.4" marker-end="url(#arr-s)"/>
+        <line x1="254" y1="260" x2="475" y2="290" stroke="#7A8A9E" stroke-width="1" stroke-dasharray="3,3" opacity="0.4" marker-end="url(#arr-s)"/>
+        <line x1="138" y1="260" x2="621" y2="290" stroke="#2E8A6E" stroke-width="1" stroke-dasharray="3,3" opacity="0.4" marker-end="url(#arr-g)"/>
+        <line x1="723" y1="260" x2="621" y2="290" stroke="#2E8A6E" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.5" marker-end="url(#arr-g)"/>
+
+        <!-- DATA LAYER -->
+        <rect x="88" y="390" width="130" height="60" rx="7" fill="#0D0D0D" stroke="#828298" stroke-width="1"/>
+        <text x="153" y="418" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="11" font-weight="700">PostgreSQL</text>
+        <text x="153" y="435" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="9">Primary DB · JSONB</text>
+
+        <rect x="234" y="390" width="110" height="60" rx="7" fill="#0D0D0D" stroke="#828298" stroke-width="1"/>
+        <text x="289" y="418" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="11" font-weight="700">Redis</text>
+        <text x="289" y="435" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="9">Cache · Queue</text>
+
+        <rect x="360" y="390" width="130" height="60" rx="7" fill="#0D0D0D" stroke="#828298" stroke-width="1"/>
+        <text x="425" y="418" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="11" font-weight="700">S3 Storage</text>
+        <text x="425" y="435" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="9">Docs · Teasers · DD</text>
+
+        <rect x="506" y="390" width="130" height="60" rx="7" fill="#0D0D0D" stroke="#828298" stroke-width="1"/>
+        <text x="571" y="418" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="11" font-weight="700">Grafana / ELK</text>
+        <text x="571" y="435" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="9">Monitoring · Logs</text>
+
+        <!-- Legend -->
+        <rect x="672" y="385" width="200" height="80" rx="7" fill="#0D0D0D" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="682" y="402" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">УСЛОВНЫЕ ОБОЗНАЧЕНИЯ</text>
+        <line x1="682" y1="415" x2="706" y2="415" stroke="#B8935A" stroke-width="1.5"/>
+        <text x="714" y="419" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">REST/HTTP поток</text>
+        <line x1="682" y1="432" x2="706" y2="432" stroke="#2E8A6E" stroke-width="1.5"/>
+        <text x="714" y="436" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">E-агент / CRM поток</text>
+        <line x1="682" y1="449" x2="706" y2="449" stroke="#7A8A9E" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="714" y="453" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">AI/ML вызовы</text>
+
+        <!-- Data arrows from services -->
+        <line x1="138" y1="260" x2="153" y2="390" stroke="#828298" stroke-width="1" stroke-dasharray="3,3" opacity="0.25" marker-end="url(#arr-s)"/>
+        <line x1="486" y1="260" x2="289" y2="390" stroke="#828298" stroke-width="1" stroke-dasharray="3,3" opacity="0.2" marker-end="url(#arr-s)"/>
+        <line x1="370" y1="260" x2="425" y2="390" stroke="#828298" stroke-width="1" stroke-dasharray="3,3" opacity="0.2" marker-end="url(#arr-s)"/>
+      </svg>
+    </div>
+
+    <!-- TECH STACK -->
+    <div style="margin-top:32px;">
+      <span class="section-tag"><span data-i18n="arch.stack">Технологический стек</span></span>
+      <div class="stack-row">
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#61DAFB"></span>React / Next.js</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#06B6D4"></span>Tailwind CSS</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#3776AB"></span>Python FastAPI</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#68A063"></span>Node.js</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#336791"></span>PostgreSQL</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#DC382D"></span>Redis</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#B8935A"></span>OpenAI GPT-4o</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#D4AF78"></span>Claude API</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#2E8A6E"></span>LangChain</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#0088CC"></span>Telegram Bot API</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#FF6900"></span>Bitrix24 REST</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#7A8A9E"></span>AmoCRM v4</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#2496ED"></span>Docker / K8s</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#E6522C"></span>Grafana</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#F9A03C"></span>SendGrid</div>
+        <div class="stack-pill"><span class="stack-pill-dot" style="background:#4F46E5"></span>TypeScript</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MODULES ═══════════ -->
+<div id="modules"></div>
+
+<!-- MODULE 7: INVESTOR PIPELINE -->
+<section class="module-section">
+  <div class="section-inner">
+    <div class="module-header">
+      <div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;">
+          <div class="module-num new-mod">Модуль 7</div>
+          <span class="module-status status-new"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" style="margin-right:4px;vertical-align:middle;"><path d="M15 5l-8 8-3 1 1-3 8-8 2 2z" stroke="#D4AF78" stroke-width="1.5" stroke-linejoin="round"/></svg>Разработка с нуля</span>
+        </div>
+        <h2 class="module-title">Investor Pipeline — AmoCRM</h2>
+        <p class="section-sub" style="margin-top:8px;">4-этапная модель работы с инвесторами: от первого контакта до размещения капитала через SPC/SP. Полная автоматизация воронки, Level-система и партнёрская иерархия.</p>
+      </div>
+    </div>
+
+    <!-- Flow diagram -->
+    <div class="diagram-box" onclick="openDiagram('inv')" title="Открыть">
+      <div class="diagram-title">Воронка инвестора — State Machine (нажмите для развёртывания)</div>
+      <div class="diagram-expand">&#x26F6; Развернуть</div>
+      <svg id="svg-inv" viewBox="0 0 860 160" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <defs>
+          <marker id="fa" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+            <polygon points="0 0, 8 3.5, 0 7" fill="#B8935A" opacity="0.7"/>
+          </marker>
+        </defs>
+
+        <!-- States -->
+        <rect x="10" y="60" width="120" height="44" rx="8" fill="#161616" stroke="#B8935A" stroke-width="1.2"/>
+        <text x="70" y="80" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Capital Supplier</text>
+        <text x="70" y="96" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Анкета получена</text>
+
+        <rect x="160" y="60" width="120" height="44" rx="8" fill="#161616" stroke="#B8935A" stroke-width="1.2"/>
+        <text x="220" y="80" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Primary Contact</text>
+        <text x="220" y="96" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">AI квалификация</text>
+
+        <rect x="310" y="60" width="120" height="44" rx="8" fill="#161616" stroke="#B8935A" stroke-width="1.2"/>
+        <text x="370" y="80" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Secondary Contact</text>
+        <text x="370" y="96" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">BDM звонок</text>
+
+        <rect x="460" y="60" width="110" height="44" rx="8" fill="#161616" stroke="#2E8A6E" stroke-width="1.5"/>
+        <text x="515" y="80" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">LOI Signed</text>
+        <text x="515" y="96" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Commitment</text>
+
+        <rect x="600" y="60" width="110" height="44" rx="8" fill="#161616" stroke="#2E8A6E" stroke-width="1.5"/>
+        <text x="655" y="80" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">Capital Delivery</text>
+        <text x="655" y="96" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Средства получены</text>
+
+        <rect x="740" y="60" width="110" height="44" rx="8" fill="#0A1A14" stroke="#2E8A6E" stroke-width="2"/>
+        <text x="795" y="80" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="900">Active Investor</text>
+        <text x="795" y="96" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Портал + Deal Flow</text>
+
+        <!-- Arrows -->
+        <line x1="130" y1="82" x2="160" y2="82" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa)"/>
+        <line x1="280" y1="82" x2="310" y2="82" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa)"/>
+        <line x1="430" y1="82" x2="460" y2="82" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa)"/>
+        <line x1="570" y1="82" x2="600" y2="82" stroke="#2E8A6E" stroke-width="1.5" marker-end="url(#fa)"/>
+        <line x1="710" y1="82" x2="740" y2="82" stroke="#2E8A6E" stroke-width="1.5" marker-end="url(#fa)"/>
+
+        <!-- Labels below arrows -->
+        <text x="145" y="55" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Auto</text>
+        <text x="295" y="55" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">BDM trigger</text>
+        <text x="445" y="55" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Manual</text>
+        <text x="585" y="55" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="8">Docs auto</text>
+        <text x="725" y="55" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="8">Confirm + Portal</text>
+
+        <!-- Level indicator -->
+        <text x="10" y="148" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Уровни:</text>
+        <rect x="54" y="136" width="78" height="18" rx="4" fill="rgba(184,147,90,0.1)" stroke="rgba(184,147,90,0.3)" stroke-width="1"/>
+        <text x="93" y="149" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">Observer (L0)</text>
+        <rect x="140" y="136" width="78" height="18" rx="4" fill="rgba(184,147,90,0.15)" stroke="rgba(184,147,90,0.4)" stroke-width="1"/>
+        <text x="179" y="149" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">Bronze (L2)</text>
+        <rect x="326" y="136" width="78" height="18" rx="4" fill="rgba(184,147,90,0.2)" stroke="rgba(184,147,90,0.5)" stroke-width="1"/>
+        <text x="365" y="149" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">Silver (L3)</text>
+        <rect x="600" y="136" width="78" height="18" rx="4" fill="rgba(212,175,120,0.25)" stroke="rgba(212,175,120,0.6)" stroke-width="1"/>
+        <text x="639" y="149" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">Gold (L4) ★</text>
+      </svg>
+    </div>
+
+    <div class="grid-3" style="margin-top:24px;">
+      <div class="bevi-card">
+        <div class="bevi-card-icon gold-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 3h6M8 3V2a1 1 0 012 0v1M3 7h14l-1 10H4L3 7z" stroke="#D4AF78" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="bevi-card-title">AmoCRM Setup & Config</div>
+        <div class="bevi-card-text">Создание воронки с 6 стадиями, custom fields для профиля инвестора: capital_range, min_ticket, instruments (JSON), horizon, experience_years, level 1–4.</div>
+        <div class="tech-tags"><span class="tech-tag">AmoCRM REST v4</span><span class="tech-tag">Webhooks</span><span class="tech-tag">Custom Fields</span></div>
+      </div>
+      <div class="bevi-card">
+        <div class="bevi-card-icon green-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="10" height="10" rx="2" stroke="#4EB89A" stroke-width="1.5"/><circle cx="10" cy="10" r="2" stroke="#4EB89A" stroke-width="1.5"/><path d="M10 3v2M10 15v2M3 10h2M15 10h2" stroke="#4EB89A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="bevi-card-title">Auto-Qualification Engine</div>
+        <div class="bevi-card-text">Автоматическое определение предварительного Level 1–4 на основе данных анкеты. Алгоритм: capital_range × instruments × horizon × experience → Level score.</div>
+        <div class="tech-tags"><span class="tech-tag">Python Rule Engine</span><span class="tech-tag">Scoring Matrix</span></div>
+      </div>
+      <div class="bevi-card">
+        <div class="bevi-card-icon gold-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 12a4 4 0 005.66 0l2-2a4 4 0 00-5.66-5.66L9 5.34M12 8a4 4 0 00-5.66 0l-2 2a4 4 0 005.66 5.66L11 14.66" stroke="#D4AF78" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="bevi-card-title">Deal Matching API</div>
+        <div class="bevi-card-text">Автоматический подбор релевантных сделок под инвестора: industry_prefs ∩ deal_type × horizon × min_ticket ≤ deal_size → match_score. Уведомление при новом тизере.</div>
+        <div class="tech-tags"><span class="tech-tag">Matching Algorithm</span><span class="tech-tag">PostgreSQL</span></div>
+      </div>
+    </div>
+
+    <table class="req-table" style="margin-top:24px;">
+      <thead>
+        <tr>
+          <th>FR-ID</th>
+          <th>Что реализуем</th>
+          <th>Как именно</th>
+          <th>Приоритет</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="gold2">INV-01</td><td>6 стадий воронки с автоматическими триггерами</td><td>AmoCRM Pipeline API + Webhook listeners на каждый переход стадии</td><td class="prio-must">Must</td></tr>
+        <tr><td class="gold2">INV-02</td><td>Auto-определение уровня инвестора (Level 1–4)</td><td>Rule-based scoring на основе capital_range, instruments, experience — вычисляется при submit анкеты</td><td class="prio-should">Should</td></tr>
+        <tr><td class="gold2">INV-03</td><td>Создание контакта в AmoCRM при поступлении анкеты</td><td>POST /api/v4/contacts + теги по типу, капиталу, отраслям</td><td class="prio-must">Must</td></tr>
+        <tr><td class="gold2">INV-04</td><td>BDM-уведомление о новом инвесторе</td><td>Telegram Bot → BDM channel с JSON-summary: имя, Level, капитал, инструменты</td><td class="prio-must">Must</td></tr>
+        <tr><td class="gold2">INV-05</td><td>Deal Matching — подбор сделок под профиль</td><td>Matching service: пересечение industry_prefs и deal_type, фильтр по ticket/horizon</td><td class="prio-should">Could</td></tr>
+        <tr><td class="gold2">INV-06</td><td>Партнёрская иерархия SP/GP/MP/DP/DB/LP</td><td>RBAC role mapping в AmoCRM + Investor Portal. Success Fee = (actual_return − 5%) × 25% × capital</td><td class="prio-must">Must</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- MODULE 8: TEASER GENERATOR -->
+<section class="module-section" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="module-header">
+      <div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;">
+          <div class="module-num new-mod">Модуль 8</div>
+          <span class="module-status status-new"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" style="margin-right:4px;vertical-align:middle;"><path d="M15 5l-8 8-3 1 1-3 8-8 2 2z" stroke="#D4AF78" stroke-width="1.5" stroke-linejoin="round"/></svg>Разработка с нуля</span>
+        </div>
+        <h2 class="module-title">Генератор инвестиционных тизеров</h2>
+        <p class="section-sub" style="margin-top:8px;">Автоматическая генерация DOCX/PDF по 13-секционному шаблону Allosta Partners. Данные из CRM + Scoring Engine → готовый тизер за ≤30 секунд.</p>
+      </div>
+    </div>
+
+    <div class="diagram-box" onclick="openDiagram('teaser')" title="Открыть">
+      <div class="diagram-title">Pipeline генерации тизера (нажмите для развёртывания)</div>
+      <div class="diagram-expand">&#x26F6; Развернуть</div>
+      <svg id="svg-teaser" viewBox="0 0 860 120" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <defs>
+          <marker id="fa2" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+            <polygon points="0 0, 8 3.5, 0 7" fill="#B8935A" opacity="0.7"/>
+          </marker>
+        </defs>
+        <rect x="8" y="35" width="120" height="48" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="68" y="56" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">Deal Entity</text>
+        <text x="68" y="72" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Bitrix24 fields</text>
+
+        <rect x="150" y="35" width="120" height="48" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="210" y="56" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">DealScoring</text>
+        <text x="210" y="72" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">8 блоков + веса</text>
+
+        <rect x="292" y="35" width="120" height="48" rx="7" fill="#0A1A14" stroke="#2E8A6E" stroke-width="1.5"/>
+        <text x="352" y="56" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">AI Executive</text>
+        <text x="352" y="72" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">GPT-4o Summary</text>
+
+        <rect x="434" y="35" width="130" height="48" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="499" y="56" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">Template Engine</text>
+        <text x="499" y="72" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">docxtpl · Jinja2</text>
+
+        <rect x="586" y="35" width="100" height="48" rx="7" fill="#161616" stroke="#7A8A9E" stroke-width="1"/>
+        <text x="636" y="56" text-anchor="middle" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">Analyst Review</text>
+        <text x="636" y="72" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Ручное редактирование</text>
+
+        <rect x="706" y="35" width="130" height="48" rx="7" fill="#0D0A06" stroke="#B8935A" stroke-width="1.5"/>
+        <text x="771" y="52" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">DOCX Export</text>
+        <text x="771" y="65" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">+ PDF render</text>
+        <text x="771" y="78" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Watermark + NDA</text>
+
+        <line x1="128" y1="59" x2="150" y2="59" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa2)"/>
+        <line x1="270" y1="59" x2="292" y2="59" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa2)"/>
+        <line x1="412" y1="59" x2="434" y2="59" stroke="#2E8A6E" stroke-width="1.5" marker-end="url(#fa2)"/>
+        <line x1="564" y1="59" x2="586" y2="59" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa2)"/>
+        <line x1="686" y1="59" x2="706" y2="59" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa2)"/>
+
+        <text x="68" y="20" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">① Источник</text>
+        <text x="210" y="20" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">② Скоринг</text>
+        <text x="352" y="20" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="8">③ AI-генерация</text>
+        <text x="499" y="20" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">④ Шаблонизация</text>
+        <text x="636" y="20" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">⑤ Ревью</text>
+        <text x="771" y="20" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8">⑥ Выгрузка</text>
+      </svg>
+    </div>
+
+    <div class="grid-2" style="margin-top:24px;">
+      <div>
+        <div class="detail-box">
+          <div class="detail-box-title">13 Секций шаблона тизера</div>
+          <div class="detail-row"><span class="detail-key">1</span><span class="detail-val">Executive Summary — snapshot-таблица (auto-fill)</span></div>
+          <div class="detail-row"><span class="detail-key">2</span><span class="detail-val">Инвест. идея и обоснование</span></div>
+          <div class="detail-row"><span class="detail-key">3</span><span class="detail-val">Классификация по 6-групповому классификатору</span></div>
+          <div class="detail-row"><span class="detail-key">4</span><span class="detail-val">Структура сделки и капитала</span></div>
+          <div class="detail-row"><span class="detail-key">5</span><span class="detail-val">Финансовые параметры (IRR, MOIC, горизонт)</span></div>
+          <div class="detail-row"><span class="detail-key">6</span><span class="detail-val">Ожидаемая доходность и exit-сценарии</span></div>
+          <div class="detail-row"><span class="detail-key">7</span><span class="detail-val">Независимая оценка актива</span></div>
+          <div class="detail-row"><span class="detail-key">8</span><span class="detail-val">Защита капитала и обеспечение</span></div>
+          <div class="detail-row"><span class="detail-key">9</span><span class="detail-val">Риски и митигация</span></div>
+          <div class="detail-row"><span class="detail-key">10</span><span class="detail-val">Перспективы и катализаторы</span></div>
+          <div class="detail-row"><span class="detail-key">11</span><span class="detail-val">Скоринг AP — 8 блоков Weighted Scorecard (auto)</span></div>
+          <div class="detail-row"><span class="detail-key">12</span><span class="detail-val">Ковенанты и условия</span></div>
+          <div class="detail-row"><span class="detail-key">13</span><span class="detail-val">Следующие шаги</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="bevi-card" style="margin-bottom:16px;">
+          <div class="bevi-card-icon gold-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="12" height="15" rx="2" stroke="#D4AF78" stroke-width="1.5"/><path d="M7 7h6M7 11h4" stroke="#D4AF78" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="bevi-card-title">docxtpl + WeasyPrint</div>
+          <div class="bevi-card-text">Шаблон .docx с Jinja2-переменными → auto-fill из Deal Entity + DealScoring. PDF рендер через WeasyPrint или LibreOffice headless. Watermark «Confidential» + NDA-disclaimer вшивается автоматически.</div>
+        </div>
+        <div class="bevi-card" style="margin-bottom:16px;">
+          <div class="bevi-card-icon green-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="10" height="10" rx="2" stroke="#4EB89A" stroke-width="1.5"/><circle cx="10" cy="10" r="2" stroke="#4EB89A" stroke-width="1.5"/><path d="M10 3v2M10 15v2M3 10h2M15 10h2" stroke="#4EB89A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="bevi-card-title">AI Executive Summary</div>
+          <div class="bevi-card-text">GPT-4o генерирует нарративную часть (секции 2, 9, 10) на основе данных Q1/Q2 + скоринга. Промпт инжинирится под методологию AP. Аналитик может отредактировать перед выгрузкой.</div>
+        </div>
+        <div class="bevi-card">
+          <div class="bevi-card-icon gold-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 8h10M5 12h10M8 5v10M12 5v10" stroke="#D4AF78" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="bevi-card-title">Версионирование</div>
+          <div class="bevi-card-text">Каждая генерация — новая версия (v1, v2…). Scoring snapshot сохраняется в JSONB. История доступна аналитику. Статусы: draft → approved → sent. S3 URL фиксируется в карточке Bitrix24.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 9: INVESTOR PORTAL -->
+<section class="module-section">
+  <div class="section-inner">
+    <div class="module-header">
+      <div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;">
+          <div class="module-num new-mod">Модуль 9</div>
+          <span class="module-status status-new"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" style="margin-right:4px;vertical-align:middle;"><path d="M15 5l-8 8-3 1 1-3 8-8 2 2z" stroke="#D4AF78" stroke-width="1.5" stroke-linejoin="round"/></svg>Разработка с нуля</span>
+        </div>
+        <h2 class="module-title">Инвесторский портал — Личный кабинет</h2>
+        <p class="section-sub" style="margin-top:8px;">React/Next.js PWA: авторизация через OTP, дашборд портфеля, deal flow с тизерами, P&L трекинг. Доступ к контенту разграничен по уровню Gold/Silver/Bronze/Observer.</p>
+      </div>
+    </div>
+
+    <!-- Portal wireframe diagram -->
+    <div class="diagram-box">
+      <div class="diagram-title">Карта страниц инвесторского портала — UX Architecture</div>
+      <svg viewBox="0 0 860 280" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <!-- Auth -->
+        <rect x="340" y="10" width="180" height="44" rx="7" fill="#0A1A14" stroke="#2E8A6E" stroke-width="1.5"/>
+        <text x="430" y="30" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="11" font-weight="800">Auth Gate</text>
+        <text x="430" y="46" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Email + OTP / OAuth 2.0</text>
+
+        <!-- Dashboard -->
+        <rect x="340" y="80" width="180" height="44" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1.5"/>
+        <text x="430" y="99" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="11" font-weight="800">Dashboard</text>
+        <text x="430" y="115" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">P&L · AUM · Active deals</text>
+
+        <!-- Nav pages -->
+        <rect x="30" y="165" width="140" height="44" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="100" y="185" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">Deal Flow</text>
+        <text x="100" y="200" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Тизеры по Level</text>
+
+        <rect x="190" y="165" width="140" height="44" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="260" y="185" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">Portfolio</text>
+        <text x="260" y="200" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">KPI · Отчёты</text>
+
+        <rect x="350" y="165" width="160" height="44" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="430" y="185" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">Commitment Track</text>
+        <text x="430" y="200" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Call notices · Статус</text>
+
+        <rect x="530" y="165" width="130" height="44" rx="7" fill="#161616" stroke="#7A8A9E" stroke-width="1"/>
+        <text x="595" y="185" text-anchor="middle" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">Documents</text>
+        <text x="595" y="200" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">NDA · Соглашения</text>
+
+        <rect x="680" y="165" width="150" height="44" rx="7" fill="#161616" stroke="#7A8A9E" stroke-width="1"/>
+        <text x="755" y="185" text-anchor="middle" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">Notifications</text>
+        <text x="755" y="200" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">In-app · Email · TG</text>
+
+        <!-- Arrows auth→dashboard -->
+        <line x1="430" y1="54" x2="430" y2="80" stroke="#2E8A6E" stroke-width="1.5" marker-end="url(#fa2)"/>
+
+        <!-- dashboard → pages -->
+        <line x1="380" y1="124" x2="100" y2="165" stroke="#B8935A" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+        <line x1="400" y1="124" x2="260" y2="165" stroke="#B8935A" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+        <line x1="430" y1="124" x2="430" y2="165" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa2)"/>
+        <line x1="460" y1="124" x2="595" y2="165" stroke="#7A8A9E" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+        <line x1="480" y1="124" x2="755" y2="165" stroke="#7A8A9E" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+
+        <!-- Level badges -->
+        <rect x="30" y="230" width="70" height="20" rx="4" fill="rgba(184,147,90,0.1)" stroke="rgba(184,147,90,0.3)" stroke-width="1"/>
+        <text x="65" y="244" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">All levels</text>
+        <rect x="190" y="230" width="70" height="20" rx="4" fill="rgba(184,147,90,0.15)" stroke="rgba(184,147,90,0.4)" stroke-width="1"/>
+        <text x="225" y="244" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">Bronze+</text>
+        <rect x="350" y="230" width="70" height="20" rx="4" fill="rgba(184,147,90,0.2)" stroke="rgba(184,147,90,0.5)" stroke-width="1"/>
+        <text x="385" y="244" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">Bronze+</text>
+        <rect x="530" y="230" width="70" height="20" rx="4" fill="rgba(184,147,90,0.12)" stroke="rgba(184,147,90,0.3)" stroke-width="1"/>
+        <text x="565" y="244" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">Silver+</text>
+        <rect x="690" y="230" width="60" height="20" rx="4" fill="rgba(212,175,120,0.2)" stroke="rgba(212,175,120,0.5)" stroke-width="1"/>
+        <text x="720" y="244" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">Gold ★</text>
+        <text x="760" y="244" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">= Full access</text>
+
+        <!-- Label -->
+        <text x="430" y="268" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Доступ к разделам разграничен по Level (Gold видит всё, Observer — только образовательный контент)</text>
+      </svg>
+    </div>
+
+    <div class="grid-3" style="margin-top:24px;">
+      <div class="bevi-card">
+        <div class="bevi-card-icon gold-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="9" width="12" height="9" rx="2" stroke="#D4AF78" stroke-width="1.5"/><path d="M7 9V7a3 3 0 016 0v2" stroke="#D4AF78" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="bevi-card-title">Auth: OTP + OAuth</div>
+        <div class="bevi-card-text">Passwordless auth: email → OTP (6 digits, TTL 10 min) через SendGrid. Альтернатива: OAuth 2.0 (Google/Apple). JWT access token + refresh token rotation. MFA для операций с документами.</div>
+        <div class="tech-tags"><span class="tech-tag">JWT RS256</span><span class="tech-tag">OTP Redis TTL</span><span class="tech-tag">OAuth 2.0</span></div>
+      </div>
+      <div class="bevi-card">
+        <div class="bevi-card-icon green-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 15V9M8 15V5M12 15v-6M16 15v-3" stroke="#4EB89A" stroke-width="1.5" stroke-linecap="round"/><line x1="2" y1="15" x2="18" y2="15" stroke="#4EB89A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="bevi-card-title">P&L Dashboard</div>
+        <div class="bevi-card-text">Real-time обзор: активные инвестиции, текущий MOIC, IRR, AUM. Success Fee calculator: (actual_return − 5%) × 25% × capital. Recharts для визуализации портфеля.</div>
+        <div class="tech-tags"><span class="tech-tag">Next.js SSR</span><span class="tech-tag">Recharts</span><span class="tech-tag">WebSocket</span></div>
+      </div>
+      <div class="bevi-card">
+        <div class="bevi-card-icon gold-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 2h8l4 4v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="#D4AF78" stroke-width="1.5"/><path d="M14 2v4h4M8 12h4M8 9h4" stroke="#D4AF78" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="bevi-card-title">Тизеры с Level Guard</div>
+        <div class="bevi-card-text">Deal Flow: список тизеров с фильтрами (тип/размер/отрасль). Middleware проверяет investor.level перед отдачей PDF. Gold — все тизеры, Observer — только публичные анонсы.</div>
+        <div class="tech-tags"><span class="tech-tag">RBAC Middleware</span><span class="tech-tag">S3 Presigned URL</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 10: NOTIFICATIONS & SLA -->
+<section class="module-section" style="background:var(--bg2);border-top:1px solid var(--border2);">
+  <div class="section-inner">
+    <div class="module-header">
+      <div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;">
+          <div class="module-num new-mod">Модуль 10</div>
+          <span class="module-status status-new"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" style="margin-right:4px;vertical-align:middle;"><path d="M15 5l-8 8-3 1 1-3 8-8 2 2z" stroke="#D4AF78" stroke-width="1.5" stroke-linejoin="round"/></svg>Разработка с нуля</span>
+        </div>
+        <h2 class="module-title">Уведомления и SLA-мониторинг</h2>
+        <p class="section-sub" style="margin-top:8px;">Event-driven система уведомлений на трёх каналах + автоматический контроль SLA с двухуровневой эскалацией. Celery Beat для таймеров, Redis для очередей.</p>
+      </div>
+    </div>
+
+    <!-- SLA diagram -->
+    <div class="diagram-box" onclick="openDiagram('sla')" title="Открыть">
+      <div class="diagram-title">Двухуровневая SLA-эскалация (нажмите для развёртывания)</div>
+      <div class="diagram-expand">&#x26F6; Развернуть</div>
+      <svg id="svg-sla" viewBox="0 0 860 200" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <!-- Timeline bar -->
+        <line x1="30" y1="100" x2="830" y2="100" stroke="#1C1C1C" stroke-width="20" stroke-linecap="round"/>
+        <line x1="30" y1="100" x2="830" y2="100" stroke="#0F0F0F" stroke-width="18" stroke-linecap="round"/>
+
+        <!-- Start event -->
+        <circle cx="30" cy="100" r="8" fill="#2E8A6E"/>
+        <text x="30" y="82" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">EVENT</text>
+        <text x="30" y="70" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Триггер</text>
+
+        <!-- Warning zone -->
+        <rect x="30" y="88" width="370" height="24" rx="0" fill="rgba(46,138,110,0.15)"/>
+        <circle cx="400" cy="100" r="6" fill="#D4AF78"/>
+        <text x="400" y="82" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">WARNING</text>
+        <text x="400" y="70" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Жёлтый</text>
+
+        <!-- Escalation zone -->
+        <rect x="400" y="88" width="250" height="24" rx="0" fill="rgba(184,147,90,0.15)"/>
+        <circle cx="650" cy="100" r="8" fill="#B8935A"/>
+        <text x="650" y="82" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">ESCALATION</text>
+        <text x="650" y="70" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Красный</text>
+
+        <!-- Breach zone -->
+        <rect x="650" y="88" width="180" height="24" rx="0" fill="rgba(180,60,60,0.15)"/>
+
+        <!-- Actions below -->
+        <text x="215" y="138" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10">Нормальная работа</text>
+        <text x="525" y="138" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10">Reminder → ответственному</text>
+        <text x="740" y="138" text-anchor="middle" fill="#C05050" font-family="Urbanist,sans-serif" font-size="10">Alert → руководителю AP</text>
+
+        <!-- Actions -->
+        <line x1="400" y1="112" x2="400" y2="128" stroke="#D4AF78" stroke-width="1" opacity="0.6"/>
+        <line x1="650" y1="112" x2="650" y2="128" stroke="#C05050" stroke-width="1" opacity="0.6"/>
+
+        <!-- SLA table below -->
+        <text x="30" y="175" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">SLA ПРИМЕРЫ:</text>
+        <text x="120" y="175" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">AI-скрининг: warn 1 мин → red 2 мин</text>
+        <text x="370" y="175" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">NDA подписание: warn 5д → red 7д</text>
+        <text x="600" y="175" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Закрытие сделки: warn 20д → red 25д</text>
+      </svg>
+    </div>
+
+    <div class="grid-3" style="margin-top:24px;">
+      <div class="bevi-card">
+        <div class="bevi-card-icon gold-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="5" width="16" height="12" rx="2" stroke="#D4AF78" stroke-width="1.5"/><path d="M2 8l8 5 8-5" stroke="#D4AF78" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="bevi-card-title">Email (SendGrid)</div>
+        <div class="bevi-card-text">Транзакционные письма: подтверждение Q1, результаты скрининга (pass/kill), тизеры, квартальные отчёты. HTML-шаблоны с брендингом AP. Webhook для tracking opens/clicks.</div>
+        <div class="tech-tags"><span class="tech-tag">SendGrid API v3</span><span class="tech-tag">Jinja2 Templates</span></div>
+      </div>
+      <div class="bevi-card">
+        <div class="bevi-card-icon green-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10l15-7-5 7 5 7-15-7z" stroke="#4EB89A" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <div class="bevi-card-title">Telegram Bot (оперативный)</div>
+        <div class="bevi-card-text">Аналитики и BDM получают алерты в реальном времени: новые заявки, SLA-warnings, решения IC. E-агент «Игорь» использует тот же bot instance для Q2-интервью. Команды /status, /deal_id.</div>
+        <div class="tech-tags"><span class="tech-tag">python-telegram-bot</span><span class="tech-tag">Webhook mode</span></div>
+      </div>
+      <div class="bevi-card">
+        <div class="bevi-card-icon silver-bg"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="7" stroke="#7A8A9E" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="#7A8A9E" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="bevi-card-title">Celery Beat — SLA Таймеры</div>
+        <div class="bevi-card-text">Периодические задачи каждые 5 минут сканируют все открытые сделки. При обнаружении нарушения SLA — задача в очередь Celery → уведомление по нужному каналу. AuditLog фиксирует все эскалации.</div>
+        <div class="tech-tags"><span class="tech-tag">Celery + Redis</span><span class="tech-tag">Beat Scheduler</span></div>
+      </div>
+    </div>
+
+    <table class="req-table" style="margin-top:24px;">
+      <thead>
+        <tr><th>SLA Rule</th><th>Триггер</th><th>Warning (жёлтый)</th><th>Escalation (красный)</th><th>Действие при эскалации</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="gold2">AI-скрининг</td><td>Получение Q1</td><td>1 мин</td><td>2 мин</td><td>Alert в TG + auto-retry задача</td></tr>
+        <tr><td class="gold2">Q2 / Пре-скрининг</td><td>Pass AI-скрининга</td><td>48ч</td><td>72ч</td><td>Reminder аналитику + escalation руководителю</td></tr>
+        <tr><td class="gold2">NDA подписание</td><td>Отправка NDA</td><td>5 дней</td><td>7 дней</td><td>Email контрагенту + alert аналитику</td></tr>
+        <tr><td class="gold2">Первичное DD</td><td>Начало DD</td><td>15 дней</td><td>20 дней</td><td>Alert руководителю AP</td></tr>
+        <tr><td class="gold2">Закрытие сделки</td><td>Одобрение ИК</td><td>20 дней</td><td>25 дней</td><td>Alert финблоку + TG руководителю</td></tr>
+        <tr><td class="gold2">BDM: первый контакт</td><td>Новый инвестор</td><td>3 дня</td><td>5 дней</td><td>Reminder BDM + escalation руководителю</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- MODULE 11: DASHBOARDS -->
+<section class="module-section">
+  <div class="section-inner">
+    <div class="module-header">
+      <div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;">
+          <div class="module-num new-mod">Модуль 11</div>
+          <span class="module-status status-new"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" style="margin-right:4px;vertical-align:middle;"><path d="M15 5l-8 8-3 1 1-3 8-8 2 2z" stroke="#D4AF78" stroke-width="1.5" stroke-linejoin="round"/></svg>Разработка с нуля</span>
+        </div>
+        <h2 class="module-title">Дашборды и аналитика</h2>
+        <p class="section-sub" style="margin-top:8px;">Три дашборда: Deal Pipeline, Portfolio, Investor Pipeline. Real-time данные из Bitrix24 + AmoCRM + собственной БД. React + Recharts + WebSocket live updates.</p>
+      </div>
+    </div>
+
+    <!-- Dashboard mockup -->
+    <div class="diagram-box" onclick="openDiagram('dash')" title="Открыть">
+      <div class="diagram-title">Deal Pipeline Dashboard — структура виджетов (нажмите для развёртывания)</div>
+      <div class="diagram-expand">&#x26F6; Развернуть</div>
+      <svg id="svg-dash" viewBox="0 0 860 320" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <!-- Top KPI row -->
+        <rect x="10" y="10" width="155" height="60" rx="6" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="87" y="34" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">СДЕЛОК В ВОРОНКЕ</text>
+        <text x="87" y="58" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="22" font-weight="900">142</text>
+
+        <rect x="175" y="10" width="155" height="60" rx="6" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="252" y="34" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">КОНВЕРСИЯ INTAKE→CLOSE</text>
+        <text x="252" y="58" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="22" font-weight="900">4.2%</text>
+
+        <rect x="340" y="10" width="155" height="60" rx="6" fill="#161616" stroke="#2E8A6E" stroke-width="1"/>
+        <text x="417" y="34" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">SLA НАРУШЕНИЙ</text>
+        <text x="417" y="58" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="22" font-weight="900">3</text>
+
+        <rect x="505" y="10" width="155" height="60" rx="6" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="582" y="34" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">СРЕДНИЙ СКОРИНГ</text>
+        <text x="582" y="58" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="22" font-weight="900">3.74</text>
+
+        <rect x="670" y="10" width="180" height="60" rx="6" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="760" y="34" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">СРЕДНЕЕ ВРЕМЯ ЭТАПА</text>
+        <text x="760" y="58" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="22" font-weight="900">16.2д</text>
+
+        <!-- Funnel chart -->
+        <rect x="10" y="84" width="310" height="220" rx="6" fill="#0D0D0D" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="165" y="106" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">ВОРОНКА СДЕЛОК</text>
+        <!-- Funnel bars -->
+        <rect x="50" y="118" width="220" height="16" rx="3" fill="rgba(184,147,90,0.4)"/>
+        <text x="46" y="130" text-anchor="end" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">New Lead</text>
+        <text x="278" y="130" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8">312</text>
+
+        <rect x="60" y="142" width="180" height="16" rx="3" fill="rgba(184,147,90,0.35)"/>
+        <text x="56" y="154" text-anchor="end" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">AI Screened</text>
+        <text x="248" y="154" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8">248</text>
+
+        <rect x="70" y="166" width="150" height="16" rx="3" fill="rgba(184,147,90,0.30)"/>
+        <text x="66" y="178" text-anchor="end" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Q2 Reviewed</text>
+        <text x="228" y="178" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8">142</text>
+
+        <rect x="80" y="190" width="120" height="16" rx="3" fill="rgba(184,147,90,0.25)"/>
+        <text x="76" y="202" text-anchor="end" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Pre-screened</text>
+        <text x="208" y="202" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8">87</text>
+
+        <rect x="90" y="214" width="90" height="16" rx="3" fill="rgba(46,138,110,0.35)"/>
+        <text x="86" y="226" text-anchor="end" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Primary DD</text>
+        <text x="188" y="226" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="8">34</text>
+
+        <rect x="100" y="238" width="60" height="16" rx="3" fill="rgba(46,138,110,0.5)"/>
+        <text x="96" y="250" text-anchor="end" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">IC Approved</text>
+        <text x="168" y="250" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="8">14</text>
+
+        <rect x="110" y="262" width="30" height="16" rx="3" fill="#2E8A6E"/>
+        <text x="106" y="274" text-anchor="end" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Closed ✓</text>
+        <text x="148" y="274" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">6</text>
+
+        <!-- Scoring distribution -->
+        <rect x="330" y="84" width="260" height="220" rx="6" fill="#0D0D0D" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="460" y="106" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">РАСПРЕДЕЛЕНИЕ СКОРИНГА</text>
+        <!-- Histogram bars -->
+        <rect x="355" y="230" width="40" height="30" rx="3" fill="rgba(180,60,60,0.4)"/>
+        <text x="375" y="275" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Black</text>
+        <text x="375" y="286" text-anchor="middle" fill="#C05050" font-family="Urbanist,sans-serif" font-size="7">&lt;2.0</text>
+
+        <rect x="405" y="180" width="40" height="80" rx="3" fill="rgba(180,60,60,0.6)"/>
+        <text x="425" y="275" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Red</text>
+        <text x="425" y="286" text-anchor="middle" fill="#C05050" font-family="Urbanist,sans-serif" font-size="7">2.0–2.99</text>
+
+        <rect x="455" y="140" width="40" height="120" rx="3" fill="rgba(184,147,90,0.5)"/>
+        <text x="475" y="275" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Yellow</text>
+        <text x="475" y="286" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="7">3.0–3.99</text>
+
+        <rect x="505" y="118" width="40" height="142" rx="3" fill="rgba(46,138,110,0.6)"/>
+        <text x="525" y="275" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Green</text>
+        <text x="525" y="286" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="7">4.0–5.0</text>
+
+        <line x1="345" y1="260" x2="555" y2="260" stroke="#1C1C1C" stroke-width="1"/>
+
+        <!-- Top deals table -->
+        <rect x="600" y="84" width="250" height="220" rx="6" fill="#0D0D0D" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="725" y="106" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">ТОП СДЕЛКИ (скоринг)</text>
+        <rect x="608" y="116" width="234" height="1" fill="#1C1C1C"/>
+
+        <text x="616" y="134" fill="#828298" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">СДЕЛКА</text>
+        <text x="750" y="134" fill="#828298" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">БАЛЛ</text>
+        <text x="800" y="134" fill="#828298" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">ЗОНА</text>
+
+        <text x="616" y="152" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="9">Deal #AP-2024-081</text>
+        <text x="750" y="152" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">4.62</text>
+        <rect x="794" y="143" width="42" height="14" rx="3" fill="rgba(46,138,110,0.3)"/>
+        <text x="815" y="153" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="8">Green</text>
+
+        <text x="616" y="172" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="9">Deal #AP-2024-076</text>
+        <text x="750" y="172" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">4.31</text>
+        <rect x="794" y="163" width="42" height="14" rx="3" fill="rgba(46,138,110,0.3)"/>
+        <text x="815" y="173" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="8">Green</text>
+
+        <text x="616" y="192" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="9">Deal #AP-2024-069</text>
+        <text x="750" y="192" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">3.88</text>
+        <rect x="794" y="183" width="46" height="14" rx="3" fill="rgba(184,147,90,0.2)"/>
+        <text x="817" y="193" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8">Yellow</text>
+
+        <text x="616" y="212" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="9">Deal #AP-2024-055</text>
+        <text x="750" y="212" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">3.54</text>
+        <rect x="794" y="203" width="46" height="14" rx="3" fill="rgba(184,147,90,0.2)"/>
+        <text x="817" y="213" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8">Yellow</text>
+
+        <text x="616" y="232" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="9">Deal #AP-2024-041</text>
+        <text x="750" y="232" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">3.12</text>
+        <rect x="794" y="223" width="46" height="14" rx="3" fill="rgba(184,147,90,0.2)"/>
+        <text x="817" y="233" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="8">Yellow</text>
+
+        <text x="725" y="295" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-style="italic">* Real-time данные из Bitrix24 + Scoring Engine</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES B: ADAPTATION -->
+<section class="module-section" style="background:var(--bg2);border-top:1px solid var(--border2);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag">Категория B — Адаптация существующих модулей</span>
+      <h2 class="section-title">Три модуля на доработку</h2>
+      <p class="section-sub">Существующие системы работают, но не соответствуют актуальной методологии AP. Проводим gap-анализ, обновляем логику, не ломаем работающее.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="bevi-card">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+          <div class="module-num adapt-mod" style="font-size:9px;">Модуль 3</div>
+          <span class="module-status status-adapt">Адаптация</span>
+        </div>
+        <div class="bevi-card-title">Веб-формы Q1 / Q2 / Investor</div>
+        <div class="bevi-card-text">Gap-анализ текущих полей vs ТЗ. Добавление: 6-групповой классификатор с динамическими подтипами (Блок D), маппинг каждого поля на блок скоринга (metadata для AI), FR-Q1-08..12.</div>
+        <div class="tech-tags"><span class="tech-tag">React form diff</span><span class="tech-tag">Field mapping</span><span class="tech-tag">Validation update</span></div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text3);">Оценка: 2–3 недели</div>
+      </div>
+      <div class="bevi-card">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+          <div class="module-num adapt-mod" style="font-size:9px;">Модуль 5</div>
+          <span class="module-status status-adapt">Адаптация</span>
+        </div>
+        <div class="bevi-card-title">Scoring Engine — Weighted Scorecard</div>
+        <div class="bevi-card-text">Обновление весов 8 блоков: ROI 25%, Защита 20%, Качество 15%… Корректировка Veto Rule (любой блок &lt;2.0 = «не рекомендовано»). Зоны: Green 4.0–5.0, Yellow 3.0–3.99, Red 2.0–2.99, Black &lt;2.0.</div>
+        <div class="tech-tags"><span class="tech-tag">Weight recalibration</span><span class="tech-tag">Decision zones</span><span class="tech-tag">Veto logic</span></div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text3);">Оценка: 1–2 недели</div>
+      </div>
+      <div class="bevi-card">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+          <div class="module-num adapt-mod" style="font-size:9px;">Модуль 6</div>
+          <span class="module-status status-adapt">Адаптация</span>
+        </div>
+        <div class="bevi-card-title">Deal Pipeline Bitrix24</div>
+        <div class="bevi-card-text">Добавление стадий AI_INTERVIEW, POSITION_CLOSED. Кастомные поля: UF_SCORING_BLOCK_1..8, UF_KILL_CRITERIA_RESULT, UF_AI_SCREENING_DATE. SLA-таймеры на всех этапах. Success Fee formula в POSITION_CLOSED.</div>
+        <div class="tech-tags"><span class="tech-tag">Bitrix24 Admin API</span><span class="tech-tag">Custom fields</span><span class="tech-tag">SLA triggers</span></div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text3);">Оценка: 2–3 недели</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- E-AGENT "IGOR" -->
+<section class="module-section">
+  <div class="section-inner">
+    <div class="module-header">
+      <div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;">
+          <div class="module-num new-mod" style="background:var(--green);">E-Агент</div>
+          <span class="module-status status-new" style="background:rgba(46,138,110,0.12);color:#4EB89A;border-color:rgba(46,138,110,0.3);"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" style="margin-right:4px;vertical-align:middle;"><rect x="5" y="5" width="10" height="10" rx="2" stroke="#4EB89A" stroke-width="1.5"/><circle cx="10" cy="10" r="2" stroke="#4EB89A" stroke-width="1.5"/><path d="M10 3v2M10 15v2M3 10h2M15 10h2" stroke="#4EB89A" stroke-width="1.5" stroke-linecap="round"/></svg>Ключевой элемент архитектуры</span>
+        </div>
+        <h2 class="module-title">«Игорь» — Автономный AI-оркестратор</h2>
+        <p class="section-sub" style="margin-top:8px;">LangChain-агент на базе Claude API / GPT-4o оркестрирует весь intake-процесс: принимает Q1, проводит скрининг, двигает сделки в CRM, ведёт Q2 через Telegram, анализирует документы.</p>
+      </div>
+    </div>
+
+    <div class="diagram-box" onclick="openDiagram('igor')" title="Открыть">
+      <div class="diagram-title">Workflow E-агента «Игорь» (нажмите для развёртывания)</div>
+      <div class="diagram-expand">&#x26F6; Развернуть</div>
+      <svg id="svg-igor" viewBox="0 0 860 360" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <defs>
+          <marker id="fa3" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+            <polygon points="0 0, 8 3.5, 0 7" fill="#2E8A6E" opacity="0.8"/>
+          </marker>
+          <marker id="fa4" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+            <polygon points="0 0, 8 3.5, 0 7" fill="#B8935A" opacity="0.7"/>
+          </marker>
+          <marker id="fa5" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+            <polygon points="0 0, 8 3.5, 0 7" fill="#C05050" opacity="0.7"/>
+          </marker>
+        </defs>
+
+        <!-- Step 1: Q1 Submit -->
+        <rect x="10" y="10" width="130" height="52" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="75" y="32" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">① Q1 Submit</text>
+        <text x="75" y="48" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Web Form → JSON payload</text>
+
+        <!-- Igor receives -->
+        <rect x="180" y="10" width="150" height="52" rx="7" fill="#0A1A14" stroke="#2E8A6E" stroke-width="2"/>
+        <text x="255" y="30" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="11" font-weight="900">«ИГОРЬ»</text>
+        <text x="255" y="44" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="9">получает задачу</text>
+        <text x="255" y="56" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">LangChain Agent</text>
+
+        <!-- e-scoring -->
+        <rect x="370" y="10" width="140" height="52" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="440" y="32" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">② e-Scoring</text>
+        <text x="440" y="48" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Kill Criteria + NLP check (≤2 мин)</text>
+
+        <!-- Decision diamond -->
+        <polygon points="570,36 620,10 670,36 620,62" fill="#161616" stroke="#B8935A" stroke-width="1.5"/>
+        <text x="620" y="33" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="9" font-weight="800">PASS?</text>
+        <text x="620" y="48" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Kill Criteria</text>
+
+        <!-- KILL branch -->
+        <rect x="710" y="10" width="140" height="52" rx="7" fill="#1A0D0D" stroke="#C05050" stroke-width="1"/>
+        <text x="780" y="32" text-anchor="middle" fill="#E07070" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">KILL → Rejection</text>
+        <text x="780" y="48" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Email с причиной + Bitrix archived</text>
+
+        <!-- PASS → Q2 -->
+        <rect x="570" y="100" width="160" height="52" rx="7" fill="#0A1A14" stroke="#2E8A6E" stroke-width="1.5"/>
+        <text x="650" y="122" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">③ Telegram Q2</text>
+        <text x="650" y="138" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">5 вопросов + загрузка файлов</text>
+
+        <!-- Doc analysis -->
+        <rect x="380" y="100" width="160" height="52" rx="7" fill="#0A1A14" stroke="#2E8A6E" stroke-width="1.5"/>
+        <text x="460" y="122" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">④ Doc Analysis</text>
+        <text x="460" y="138" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">PDF/DOCX → AI summary → CRM</text>
+
+        <!-- AI Interview -->
+        <rect x="570" y="192" width="160" height="52" rx="7" fill="#0A1A14" stroke="#2E8A6E" stroke-width="1.5"/>
+        <text x="650" y="214" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">⑤ AI Avatar Interview</text>
+        <text x="650" y="230" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">4 блока · транскрипция · PDF summary</text>
+
+        <!-- CRM Update -->
+        <rect x="380" y="192" width="160" height="52" rx="7" fill="#161616" stroke="#B8935A" stroke-width="1"/>
+        <text x="460" y="214" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">CRM Update</text>
+        <text x="460" y="230" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Bitrix24: stage + comments + scoring</text>
+
+        <!-- Calendar booking -->
+        <rect x="570" y="284" width="160" height="52" rx="7" fill="#161616" stroke="#7A8A9E" stroke-width="1"/>
+        <text x="650" y="306" text-anchor="middle" fill="#C2C2D2" font-family="Urbanist,sans-serif" font-size="10" font-weight="800">⑥ Calendar Link</text>
+        <text x="650" y="322" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">→ встреча с финансовым аналитиком</text>
+
+        <!-- Arrows -->
+        <line x1="140" y1="36" x2="180" y2="36" stroke="#2E8A6E" stroke-width="1.5" marker-end="url(#fa3)"/>
+        <line x1="330" y1="36" x2="370" y2="36" stroke="#2E8A6E" stroke-width="1.5" marker-end="url(#fa3)"/>
+        <line x1="510" y1="36" x2="570" y2="36" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa4)"/>
+        <line x1="670" y1="36" x2="710" y2="36" stroke="#C05050" stroke-width="1.5" marker-end="url(#fa5)"/>
+        <!-- pass down -->
+        <line x1="620" y1="62" x2="620" y2="100" stroke="#2E8A6E" stroke-width="1.5" marker-end="url(#fa3)"/>
+        <text x="628" y="88" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="8">PASS ↓</text>
+        <!-- q2 to doc -->
+        <line x1="570" y1="126" x2="540" y2="126" stroke="#2E8A6E" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+        <line x1="540" y1="126" x2="540" y2="126" stroke="#2E8A6E" stroke-width="1" opacity="0.6"/>
+        <line x1="460" y1="100" x2="460" y2="100" stroke="#2E8A6E" stroke-width="1" opacity="0.6"/>
+        <!-- down arrows -->
+        <line x1="650" y1="152" x2="650" y2="192" stroke="#2E8A6E" stroke-width="1.5" marker-end="url(#fa3)"/>
+        <line x1="460" y1="152" x2="460" y2="192" stroke="#B8935A" stroke-width="1.5" marker-end="url(#fa4)"/>
+        <line x1="650" y1="244" x2="650" y2="284" stroke="#7A8A9E" stroke-width="1.5" marker-end="url(#fa3)"/>
+
+        <!-- Igor label -->
+        <rect x="10" y="100" width="340" height="236" rx="7" fill="rgba(46,138,110,0.03)" stroke="rgba(46,138,110,0.15)" stroke-width="1" stroke-dasharray="6,4"/>
+        <text x="175" y="120" text-anchor="middle" fill="rgba(46,138,110,0.4)" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">Зона автономной работы E-агента «Игорь»</text>
+
+        <text x="75" y="140" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Все действия логируются</text>
+        <text x="75" y="155" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">в AuditLog Bitrix24</text>
+        <text x="75" y="180" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">Комментарии к сделке</text>
+        <text x="75" y="195" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="9">пишутся автоматически</text>
+        <text x="75" y="220" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="10" font-weight="700">Claude API</text>
+        <text x="75" y="235" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">LangChain ReAct Agent</text>
+        <text x="75" y="250" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Tools: crm_tool, score_tool,</text>
+        <text x="75" y="264" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">telegram_tool, doc_parser_tool</text>
+        <text x="75" y="290" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Memory: PostgreSQL</text>
+        <text x="75" y="305" text-anchor="middle" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">conversation history per deal</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" id="timeline" style="background:var(--bg2);border-top:1px solid var(--border2);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag"><span data-i18n="sec.timeline">План реализации</span></span>
+      <h2 class="section-title"><span data-i18n="tl.title">8–12 недель до production</span></h2>
+      <p class="section-sub"><span data-i18n="tl.sub">4 фазы с чёткими deliverables. Спринты по 2 недели. Demo после каждой фазы.</span></p>
+    </div>
+
+    <!-- Visual Timeline -->
+    <div class="diagram-box" onclick="openDiagram('gantt')" title="Открыть">
+      <div class="diagram-title">Roadmap — Gantt-схема по фазам (нажмите для развёртывания)</div>
+      <div class="diagram-expand">&#x26F6; Развернуть</div>
+      <svg id="svg-gantt" viewBox="0 0 860 220" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <!-- Week axis -->
+        <text x="150" y="18" fill="#828298" font-family="Urbanist,sans-serif" font-size="8" font-weight="700">НЕДЕЛЯ →</text>
+        <line x1="150" y1="22" x2="850" y2="22" stroke="#1C1C1C" stroke-width="1"/>
+        <!-- Week marks -->
+        <line x1="150" y1="18" x2="150" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="150" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">0</text>
+        <line x1="215" y1="18" x2="215" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="215" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">2</text>
+        <line x1="282" y1="18" x2="282" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="282" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">4</text>
+        <line x1="348" y1="18" x2="348" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="348" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">6</text>
+        <line x1="416" y1="18" x2="416" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="416" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">8</text>
+        <line x1="482" y1="18" x2="482" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="482" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">10</text>
+        <line x1="548" y1="18" x2="548" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="548" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">12</text>
+        <line x1="616" y1="18" x2="616" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="616" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">14</text>
+        <line x1="682" y1="18" x2="682" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="682" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">16</text>
+        <line x1="748" y1="18" x2="748" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="748" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">18</text>
+        <line x1="815" y1="18" x2="815" y2="26" stroke="#1C1C1C" stroke-width="1"/>
+        <text x="815" y="34" text-anchor="middle" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="7">20</text>
+
+        <!-- Phase labels -->
+        <text x="10" y="70" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">Фаза 1</text>
+        <text x="10" y="84" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="8">Фундамент</text>
+        <text x="10" y="120" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">Фаза 2</text>
+        <text x="10" y="134" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="8">AI+Scoring</text>
+        <text x="10" y="170" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">Фаза 3</text>
+        <text x="10" y="184" fill="#4A4A5A" font-family="Urbanist,sans-serif" font-size="8">Investor+Teaser</text>
+        <text x="10" y="220" fill="#828298" font-family="Urbanist,sans-serif" font-size="9" font-weight="700">Фаза 4</text>
+
+        <!-- Bars -->
+        <!-- Phase 1: weeks 0-6 -->
+        <rect x="150" y="54" width="200" height="22" rx="4" fill="rgba(184,147,90,0.5)" stroke="#B8935A" stroke-width="1"/>
+        <text x="250" y="69" text-anchor="middle" fill="#000" font-family="Urbanist,sans-serif" font-size="9" font-weight="800">Bitrix24 + Forms + M3/5/6 adapt</text>
+
+        <!-- Phase 2: weeks 4-10 -->
+        <rect x="282" y="104" width="200" height="22" rx="4" fill="rgba(184,147,90,0.4)" stroke="#B8935A" stroke-width="1"/>
+        <text x="382" y="119" text-anchor="middle" fill="#000" font-family="Urbanist,sans-serif" font-size="9" font-weight="800">E-Агент + AI Avatar + Q2</text>
+
+        <!-- Phase 3: weeks 8-13 -->
+        <rect x="416" y="154" width="198" height="22" rx="4" fill="rgba(46,138,110,0.5)" stroke="#2E8A6E" stroke-width="1"/>
+        <text x="515" y="169" text-anchor="middle" fill="#fff" font-family="Urbanist,sans-serif" font-size="9" font-weight="800">M7 AmoCRM + M9 Portal + M8 Teaser</text>
+
+        <!-- Phase 4: weeks 12-16 -->
+        <rect x="548" y="204" width="200" height="22" rx="4" fill="rgba(184,147,90,0.35)" stroke="#B8935A" stroke-width="1"/>
+        <text x="648" y="219" text-anchor="middle" fill="#000" font-family="Urbanist,sans-serif" font-size="9" font-weight="800">M10 SLA + M11 Dashboards + QA</text>
+
+        <!-- Demo milestones -->
+        <circle cx="350" cy="65" r="5" fill="#B8935A"/>
+        <text x="350" y="47" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="7" font-weight="700">Demo 1</text>
+        <circle cx="482" cy="115" r="5" fill="#B8935A"/>
+        <text x="482" y="97" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="7" font-weight="700">Demo 2</text>
+        <circle cx="614" cy="165" r="5" fill="#2E8A6E"/>
+        <text x="614" y="147" text-anchor="middle" fill="#4EB89A" font-family="Urbanist,sans-serif" font-size="7" font-weight="700">Demo 3</text>
+        <circle cx="748" cy="215" r="5" fill="#B8935A"/>
+        <text x="748" y="200" text-anchor="middle" fill="#D4AF78" font-family="Urbanist,sans-serif" font-size="7" font-weight="700">Launch ✓</text>
+
+        <!-- Legend -->
+        <rect x="10" y="204" width="12" height="12" rx="2" fill="rgba(184,147,90,0.5)"/>
+        <text x="28" y="214" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Базовые модули</text>
+        <rect x="100" y="204" width="12" height="12" rx="2" fill="rgba(46,138,110,0.5)"/>
+        <text x="118" y="214" fill="#828298" font-family="Urbanist,sans-serif" font-size="8">Investor/Portal</text>
+      </svg>
+    </div>
+
+    <div class="grid-4" style="margin-top:32px;">
+      <div class="detail-box">
+        <div class="detail-box-title">Фаза 1 · 2–3 нед</div>
+        <div class="detail-row"><span class="detail-key">M3</span><span class="detail-val">Gap-анализ и адаптация форм Q1/Q2/Investor</span></div>
+        <div class="detail-row"><span class="detail-key">M5</span><span class="detail-val">Обновление весов и логики Scoring Engine</span></div>
+        <div class="detail-row"><span class="detail-key">M6</span><span class="detail-val">Bitrix24: новые стадии, custom fields, SLA</span></div>
+        <div class="detail-row"><span class="detail-key">Итог</span><span class="detail-val" style="color:var(--gold2)">Работающий intake: форма → CRM</span></div>
+      </div>
+      <div class="detail-box">
+        <div class="detail-box-title">Фаза 2 · 2–3 нед</div>
+        <div class="detail-row"><span class="detail-key">E-Агент</span><span class="detail-val">LangChain orchestrator + Telegram Q2 bot</span></div>
+        <div class="detail-row"><span class="detail-key">AI Avatar</span><span class="detail-val">Видеоинтервью + Whisper transcription</span></div>
+        <div class="detail-row"><span class="detail-key">Doc Parser</span><span class="detail-val">AI анализ финмоделей и презентаций</span></div>
+        <div class="detail-row"><span class="detail-key">Итог</span><span class="detail-val" style="color:var(--gold2)">Полный auto pre-screening</span></div>
+      </div>
+      <div class="detail-box">
+        <div class="detail-box-title">Фаза 3 · 2–3 нед</div>
+        <div class="detail-row"><span class="detail-key">M7</span><span class="detail-val">AmoCRM: воронка инвесторов + Level system</span></div>
+        <div class="detail-row"><span class="detail-key">M8</span><span class="detail-val">Teaser Generator: docxtpl + AI Summary + PDF</span></div>
+        <div class="detail-row"><span class="detail-key">M9</span><span class="detail-val">Investor Portal MVP: OTP auth + dashboard</span></div>
+        <div class="detail-row"><span class="detail-key">Итог</span><span class="detail-val" style="color:var(--gold2)">Портал + автоматические тизеры</span></div>
+      </div>
+      <div class="detail-box">
+        <div class="detail-box-title">Фаза 4 · 2–3 нед</div>
+        <div class="detail-row"><span class="detail-key">M10</span><span class="detail-val">Celery SLA monitor + 3-channel notifications</span></div>
+        <div class="detail-row"><span class="detail-key">M11</span><span class="detail-val">Deal/Portfolio/Investor dashboards</span></div>
+        <div class="detail-row"><span class="detail-key">QA</span><span class="detail-val">Load testing 500 req/mo, UAT, Security audit</span></div>
+        <div class="detail-row"><span class="detail-key">Итог</span><span class="detail-val" style="color:var(--green)">Production launch ✓</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NON-FUNCTIONAL REQUIREMENTS -->
+<style>
+.nfr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border2);border:1px solid var(--border2);border-radius:var(--radius-lg);overflow:hidden;margin-top:4px;}
+@media(max-width:900px){.nfr-grid{grid-template-columns:1fr;}}
+.nfr-col{background:var(--bg3);padding:28px;}
+.nfr-col-title{font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border2);}
+.nfr-col.perf .nfr-col-title{color:var(--gold2);}
+.nfr-col.sec .nfr-col-title{color:#4EB89A;}
+.nfr-col.rel .nfr-col-title{color:var(--silver);}
+.nfr-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border2);}
+.nfr-row:last-child{border-bottom:none;}
+.nfr-key{font-size:12px;color:var(--text3);}
+.nfr-val{font-size:12px;font-weight:700;color:var(--text2);text-align:right;white-space:nowrap;}
+.nfr-val.hi{color:var(--gold2);}
+.nfr-val.gr{color:#4EB89A;}
+.nfr-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.nfr-icon svg{width:18px;height:18px;}
+</style>
+<section class="section" style="border-top:1px solid var(--border2);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag"><span data-i18n="sec.nfr">Нефункциональные требования</span></span>
+      <h2 class="section-title"><span data-i18n="nfr.title">Производительность · Безопасность · Надёжность</span></h2>
+      <p class="section-sub"><span data-i18n="nfr.sub">Соответствуем всем NFR-требованиям технического задания.</span></p>
+    </div>
+    <div class="nfr-grid">
+      <div class="nfr-col perf">
+        <div class="nfr-icon gold-bg"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#D4AF78" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="#D4AF78" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="nfr-col-title"><span data-i18n="nfr.perf">Производительность</span></div>
+        <div class="nfr-row"><span class="nfr-key">API response (p95)</span><span class="nfr-val hi">≤ 200ms</span></div>
+        <div class="nfr-row"><span class="nfr-key">AI-скрининг E2E</span><span class="nfr-val hi">≤ 2 мин</span></div>
+        <div class="nfr-row"><span class="nfr-key">Генерация тизера</span><span class="nfr-val hi">≤ 30 сек</span></div>
+        <div class="nfr-row"><span class="nfr-key">Concurrent users</span><span class="nfr-val">≥ 100</span></div>
+        <div class="nfr-row"><span class="nfr-key">Заявок / месяц</span><span class="nfr-val">≥ 500</span></div>
+        <div class="nfr-row"><span class="nfr-key">Инструменты</span><span class="nfr-val">K6 · H-Scaling</span></div>
+      </div>
+      <div class="nfr-col sec">
+        <div class="nfr-icon blue-bg"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V5l7-3z" stroke="#4EB89A" stroke-width="1.5"/></svg></div>
+        <div class="nfr-col-title"><span data-i18n="nfr.sec">Безопасность</span></div>
+        <div class="nfr-row"><span class="nfr-key">Шифрование (transit)</span><span class="nfr-val gr">TLS 1.3</span></div>
+        <div class="nfr-row"><span class="nfr-key">Шифрование (at rest)</span><span class="nfr-val gr">AES-256</span></div>
+        <div class="nfr-row"><span class="nfr-key">Auth-токены</span><span class="nfr-val gr">JWT RS256 + MFA</span></div>
+        <div class="nfr-row"><span class="nfr-key">Контроль доступа</span><span class="nfr-val gr">RBAC · 9 ролей</span></div>
+        <div class="nfr-row"><span class="nfr-key">Санкции</span><span class="nfr-val gr">SDN / EU / UK</span></div>
+        <div class="nfr-row"><span class="nfr-key">Compliance</span><span class="nfr-val gr">GDPR · Audit Trail</span></div>
+      </div>
+      <div class="nfr-col rel">
+        <div class="nfr-icon silver-bg"><svg viewBox="0 0 20 20" fill="none"><path d="M10 3a7 7 0 100 14A7 7 0 0010 3z" stroke="#7A8A9E" stroke-width="1.5"/><path d="M10 7v3l2 2" stroke="#7A8A9E" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="nfr-col-title"><span data-i18n="nfr.rel">Надёжность</span></div>
+        <div class="nfr-row"><span class="nfr-key">Uptime SLA</span><span class="nfr-val">99.5%</span></div>
+        <div class="nfr-row"><span class="nfr-key">RPO</span><span class="nfr-val">≤ 1 час</span></div>
+        <div class="nfr-row"><span class="nfr-key">RTO</span><span class="nfr-val">≤ 4 часа</span></div>
+        <div class="nfr-row"><span class="nfr-key">Backup</span><span class="nfr-val">Daily auto + S3</span></div>
+        <div class="nfr-row"><span class="nfr-key">Disaster Recovery</span><span class="nfr-val">Geo-redundancy</span></div>
+        <div class="nfr-row"><span class="nfr-key">Мониторинг</span><span class="nfr-val">Grafana + ELK 24/7</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY BENEVSKY -->
+<section class="section" style="background:var(--bg2);border-top:1px solid var(--border2);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-tag"><span data-i18n="sec.why">Почему Meta Frame x AI Lab</span></span>
+      <h2 class="section-title"><span data-i18n="why.title">Наша экспертиза — прямое попадание в задачу</span></h2>
+      <p class="section-sub"><span data-i18n="why.sub">Мы не обобщённый подрядчик. Наша экосистема работает именно на AI-скоринге, автоматизации deal flow и CRM-интеграциях — это наш core.</p>
+    </div>
+
+    <div class="alignment-panel">
+      <div>
+        <div class="alignment-col-title">Задачи Allosta Partners</div>
+        <div class="alignment-item">
+          <div class="alignment-item-num">01</div>
+          <div>AI-скрининг и автоматизация intake за 1–2 минуты</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num">02</div>
+          <div>Deal Pipeline в Bitrix24 с 9+ стадиями и SLA</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num">03</div>
+          <div>Weighted Scorecard с 8 блоками и Veto Rule</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num">04</div>
+          <div>Investor Portal с Level-разграничением</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num">05</div>
+          <div>LangChain AI-агент для оркестрации процессов</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num">06</div>
+          <div>Real-time дашборды и аналитика воронок</div>
+        </div>
+      </div>
+      <div class="alignment-arrow">⇄</div>
+      <div>
+        <div class="alignment-col-title">Что есть у Meta Frame x AI Lab</div>
+        <div class="alignment-item">
+          <div class="alignment-item-num" style="background:rgba(46,138,110,0.15);color:#4EB89A;">01</div>
+          <div>Разрабатываем CASEM — AI-скоринг стартапов по 15 критериям (PhD-методология, Satbayev University). Технически идентичен задаче Allosta: weighted scorecard, kill criteria, зоны решений.</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num" style="background:rgba(46,138,110,0.15);color:#4EB89A;">02</div>
+          <div>Опыт настройки CRM-пайплайнов для инвест. процессов</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num" style="background:rgba(46,138,110,0.15);color:#4EB89A;">03</div>
+          <div>Собственный Scoring Engine — перенесём лучшие практики</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num" style="background:rgba(46,138,110,0.15);color:#4EB89A;">04</div>
+          <div><strong>CoreGit</strong> — наш флагманский продукт: Serverless Git Backend для AI-агентов. Semantic search по коду через Voyage AI + Pinecone, граф зависимостей на Tree-sitter, LLM Wiki (Karpathy pattern) — persistentная база знаний для AI-агентов. Независимая валидация: Garry Tan (CEO YC) и команда Sazabi (YC) построили идентичную архитектуру параллельно. Из этой же базы вырастает E-агент «Игорь».</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num" style="background:rgba(46,138,110,0.15);color:#4EB89A;">05</div>
+          <div>LangChain + Claude API — боевой опыт построения AI-агентов</div>
+        </div>
+        <div class="alignment-item">
+          <div class="alignment-item-num" style="background:rgba(46,138,110,0.15);color:#4EB89A;">06</div>
+          <div>Recharts + Next.js дашборды — в продакшне у нескольких проектов</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-4" style="margin-top:32px;">
+      <div class="traction-card">
+        <div class="traction-num">PhD</div>
+        <div class="traction-label">Методология AI-скоринга<br>Satbayev University</div>
+      </div>
+      <div class="traction-card">
+        <div class="traction-num">2012</div>
+        <div class="traction-label">В IT-разработке<br>14 лет опыта</div>
+      </div>
+      <div class="traction-card">
+        <div class="traction-num">15+</div>
+        <div class="traction-label">Продуктов<br>в портфеле хаба</div>
+      </div>
+      <div class="traction-card">
+        <div class="traction-num">ИТК</div>
+        <div class="traction-label">Член Совета IT-ассоциации<br>Казахстана</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-inner">
+    <span class="section-tag" style="display:block;text-align:center;margin-bottom:16px;"><span data-i18n="sec.cta">Следующий шаг</span></span>
+    <h2 class="section-title" style="text-align:center;margin-bottom:20px;">
+      <span data-i18n="cta.title">Готовы обсудить</span><br><span class="hero-gradient-text" data-i18n="cta.title2">формат и детали</span>
+    </h2>
+    <p style="font-size:16px;color:var(--text2);margin-bottom:36px;line-height:1.65;">
+      <span data-i18n="cta.sub">Предлагаем начать с 1-часового технического созвона: разберём scope, уточним приоритеты по модулям и согласуем формат. После — детальный договор и старт фазы 1.</span>
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://t.me/benevsky" class="btn-primary">Написать в Telegram</a>
+      <a href="tel:+77066996633" class="btn-outline">+7 706 699 66 33</a>
+    </div>
+    <div style="margin-top:32px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+      <div class="chip"><span data-i18n="cta.c1">Встреча в Алматы — готовы</span></div>
+      <div class="chip">Zoom / Google Meet</div>
+      <div class="chip">NDA</div>
+    </div>
+    <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--border2);">
+      <p style="font-size:14px;color:var(--text3);margin-bottom:6px;"><span data-i18n="cta.sign">С уважением и готовностью к сотрудничеству,</span></p>
+      <p style="font-size:18px;font-weight:900;color:var(--text);">Дархан Тельманов & Савва Беневский</p>
+      <p style="font-size:13px;color:var(--gold3);">Founder & CEO · Meta Frame x AI Lab / CASE Ecosystem</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Meta Frame x AI Lab · Allosta Partners КП · Апрель 2026</div>
+    <div class="footer-links">
+      <a href="https://t.me/benevsky" class="footer-link">Telegram</a>
+      <a href="https://linkedin.com/in/benevsky" class="footer-link">LinkedIn</a>
+      <a href="https://metaframe.ai" class="footer-link">metaframe.ai</a>
+    </div>
+    <div class="footer-meta">© 2026 Meta Frame x AI Lab · <span data-i18n="footer.conf">Конфиденциально. Только для адресата.</span></div>
+  </div>
+</footer>
+
+<script>
+  // BURGER
+  function toggleMenu() {
+    document.getElementById('burgerBtn').classList.toggle('open');
+    document.getElementById('navDrawer').classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    const btn = document.getElementById('burgerBtn');
+    const drawer = document.getElementById('navDrawer');
+    if(btn && drawer && !btn.contains(e.target) && !drawer.contains(e.target)) {
+      btn.classList.remove('open');
+      drawer.classList.remove('open');
+    }
+  });
+
+  // LIGHTBOX
+  const diagramTitles = {
+    arch:   'Архитектурная схема — Allosta Platform v1.0',
+    inv:    'Воронка инвестора — State Machine',
+    teaser: 'Pipeline генерации тизера',
+    sla:    'Двухуровневая система SLA-эскалации',
+    dash:   'Deal Pipeline Dashboard — виджеты',
+    igor:   'Workflow E-агента «Игорь»',
+    gantt:  'Roadmap — Gantt-схема по фазам'
+  };
+  function openDiagram(id) {
+    const svg = document.getElementById('svg-' + id);
+    if (!svg) return;
+    document.getElementById('lightboxTitle').textContent = diagramTitles[id] || id;
+    const clone = svg.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.style.width = '100%';
+    clone.style.height = 'auto';
+    const c = document.getElementById('lightboxContent');
+    c.innerHTML = '';
+    c.appendChild(clone);
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+
+  // ═══════════ TRANSLATIONS ═══════════
+  const T = {
+    kz: {
+      'nav.badge':    'Сәуір 2026 · Құпия',
+      'nav.formats':  'Ынтымақтастық форматтары',
+      'nav.tz':       'ТЗ талдауы',
+      'nav.arch':     'Архитектура',
+      'nav.modules':  'Модульдер',
+      'nav.timeline': 'Мерзімдер',
+      'nav.contact':  'Байланыс',
+
+      'hero.label':   'B2B · АТ-Әзірлеу · Арнайы жағдайлар',
+      'hero.title':   'Allosta Partners<br>платформасын автоматтандыру',
+      'hero.kp':      'Meta Frame x AI Lab коммерциялық ұсынысы',
+      'hero.sub':     'Толық техникалық контур: AI-скрининг пен Scoring Engine-нен Investor Portal мен тизер генераторына дейін. 5 модуль нөлден + 3 бар модульді бейімдеу.',
+      'hero.btn1':    'Форматты таңдау →',
+      'hero.btn2':    'Модульдер бойынша',
+
+      'tr.m1':  'Нөлден<br>модуль',
+      'tr.m2':  'Бейімдеу<br>модуль',
+      'tr.m3':  'Апта<br>жүзеге асыру',
+      'tr.m4':  'Deal pipeline<br>кезеңдері',
+      'tr.m5':  'AI-скрининг<br>SLA',
+      'tr.m6':  'Өтінім/ай<br>throughput',
+
+      'sec.formats':  'Ынтымақтастық форматы',
+      'formats.title':'Екі жол — бір нәтиже',
+      'formats.sub':  'Бизнес-модельге икемді бейімделеміз: мердігер ретінде немесе техникалық со-фаундер ретінде кіре аламыз.',
+
+      'fa.badge': 'A Формат — Коммерциялық тапсырыс',
+      'fa.title': 'Бекітілген келісімшарт',
+      'fa.sub':   'Бекітілген бюджет, Agile-спринттер және аяқталғаннан кейін бастапқы кодты толық беру.',
+      'fb.badge': 'B Формат — Техникалық со-фаундер',
+      'fb.title': 'Equity / Rev-Share серіктестік',
+      'fb.sub':   'Meta Frame x AI Lab техникалық серіктес ретінде кіреді: сіз инфрақұрылым мен лицензиялар үшін төлейсіз, әзірлеу біздің жағымыздан.',
+      'cost.txt': 'Сметалық құн архитектураны келіскеннен кейін есептеледі.',
+
+      'sec.tz':     'ТЗ талдауы',
+      'tz.title':   'ТЗ-ны қалай түсіндік',
+      'tz.sub':     'ТЗ-ны толық зерделедік және барлық модульдерді үш санатқа бөлдік: дайын, бейімдеу қажет, нөлден жасау қажет.',
+      'tz.c.tag':   'C Санаты — Дайын',
+      'tz.c.title': 'Әзірлеу қажет емес',
+      'tz.b.tag':   'B Санаты — Бейімдеу',
+      'tz.b.title': 'Методологияны жаңарту',
+      'tz.a.tag':   'A Санаты — Нөлден',
+      'tz.a.title': 'Негізгі скоуп',
+      'tz.conclusion': '<strong style="color:var(--gold2)">Қорытынды:</strong> Жұмыс көлемінің ~60% — A санаты (5 жаңа модуль + E-агент). B санаты жұмыс істейді — нөлден қайта жазудың мағынасы жоқ, тек методологияны жаңартамыз. C санатын қозғамаймыз.',
+
+      'sec.arch':  'Жүйелік архитектура',
+      'arch.title':'Ішінде қалай жасалған',
+      'arch.sub':  'Орталық API Gateway бар микросервистік архитектура. E-агент «Игорь» барлық intake-процесті дербес оркестрлейді.',
+      'arch.stack':'Технологиялық стек',
+
+      'sec.nfr':  'Функционалды емес талаптар',
+      'nfr.title':'Өнімділік · Қауіпсіздік · Сенімділік',
+      'nfr.sub':  'ТЗ-ның барлық NFR параметрлеріне сай жасаймыз.',
+      'nfr.perf': 'Өнімділік',
+      'nfr.sec':  'Қауіпсіздік',
+      'nfr.rel':  'Сенімділік',
+
+      'sec.timeline': 'Жүзеге асыру жоспары',
+      'tl.title':     '8–12 аптада продакшнға',
+      'tl.sub':       '4 фаза, нақты deliverables. 2 аптадан бір спринт. Әр фазадан кейін демо.',
+
+      'sec.why':  'Неліктен Meta Frame x AI Lab',
+      'why.title':'Біздің тәжірибе — нақты дәл',
+      'why.sub':  'Біз жалпы мердігер емеспіз. Meta Frame x AI Lab экожүйесі AI-скоринг пен deal flow автоматтандыруда жұмыс істейді — бұл біздің негізгі бағытымыз.',
+
+      'sec.cta':    'Келесі қадам',
+      'cta.title':  'Форматты және',
+      'cta.title2': 'егжей-тегжейлерді талқылауға дайынбыз',
+      'cta.sub':    '1 сағаттық техникалық кездесуден бастауды ұсынамыз: scope анықтаймыз, басымдықтарды нақтылаймыз, форматты келісеміз. Одан кейін — келісімшарт және 1-фаза старты.',
+      'cta.sign':   'Құрметпен және ынтымақтастыққа дайынмын,',
+      'cta.c1':     'Алматыда кездесу — дайын',
+      'footer.conf':'Құпия. Тек алушыға арналған.',
+    },
+    ru: {
+      'nav.badge':    'Апрель 2026 · Конфиденциально',
+      'nav.formats':  'Форматы сотрудничества',
+      'nav.tz':       'Анализ ТЗ',
+      'nav.arch':     'Архитектура',
+      'nav.modules':  'Модули',
+      'nav.timeline': 'Сроки',
+      'nav.contact':  'Контакт',
+
+      'hero.label':   'B2B · ИТ-Разработка · Специальные Ситуации',
+      'hero.title':   'Автоматизация платформы<br>Allosta Partners',
+      'hero.kp':      'Коммерческое предложение от Meta Frame x AI Lab',
+      'hero.sub':     'Полный технический контур: от AI-скрининга и Scoring Engine до Investor Portal и генератора тизеров. 5 модулей с нуля + адаптация 3 существующих — за одну непрерывную итерацию.',
+      'hero.btn1':    'Выбрать формат сотрудничества →',
+      'hero.btn2':    'Разбивка по модулям',
+
+      'tr.m1':  'Модулей<br>с нуля',
+      'tr.m2':  'Модулей<br>на адаптацию',
+      'tr.m3':  'Недель<br>реализации',
+      'tr.m4':  'Этапов<br>deal pipeline',
+      'tr.m5':  'AI-скрининг<br>SLA',
+      'tr.m6':  'Заявок/мес<br>throughput',
+
+      'sec.formats':  'Формат сотрудничества',
+      'formats.title':'Два пути — один результат',
+      'formats.sub':  'Гибко подстраиваемся под бизнес-модель: можем войти как подрядчик или стать техническими со-фаундерами платформы.',
+
+      'fa.badge': 'Формат A — Коммерческий заказ',
+      'fa.title': 'Фиксированный контракт',
+      'fa.sub':   'Классическая модель разработки с фиксированным бюджетом, Agile-спринтами и полной передачей исходного кода и документации по завершению.',
+      'fb.badge': 'Формат B — Технические со-фаундеры',
+      'fb.title': 'Equity / Rev-Share партнёрство',
+      'fb.sub':   'Meta Frame x AI Lab входит как технический партнёр: вы покрываете инфраструктуру и лицензии — разработка, архитектура и операционная поддержка с нашей стороны.',
+      'cost.txt': 'Стоимость высчитывается после согласования архитектуры.',
+
+      'sec.tz':     'Анализ технического задания',
+      'tz.title':   'Как мы поняли ТЗ',
+      'tz.sub':     'Детально изучили ТЗ и разделили все модули на три категории: готово, требует адаптации, нужно с нуля.',
+      'tz.c.tag':   'Категория C — Готово',
+      'tz.c.title': 'Разработка не требуется',
+      'tz.b.tag':   'Категория B — Адаптация',
+      'tz.b.title': 'Обновление под методологию',
+      'tz.a.tag':   'Категория A — С нуля',
+      'tz.a.title': 'Основной скоуп разработки',
+      'tz.conclusion': '<strong style="color:var(--gold2)">Вывод:</strong> ~60% объёма — Категория A (5 новых модулей + E-агент). Категория B работает — переписывать с нуля нет смысла, только обновим методологию. Категорию C не трогаем.',
+
+      'sec.arch':  'Системная архитектура',
+      'arch.title':'Как это устроено внутри',
+      'arch.sub':  'Микросервисная архитектура с центральным API Gateway. E-агент «Игорь» оркестрирует весь intake-процесс автономно.',
+      'arch.stack':'Технологический стек',
+
+      'sec.nfr':  'Нефункциональные требования',
+      'nfr.title':'Производительность · Безопасность · Надёжность',
+      'nfr.sub':  'Соответствуем всем NFR-требованиям технического задания.',
+      'nfr.perf': 'Производительность',
+      'nfr.sec':  'Безопасность',
+      'nfr.rel':  'Надёжность',
+
+      'sec.timeline': 'План реализации',
+      'tl.title':     '8–12 недель до production',
+      'tl.sub':       '4 фазы с чёткими deliverables. Спринты по 2 недели. Demo после каждой фазы.',
+
+      'sec.why':  'Почему Meta Frame x AI Lab',
+      'why.title':'Наша экспертиза — прямое попадание в задачу',
+      'why.sub':  'Мы не обобщённый подрядчик. Экосистема Meta Frame x AI Lab работает на AI-скоринге и автоматизации deal flow — это наш core.',
+
+      'sec.cta':    'Следующий шаг',
+      'cta.title':  'Готовы обсудить',
+      'cta.title2': 'формат и детали',
+      'cta.sub':    'Предлагаем начать с 1-часового технического созвона: разберём scope, уточним приоритеты по модулям и согласуем формат сотрудничества. После — детальный договор и старт фазы 1.',
+      'cta.sign':   'С уважением и готовностью к сотрудничеству,',
+      'cta.c1':     'Встреча в Алматы — готовы',
+      'footer.conf':'Конфиденциально. Только для адресата.',
+    },
+    en: {
+      'nav.badge':    'April 2026 · Confidential',
+      'nav.formats':  'Cooperation Formats',
+      'nav.tz':       'Spec Analysis',
+      'nav.arch':     'Architecture',
+      'nav.modules':  'Modules',
+      'nav.timeline': 'Timeline',
+      'nav.contact':  'Contact',
+
+      'hero.label':   'B2B · IT Development · Special Situations',
+      'hero.title':   'Allosta Partners<br>Platform Automation',
+      'hero.kp':      'Commercial Proposal by Meta Frame x AI Lab',
+      'hero.sub':     'Full technical scope: from AI-screening and Scoring Engine to Investor Portal and teaser generator. 5 modules from scratch + adaptation of 3 existing ones — in one continuous iteration.',
+      'hero.btn1':    'Choose Cooperation Format →',
+      'hero.btn2':    'Module Breakdown',
+
+      'tr.m1':  'Modules<br>from scratch',
+      'tr.m2':  'Modules<br>to adapt',
+      'tr.m3':  'Weeks<br>to production',
+      'tr.m4':  'Deal pipeline<br>stages',
+      'tr.m5':  'AI screening<br>SLA',
+      'tr.m6':  'Requests/mo<br>throughput',
+
+      'sec.formats':  'Cooperation Format',
+      'formats.title':'Two paths — one outcome',
+      'formats.sub':  'We adapt flexibly to your business model: we can enter as a contractor or become technical co-founders of the platform.',
+
+      'fa.badge': 'Format A — Commercial Contract',
+      'fa.title': 'Fixed-Price Contract',
+      'fa.sub':   'Classic development model with a fixed budget, Agile sprints and full handover of source code and documentation on completion.',
+      'fb.badge': 'Format B — Technical Co-Founders',
+      'fb.title': 'Equity / Rev-Share Partnership',
+      'fb.sub':   'Meta Frame x AI Lab joins as a technical partner: you cover infrastructure and licenses — development, architecture and operational support are on our side.',
+      'cost.txt': 'Cost is calculated after architecture alignment.',
+
+      'sec.tz':     'Technical Spec Analysis',
+      'tz.title':   'How we read the spec',
+      'tz.sub':     'We studied the spec in detail and split all modules into three categories: ready, needs adaptation, needs to be built from scratch.',
+      'tz.c.tag':   'Category C — Ready',
+      'tz.c.title': 'No development needed',
+      'tz.b.tag':   'Category B — Adaptation',
+      'tz.b.title': 'Update to methodology',
+      'tz.a.tag':   'Category A — From scratch',
+      'tz.a.title': 'Core development scope',
+      'tz.conclusion': '<strong style="color:var(--gold2)">Conclusion:</strong> ~60% of work is Category A (5 new modules + E-agent). Category B modules work — no reason to rewrite from scratch, we only update the methodology. Category C is untouched.',
+
+      'sec.arch':  'System Architecture',
+      'arch.title':'How it\'s built inside',
+      'arch.sub':  'Microservice architecture with a central API Gateway. E-agent "Igor" orchestrates the entire intake process autonomously.',
+      'arch.stack':'Technology Stack',
+
+      'sec.nfr':  'Non-functional Requirements',
+      'nfr.title':'Performance · Security · Reliability',
+      'nfr.sub':  'We comply with all NFR requirements from the technical specification.',
+      'nfr.perf': 'Performance',
+      'nfr.sec':  'Security',
+      'nfr.rel':  'Reliability',
+
+      'sec.timeline': 'Delivery Plan',
+      'tl.title':     '8–12 weeks to production',
+      'tl.sub':       '4 phases with clear deliverables. 2-week sprints. Demo after each phase.',
+
+      'sec.why':  'Why Meta Frame x AI Lab',
+      'why.title':'Our expertise is a direct match',
+      'why.sub':  'We are not a generalist contractor. Meta Frame x AI Lab ecosystem runs on AI-scoring and deal flow automation — that is our core.',
+
+      'sec.cta':    'Next Step',
+      'cta.title':  'Ready to discuss',
+      'cta.title2': 'format and details',
+      'cta.sub':    'We suggest starting with a 1-hour technical call: align scope, clarify module priorities and agree on the cooperation format. Then — a detailed contract and Phase 1 kickoff.',
+      'cta.sign':   'With respect and readiness to collaborate,',
+      'cta.c1':     'Meeting in Almaty — ready',
+      'footer.conf':'Confidential. For addressee only.',
+    }
+  };
+
+  function setLang(lang) {
+    document.documentElement.setAttribute('data-lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector('.lang-btn[data-lang="'+lang+'"]');
+    if (activeBtn) activeBtn.classList.add('active');
+    const dict = T[lang];
+    if (!dict) return;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) {
+        el.innerHTML = dict[key];
+      }
+    });
+    try { localStorage.setItem('lang', lang); } catch(e) {}
+  }
+
+  // init — always open in KZ
+  (function() {
+    setLang('kz');
+  })();
+
+</script>
+</body>
+</html>
