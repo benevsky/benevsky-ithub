@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allosta Partners · Оптимизированная архитектура v2.0 · Meta Frame x AI Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg-elev: #111111;
+    --bg-card: #141414;
+    --border: #1f1f1f;
+    --border-strong: #2a2a2a;
+    --text: #ededed;
+    --text-dim: #8a8a8a;
+    --text-faint: #555555;
+    --accent: #d4ff3a;
+    --accent-dim: #9bb82a;
+    --warn: #ff6b35;
+    --crit: #ff3838;
+    --good: #3ee37a;
+    --info: #5b9dff;
+    --display: 'Fraunces', Georgia, serif;
+    --sans: 'Geist', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* === HEADER === */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .brand {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .brand strong { color: var(--text); font-weight: 500; }
+
+  .nav { display: flex; gap: 24px; }
+  .nav a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav a:hover { color: var(--accent); }
+
+  /* === HERO === */
+  .hero {
+    padding: 120px 0 100px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212, 255, 58, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(42px, 6vw, 78px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    max-width: 980px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .hero-lead {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-dim);
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+
+  .hero-lead strong { color: var(--text); font-weight: 500; }
+
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .meta-item .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+  }
+
+  .meta-item .value {
+    font-family: var(--display);
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .meta-item .value em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  /* === SECTIONS === */
+  section {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label .num {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    max-width: 900px;
+  }
+
+  h2 em { font-style: italic; color: var(--accent); }
+
+  .section-lead {
+    font-size: 17px;
+    color: var(--text-dim);
+    max-width: 720px;
+    margin-bottom: 64px;
+    line-height: 1.65;
+  }
+
+  /* === THE PROVOCATIVE QUESTION === */
+  .question-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-left: 3px solid var(--warn);
+    padding: 48px 56px;
+    margin: 48px 0;
+    position: relative;
+  }
+
+  .question-box::before {
+    content: '?';
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    font-family: var(--display);
+    font-size: 120px;
+    font-style: italic;
+    color: var(--warn);
+    opacity: 0.15;
+    line-height: 1;
+  }
+
+  .question-box .q-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warn);
+    margin-bottom: 16px;
+  }
+
+  .question-box .q-text {
+    font-family: var(--display);
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .question-box .q-answer {
+    color: var(--text-dim);
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 720px;
+  }
+
+  .question-box .q-answer strong { color: var(--text); }
+
+  /* === COMPARE TABLE === */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border-strong);
+    border: 1px solid var(--border-strong);
+    margin: 48px 0;
+  }
+
+  .compare-side {
+    background: var(--bg-card);
+    padding: 40px 32px;
+  }
+
+  .compare-side.bad { background: linear-gradient(180deg, rgba(255, 107, 53, 0.04) 0%, var(--bg-card) 100%); }
+  .compare-side.good { background: linear-gradient(180deg, rgba(212, 255, 58, 0.04) 0%, var(--bg-card) 100%); }
+
+  .compare-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .compare-side.bad .compare-tag { color: var(--warn); }
+  .compare-side.good .compare-tag { color: var(--accent); }
+
+  .compare-title {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .compare-sub {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 28px;
+    font-family: var(--mono);
+  }
+
+  .compare-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .compare-list li {
+    padding-left: 28px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-dim);
+  }
+
+  .compare-list li strong { color: var(--text); font-weight: 500; }
+
+  .compare-side.bad .compare-list li::before {
+    content: '−';
+    position: absolute;
+    left: 0;
+    top: -2px;
+    color: var(--warn);
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .compare-side.good .compare-list li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    top: -2px;
+    color: var(--accent);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  /* === ARCHITECTURE STACK === */
+  .stack-diagram {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    padding: 48px;
+    margin: 48px 0;
+    border-radius: 2px;
+  }
+
+  .stack-layer {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 32px;
+    padding: 24px 0;
+    border-bottom: 1px dashed var(--border);
+    align-items: center;
+  }
+
+  .stack-layer:last-child { border-bottom: none; }
+
+  .stack-layer-name {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .stack-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tool-pill {
+    background: var(--bg-elev);
+    border: 1px solid var(--border-strong);
+    padding: 8px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .tool-pill.accent {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+    background: rgba(212, 255, 58, 0.05);
+  }
+
+  .tool-pill:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* === MODULE GRID === */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .module-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    padding: 32px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .module-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.3s;
+  }
+
+  .module-card:hover { border-color: var(--border-strong); }
+  .module-card:hover::before { height: 100%; }
+
+  .module-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .module-title {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .module-old {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-bottom: 16px;
+    text-decoration: line-through;
+  }
+
+  .module-desc {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .module-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .module-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    background: var(--bg-elev);
+    padding: 4px 8px;
+    border-radius: 2px;
+  }
+
+  /* === DECISION TABLE === */
+  .decision-table {
+    width: 100%;
+    margin: 48px 0;
+    border: 1px solid var(--border-strong);
+    border-collapse: collapse;
+    background: var(--bg-card);
+  }
+
+  .decision-table th, .decision-table td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    vertical-align: top;
+  }
+
+  .decision-table th {
+    background: var(--bg-elev);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .decision-table td.dim { color: var(--text-dim); }
+  .decision-table td.was { color: var(--warn); font-family: var(--mono); font-size: 12px; }
+  .decision-table td.now { color: var(--accent); font-family: var(--mono); font-size: 12px; font-weight: 500; }
+  .decision-table td.reason { color: var(--text-dim); font-size: 13px; line-height: 1.5; }
+
+  /* === AGENT BLOCK === */
+  .agent-block {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+    border: 1px solid var(--border-strong);
+    padding: 56px 48px;
+    margin: 48px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .agent-block::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(91, 157, 255, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .agent-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .agent-step {
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .agent-step .step-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--info);
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .agent-step .step-name {
+    font-family: var(--display);
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .agent-step .step-tool {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-faint);
+  }
+
+  .agent-step:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--info);
+    font-size: 16px;
+    z-index: 2;
+  }
+
+  /* === SAVINGS BLOCK === */
+  .savings {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border-strong);
+    border: 1px solid var(--border-strong);
+    margin-top: 48px;
+  }
+
+  .savings-cell {
+    background: var(--bg-card);
+    padding: 36px 32px;
+  }
+
+  .savings-cell .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 12px;
+  }
+
+  .savings-cell .value {
+    font-family: var(--display);
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+
+  .savings-cell .desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* === FOOTER === */
+  footer {
+    padding: 80px 0 48px;
+    border-bottom: none;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 64px;
+    align-items: end;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer-quote {
+    font-family: var(--display);
+    font-size: 28px;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--text);
+    max-width: 720px;
+  }
+
+  .footer-quote span { color: var(--accent); font-style: normal; font-weight: 400; }
+
+  .footer-meta {
+    text-align: right;
+  }
+
+  .footer-meta .name {
+    font-family: var(--display);
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .footer-meta .role {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .footer-bottom {
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.05em;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .container { padding: 0 20px; }
+    .header-inner { padding: 14px 20px; }
+    .nav { display: none; }
+    .hero { padding: 80px 0 60px; }
+    .compare { grid-template-columns: 1fr; }
+    .modules-grid { grid-template-columns: 1fr; }
+    .agent-flow { grid-template-columns: 1fr; }
+    .agent-step:not(:last-child)::after { content: '↓'; right: 50%; top: auto; bottom: -24px; transform: translateX(50%); }
+    .savings { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; text-align: left; }
+    .footer-meta { text-align: left; }
+    .stack-layer { grid-template-columns: 1fr; gap: 12px; }
+    .question-box { padding: 32px 24px; }
+    section { padding: 60px 0; }
+  }
+
+  /* === FADE IN ANIMATIONS === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero h1, .hero .hero-lead, .hero .hero-meta, .hero .eyebrow {
+    animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  }
+  .hero .eyebrow { animation-delay: 0.05s; }
+  .hero h1 { animation-delay: 0.15s; }
+  .hero .hero-lead { animation-delay: 0.3s; }
+  .hero .hero-meta { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand"><strong>Meta Frame x AI Lab</strong> · Allosta Partners · Architecture v2.0</div>
+    <nav class="nav">
+      <a href="#question">Вопрос</a>
+      <a href="#stack">Стек</a>
+      <a href="#mapping">Замены</a>
+      <a href="#agent">Агент</a>
+      <a href="#savings">Итог</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Architecture Memo · Апрель 2026 · v2.0</div>
+    <h1>Оптимизированная архитектура — <em>без двух CRM</em>, без лишних прослоек, без vendor lock-in.</h1>
+    <p class="hero-lead">
+      Дополнение к основному КП. После повторного разбора ТЗ и архитектурной схемы v1 мы пришли к выводу: <strong>двойной CRM-стек (Bitrix24 + amoCRM) — это архитектурный долг ещё до написания первой строчки кода.</strong> Здесь — обоснование альтернативы и конкретный stack под задачу.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="label">Систем долой</div>
+        <div class="value"><em>2</em> CRM</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Источник правды</div>
+        <div class="value"><em>1</em> Postgres</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Сэкономленных интеграций</div>
+        <div class="value"><em>3</em> sync-мостов</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Time-to-Market</div>
+        <div class="value">−<em>30%</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE QUESTION -->
+<section id="question">
+  <div class="container">
+    <div class="section-label"><span class="num">01</span> Главный вопрос архитектуры</div>
+    <h2>А зачем вообще <em>две CRM?</em></h2>
+    <p class="section-lead">
+      В исходной схеме v1 заложены Bitrix24 (Deal Pipeline, 9 стадий) и amoCRM (Investor Pipeline, 6 стадий) с двунаправленной синхронизацией. Прежде чем писать код — нужно ответить, что именно эти системы делают, чего не сделает обычная база данных.
+    </p>
+
+    <div class="question-box">
+      <div class="q-label">Critical question</div>
+      <div class="q-text">«Зачем amoCRM и Bitrix24, если фактически они работают как дорогая база данных с готовым канбаном?»</div>
+      <div class="q-answer">
+        В архитектуре v1 вокруг обеих CRM <strong>уже навешана PostgreSQL, FastAPI, Celery, Redis, Scoring Engine и кастомные React-дашборды</strong>. Сами CRM используются для трёх вещей: хранения сущностей, отображения канбана и отправки вебхуков. Всё это решается одной БД и React-приложением — без лицензий, без rate limits, без мостов синхронизации.
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-side bad">
+        <div class="compare-tag">v1 · Архитектура с двумя CRM</div>
+        <div class="compare-title">Bitrix24 + amoCRM + Postgres</div>
+        <div class="compare-sub">3 источника состояния, 2 sync-моста</div>
+        <ul class="compare-list">
+          <li><strong>Двойная лицензия</strong> — оплата двух SaaS ежемесячно</li>
+          <li><strong>Двунаправленная синхронизация</strong> Bitrix ↔ amoCRM — классический источник багов и расхождений данных</li>
+          <li><strong>Rate limits</strong> на API обеих платформ — узкое горлышко для AI-агента</li>
+          <li><strong>Кастомные поля как UF_*</strong> — методология AP (8 блоков скоринга, Level 1–4) натягивается поверх чужой схемы</li>
+          <li><strong>Vendor lock-in</strong> на две платформы сразу — миграция в будущем будет в 2× больнее</li>
+          <li><strong>Latency</strong> для AI-агента: каждый tool-call — это REST-хоп (~150–300мс) вместо запроса к БД (~5мс)</li>
+          <li><strong>Зависимость от маркетплейсов</strong> Bitrix/amo, их апдейтов и breaking changes в API</li>
+        </ul>
+      </div>
+      <div class="compare-side good">
+        <div class="compare-tag">v2 · Унифицированный стек</div>
+        <div class="compare-title">PostgreSQL + Custom UI</div>
+        <div class="compare-sub">1 источник правды, 0 sync-мостов</div>
+        <ul class="compare-list">
+          <li><strong>Один источник правды</strong> — PostgreSQL на PlanetScale, нет рассинхронов by design</li>
+          <li><strong>Кастомный UI</strong> на shadcn/ui (Radix) — production-grade компоненты, accessible, быстрая разработка</li>
+          <li><strong>Доменная модель first-class</strong> — Deal, Investor, Scoring, Level — нормальные таблицы с FK, а не UF-поля</li>
+          <li><strong>AI-агент работает напрямую с БД</strong> — миллисекунды вместо сотен мс, нет rate limits</li>
+          <li><strong>Свобода UX</strong> — интерфейс под методологию VC/PE, а не общий канбан «для всего»</li>
+          <li><strong>Независимость</strong> от чужих маркетплейсов и их breaking changes</li>
+          <li><strong>Time-to-market</strong> сравним с интеграцией двух CRM — кастомный канбан на dnd-kit + shadcn делается за 2–3 недели</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE STACK -->
+<section id="stack">
+  <div class="container">
+    <div class="section-label"><span class="num">02</span> Технологический стек v2.0</div>
+    <h2>Современный <em>edge-first</em> стек под задачу.</h2>
+    <p class="section-lead">
+      Выбор каждой технологии обоснован: low latency, проверенная надёжность, минимум DevOps-нагрузки, единая экосистема для serverless-нагрузок. Никакого «потому что популярно» — каждая позиция отвечает на конкретную задачу из ТЗ.
+    </p>
+
+    <div class="stack-diagram">
+      <div class="stack-layer">
+        <div class="stack-layer-name">App Layer</div>
+        <div class="stack-tools">
+          <span class="tool-pill accent">Next.js 15</span>
+          <span class="tool-pill">React Server Components</span>
+          <span class="tool-pill">TypeScript</span>
+          <span class="tool-pill accent">shadcn/ui (Radix)</span>
+          <span class="tool-pill">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-name">Hosting · Edge</div>
+        <div class="stack-tools">
+          <span class="tool-pill accent">Vercel</span>
+          <span class="tool-pill">Edge Runtime</span>
+          <span class="tool-pill">Vercel Cron</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-name">Heavy compute</div>
+        <div class="stack-tools">
+          <span class="tool-pill accent">Cloudflare Workers</span>
+          <span class="tool-pill accent">Cloudflare Queues</span>
+          <span class="tool-pill">DDoS protection (built-in)</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-name">Database</div>
+        <div class="stack-tools">
+          <span class="tool-pill accent">PostgreSQL</span>
+          <span class="tool-pill accent">PlanetScale</span>
+          <span class="tool-pill">JSONB</span>
+          <span class="tool-pill">Drizzle ORM</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-name">Auth</div>
+        <div class="stack-tools">
+          <span class="tool-pill accent">Clerk</span>
+          <span class="tool-pill">OTP / Email</span>
+          <span class="tool-pill">MFA · OAuth · RBAC</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-name">AI / Agents</div>
+        <div class="stack-tools">
+          <span class="tool-pill accent">Claude Agent SDK</span>
+          <span class="tool-pill accent">Daytona Sandboxes</span>
+          <span class="tool-pill accent">Coregit</span>
+          <span class="tool-pill">Mercury-2 dLLM</span>
+          <span class="tool-pill">Claude Sonnet</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-name">Storage</div>
+        <div class="stack-tools">
+          <span class="tool-pill accent">Cloudflare R2</span>
+          <span class="tool-pill">Zero egress fees</span>
+          <span class="tool-pill accent">Coregit</span>
+          <span class="tool-pill">для агентских артефактов</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-name">Email</div>
+        <div class="stack-tools">
+          <span class="tool-pill accent">Resend</span>
+          <span class="tool-pill">React Email</span>
+          <span class="tool-pill">Webhooks</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-name">Audit / Logs</div>
+        <div class="stack-tools">
+          <span class="tool-pill accent">PostgreSQL</span>
+          <span class="tool-pill">append-only events</span>
+          <span class="tool-pill">SQL native для AI-запросов</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPPING -->
+<section id="mapping">
+  <div class="container">
+    <div class="section-label"><span class="num">03</span> Карта замен v1 → v2</div>
+    <h2>Что и почему <em>меняем</em>.</h2>
+    <p class="section-lead">
+      Каждая позиция архитектуры v1 пересмотрена. Для каждой замены — конкретный технический аргумент. Это не «модно», это «работает быстрее и проще».
+    </p>
+
+    <table class="decision-table">
+      <thead>
+        <tr>
+          <th style="width: 22%">Слой</th>
+          <th style="width: 22%">Было (v1)</th>
+          <th style="width: 22%">Стало (v2)</th>
+          <th>Почему</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="dim">CRM / Источник правды</td>
+          <td class="was">Bitrix24 + amoCRM</td>
+          <td class="now">PostgreSQL (PlanetScale)</td>
+          <td class="reason">Один источник правды, нет sync-боли, доменная модель в нормальной схеме, нет vendor lock-in на маркетплейсы.</td>
+        </tr>
+        <tr>
+          <td class="dim">UI / Frontend</td>
+          <td class="was">Стандартные интерфейсы CRM + кастомные дашборды</td>
+          <td class="now">Next.js + shadcn/ui</td>
+          <td class="reason">Production-grade компоненты на Radix (a11y из коробки), полная свобода UX под методологию AP, единый код для портала и админки.</td>
+        </tr>
+        <tr>
+          <td class="dim">Backend / API</td>
+          <td class="was">FastAPI + Node.js Gateway + Kong</td>
+          <td class="now">Next.js API Routes + Cloudflare Workers</td>
+          <td class="reason">Один framework на фронте и бэке, edge-deploy для low latency, серверless = нет инфраструктурного DevOps. Тяжёлые задачи (очереди, парсинг) — на Workers.</td>
+        </tr>
+        <tr>
+          <td class="dim">Очереди / Background jobs</td>
+          <td class="was">Celery + Redis</td>
+          <td class="now">Cloudflare Queues + Workers</td>
+          <td class="reason">Serverless, нет сервера для обслуживания, distributed network = низкая latency глобально, встроенная DDoS-защита.</td>
+        </tr>
+        <tr>
+          <td class="dim">SLA-таймеры / Cron</td>
+          <td class="was">Celery Beat</td>
+          <td class="now">Vercel Cron + Cloudflare Cron Triggers</td>
+          <td class="reason">Декларативное расписание, ноль инфраструктуры, мониторинг из коробки.</td>
+        </tr>
+        <tr>
+          <td class="dim">AI-агент «Игорь»</td>
+          <td class="was">LangChain + кастомная память</td>
+          <td class="now">Claude Agent SDK + Daytona + Coregit</td>
+          <td class="reason">Агент SDK — production-ready под Claude, без LangChain-абстракций. Daytona — изолированные сэндбоксы для безопасного выполнения. Coregit хранит state и версии документов.</td>
+        </tr>
+        <tr>
+          <td class="dim">Latency-критичные AI-задачи</td>
+          <td class="was">GPT-4o на всё</td>
+          <td class="now">Mercury-2 dLLM (для быстрых) + Claude Sonnet (для сложных)</td>
+          <td class="reason">Diffusion LLM Mercury-2 даёт frontier-качество на простых задачах за миллисекунды. Экономия на токенах + время отклика.</td>
+        </tr>
+        <tr>
+          <td class="dim">Аутентификация</td>
+          <td class="was">Кастомная (JWT RS256 + OTP + MFA)</td>
+          <td class="now">Clerk</td>
+          <td class="reason">Кастомная auth — это всегда дыры безопасности. Clerk даёт OTP, MFA, OAuth, RBAC, session management — всё из коробки и надёжно.</td>
+        </tr>
+        <tr>
+          <td class="dim">Email</td>
+          <td class="was">SendGrid</td>
+          <td class="now">Resend</td>
+          <td class="reason">Современный API, React Email для шаблонов, простая настройка домена, у нас уже есть боевой опыт.</td>
+        </tr>
+        <tr>
+          <td class="dim">File Storage</td>
+          <td class="was">S3</td>
+          <td class="now">Cloudflare R2 + Coregit</td>
+          <td class="reason">R2 — zero egress fees (важно для тизеров и DD-документов с массовой выдачей). Coregit — для агентских артефактов с версионированием.</td>
+        </tr>
+        <tr>
+          <td class="dim">Audit Log</td>
+          <td class="was">Отдельный сервис + ELK</td>
+          <td class="now">PostgreSQL append-only таблица</td>
+          <td class="reason">Меньше движущихся частей, прямой SQL-доступ для AI-агента и аналитики, проще backup и compliance.</td>
+        </tr>
+        <tr>
+          <td class="dim">Дашборды</td>
+          <td class="was">React + Recharts (отдельный модуль)</td>
+          <td class="now">Next.js + shadcn/ui charts</td>
+          <td class="reason">Единый компонент-стек с остальным приложением, готовые chart-компоненты Recharts/Tremor под shadcn.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- AGENT -->
+<section id="agent">
+  <div class="container">
+    <div class="section-label"><span class="num">04</span> AI-агент «Игорь» v2.0</div>
+    <h2>Без LangChain. <em>Claude Agent SDK</em> + sandbox + версионируемая память.</h2>
+    <p class="section-lead">
+      В v1 агент построен на LangChain поверх REST-вызовов в Bitrix. В v2 — нативный Claude Agent SDK, прямой доступ к БД, изолированные sandboxes для безопасного выполнения и Coregit как persistent layer для state и документов.
+    </p>
+
+    <div class="agent-block">
+      <div class="agent-flow">
+        <div class="agent-step">
+          <div class="step-num">01 · INPUT</div>
+          <div class="step-name">Q1 / Q2 / Docs</div>
+          <div class="step-tool">Next.js form → Postgres</div>
+        </div>
+        <div class="agent-step">
+          <div class="step-num">02 · ORCHESTRATE</div>
+          <div class="step-name">Claude Agent SDK</div>
+          <div class="step-tool">tools: db, scoring, telegram</div>
+        </div>
+        <div class="agent-step">
+          <div class="step-num">03 · EXECUTE</div>
+          <div class="step-name">Daytona Sandbox</div>
+          <div class="step-tool">isolated · safe · stateful</div>
+        </div>
+        <div class="agent-step">
+          <div class="step-num">04 · PERSIST</div>
+          <div class="step-name">Coregit</div>
+          <div class="step-tool">versioned state + docs</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modules-grid">
+      <div class="module-card">
+        <div class="module-num">→ Claude Agent SDK</div>
+        <div class="module-title">Нативная оркестрация</div>
+        <div class="module-old">было: LangChain</div>
+        <div class="module-desc">
+          Прямая работа с tool use, без избыточных абстракций LangChain. Меньше сюрпризов на проде, прозрачный debug, нативная поддержка прерываний и многошаговых reasoning-цепочек.
+        </div>
+        <div class="module-tags">
+          <span class="module-tag">tool_use</span>
+          <span class="module-tag">streaming</span>
+          <span class="module-tag">interrupts</span>
+        </div>
+      </div>
+      <div class="module-card">
+        <div class="module-num">→ Daytona</div>
+        <div class="module-title">Изолированные сэндбоксы</div>
+        <div class="module-old">было: прямое исполнение</div>
+        <div class="module-desc">
+          Каждая агентская сессия — в изолированном контейнере. Безопасный запуск кода для парсинга финмоделей, генерации тизеров, doc analysis. Никакого риска для основной системы.
+        </div>
+        <div class="module-tags">
+          <span class="module-tag">sandbox</span>
+          <span class="module-tag">isolation</span>
+          <span class="module-tag">safe-exec</span>
+        </div>
+      </div>
+      <div class="module-card">
+        <div class="module-num">→ Coregit</div>
+        <div class="module-title">Persistent agent state</div>
+        <div class="module-old">было: PostgreSQL conversation history</div>
+        <div class="module-desc">
+          Версионированное хранилище для состояния агента и его артефактов: тизеры, скоринг-снапшоты, заметки. Git-нативная история — можно откатиться к любой версии анализа сделки.
+        </div>
+        <div class="module-tags">
+          <span class="module-tag">versioning</span>
+          <span class="module-tag">semantic-search</span>
+          <span class="module-tag">our-product</span>
+        </div>
+      </div>
+      <div class="module-card">
+        <div class="module-num">→ Mercury-2 dLLM</div>
+        <div class="module-title">Latency-критичные задачи</div>
+        <div class="module-old">было: GPT-4o на всё</div>
+        <div class="module-desc">
+          Для kill-criteria и быстрых классификаций — diffusion LLM с frontier-качеством на простых задачах за миллисекунды. Claude Sonnet остаётся для сложного reasoning. Экономия на токенах и времени.
+        </div>
+        <div class="module-tags">
+          <span class="module-tag">low-latency</span>
+          <span class="module-tag">cost-efficient</span>
+          <span class="module-tag">frontier</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAVINGS -->
+<section id="savings">
+  <div class="container">
+    <div class="section-label"><span class="num">05</span> Что мы получаем по итогу</div>
+    <h2>Меньше <em>системных частей</em> — больше скорости и надёжности.</h2>
+    <p class="section-lead">
+      Оптимизация архитектуры — не упражнение в минимализме, это прямое влияние на time-to-market, операционные расходы и debug-нагрузку команды на длинной дистанции.
+    </p>
+
+    <div class="savings">
+      <div class="savings-cell">
+        <div class="label">Меньше систем</div>
+        <div class="value">−5</div>
+        <div class="desc">Минус Bitrix24, amoCRM, Kong Gateway, Celery+Redis, отдельный logging-стек. Итого 5 систем долой из эксплуатации.</div>
+      </div>
+      <div class="savings-cell">
+        <div class="label">Меньше sync-мостов</div>
+        <div class="value">−3</div>
+        <div class="desc">Bitrix↔amo, Bitrix↔Postgres, amo↔Postgres — все три моста уходят. Один источник правды по умолчанию.</div>
+      </div>
+      <div class="savings-cell">
+        <div class="label">Time-to-market</div>
+        <div class="value">−30%</div>
+        <div class="desc">Единый стек Next.js + serverless = меньше DevOps, готовые компоненты shadcn = быстрее UI, Clerk = ноль времени на auth.</div>
+      </div>
+      <div class="savings-cell">
+        <div class="label">Latency AI-агента</div>
+        <div class="value">~10×</div>
+        <div class="desc">Прямой запрос к БД (5–10мс) вместо REST в Bitrix (150–300мс). На длинных reasoning-цепочках разница в секунды.</div>
+      </div>
+      <div class="savings-cell">
+        <div class="label">Лицензий в месяц</div>
+        <div class="value">−2</div>
+        <div class="desc">Bitrix24 и amoCRM выходят из ежемесячных расходов. Чистая экономия операционных затрат.</div>
+      </div>
+      <div class="savings-cell">
+        <div class="label">Vendor lock-in</div>
+        <div class="value">0</div>
+        <div class="desc">Ни одной зависимости от закрытых маркетплейсов. Весь stack — open standards (Postgres, S3-compat, OAuth) и production-grade managed-сервисы.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-quote">
+        Хорошая архитектура измеряется не количеством сервисов на схеме, <span>а количеством багов, которые туда не попадут на проде.</span>
+      </div>
+      <div class="footer-meta">
+        <div class="name">Дархан Тельманов & Савва Беневский</div>
+        <div class="role">Meta Frame x AI Lab</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>Allosta Partners · Architecture Memo v2.0 · Апрель 2026</div>
+      <div>Конфиденциально · Только для адресата</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
