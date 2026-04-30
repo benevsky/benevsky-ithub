@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CASE × AI LAB — Партнёрское предложение</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#000000;--bg2:#070707;--bg3:#0F0F0F;--bg4:#161616;--bg5:#1C1C1C;
+      --gold:#B8935A;--gold2:#D4AF78;--gold3:#8B6B3D;
+      --silver:#7A8A9E;--green:#2E8A6E;--green2:#1A5C49;
+      --blue:#16A34A;--blue2:#15803D;
+      --text:#F0F0F2;--text2:#C2C2D2;--text3:#828298;
+      --border:rgba(184,147,90,0.18);--border2:rgba(255,255,255,0.08);
+      --card-bg:rgba(10,10,10,0.98);--shadow:0 24px 72px rgba(0,0,0,0.75);
+      --nav-h:72px;--radius:12px;--radius-lg:20px;
+    }
+    [data-theme="light"] {
+      --bg:#FFFFFF;--bg2:#F4F6F8;--bg3:#FFFFFF;--bg4:#EAECEF;--bg5:#DDE1E7;
+      --gold:#16A34A;--gold2:#15803D;--gold3:#22C55E;--silver:#6B7280;
+      --green:#15803D;--green2:#166534;--blue:#16A34A;--blue2:#15803D;
+      --text:#111827;--text2:#374151;--text3:#6B7280;
+      --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.05);
+      --card-bg:rgba(255,255,255,0.98);--shadow:0 24px 72px rgba(0,0,0,0.06);
+    }
+    [data-theme="light"] nav { background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom-color:rgba(0,0,0,0.06); }
+    [data-theme="light"] .nav-logo-main { color:#111827; }
+    [data-theme="light"] .nav-logo-sub  { color:#16A34A; }
+    [data-theme="light"] .hero::before { background:radial-gradient(ellipse,rgba(22,163,74,0.05) 0%,transparent 70%); }
+    [data-theme="light"] .hero-gradient-text { background:linear-gradient(135deg,#111827 0%,#16A34A 45%,#22C55E 55%,#111827 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    [data-theme="light"] .hero-label { background:rgba(22,163,74,0.06);border-color:rgba(22,163,74,0.15); }
+    [data-theme="light"] .hero-label-dot { background:#16A34A; }
+    [data-theme="light"] .traction { background:#F4F6F8; }
+    [data-theme="light"] .traction-card { background:#FFFFFF;box-shadow:0 2px 12px rgba(22,163,74,0.06); }
+    [data-theme="light"] .letter-body { background:#FFFFFF;box-shadow:0 2px 32px rgba(0,0,0,0.05); }
+    [data-theme="light"] .quote-block { background:#F4F6F8;border-left-color:#16A34A; }
+    [data-theme="light"] .bevi-card { background:#FFFFFF;box-shadow:0 2px 12px rgba(22,163,74,0.05); }
+    [data-theme="light"] .bevi-card:hover { background:#F9FAFB; }
+    [data-theme="light"] .synergy-item { background:#FFFFFF;box-shadow:0 1px 8px rgba(22,163,74,0.05); }
+    [data-theme="light"] .alignment-panel { background:#FFFFFF; }
+    [data-theme="light"] .alignment-arrow { background:#EAECEF;color:#16A34A; }
+    [data-theme="light"] footer { background:#F4F6F8; }
+    [data-theme="light"] .signoff { border-top-color:rgba(22,163,74,0.1); }
+    [data-theme="light"] .nav-badge { border-color:rgba(22,163,74,0.3);color:#16A34A; }
+    [data-theme="light"] .lang-btn.active { background:#16A34A;color:#fff; }
+    [data-theme="light"] .btn-outline { color:var(--text2);border-color:rgba(22,163,74,0.2); }
+    [data-theme="light"] .btn-outline:hover { border-color:#16A34A;color:#16A34A; }
+    [data-theme="light"] .partner-tag { background:#FFFFFF;box-shadow:0 1px 6px rgba(22,163,74,0.06);border-color:rgba(22,163,74,0.1); }
+
+    .theme-btn { width:36px;height:36px;border-radius:8px;background:var(--bg4);border:1px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.2s;flex-shrink:0; }
+    .theme-btn:hover { border-color:var(--gold3);background:var(--bg3); }
+    .theme-btn .icon-dark { display:none; }
+    .theme-btn .icon-light { display:block; }
+    [data-theme="light"] .theme-btn .icon-dark { display:block; }
+    [data-theme="light"] .theme-btn .icon-light { display:none; }
+
+    *,*::before,*::after { box-sizing:border-box;margin:0;padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Urbanist',system-ui,sans-serif;background:var(--bg);color:var(--text);font-weight:500;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased; }
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:var(--bg2); }
+    ::-webkit-scrollbar-thumb { background:var(--gold3);border-radius:2px; }
+
+    h1,h2,h3,h4,.fw-bold { font-weight:800; }
+    .gold { color:var(--gold); }
+    .gold2 { color:var(--gold2); }
+    .silver { color:var(--silver); }
+    .text2 { color:var(--text2); }
+    .text3 { color:var(--text3); }
+    .green { color:var(--green); }
+
+    .container { max-width:960px;margin:0 auto;padding:0 24px; }
+    .container--wide { max-width:1140px;margin:0 auto;padding:0 24px; }
+
+    /* NAV */
+    nav { position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(0,0,0,0.90);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border2);z-index:1000;display:flex;align-items:center; }
+    .nav-inner { display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1140px;margin:0 auto;padding:0 24px; }
+    .nav-logo { display:flex;flex-direction:column;gap:2px;text-decoration:none; }
+    .nav-logo-main { font-weight:800;font-size:18px;letter-spacing:0.22em;color:var(--text);text-transform:uppercase;transition:color 0.3s; }
+    .nav-logo:hover .nav-logo-main { color:var(--gold); }
+    .nav-logo-sub { font-size:8px;letter-spacing:0.2em;color:var(--text3);text-transform:uppercase; }
+    .nav-logo-dot { display:inline-block;width:7px;height:7px;background:var(--gold);border-radius:50%;margin-right:8px;vertical-align:middle;animation:pulse 2.5s ease-in-out infinite; }
+    .nav-right { display:flex;align-items:center;gap:12px; }
+    .nav-badge { font-size:10px;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;border:1px solid var(--gold3);padding:4px 10px;border-radius:20px;opacity:0.8; }
+    .lang-switcher { display:flex;background:var(--bg4);border:1px solid var(--border2);border-radius:8px;overflow:hidden; }
+    .lang-btn { padding:6px 12px;font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);background:transparent;border:none;cursor:pointer;transition:all 0.2s;font-family:inherit; }
+    .lang-btn:hover { color:var(--text2); }
+    .lang-btn.active { background:var(--gold);color:var(--bg); }
+
+    /* ANIMATIONS */
+    @keyframes scanLine { 0%{transform:translateY(-100%);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateY(100vh);opacity:0;} }
+    @keyframes gridPulse { 0%,100%{opacity:0.03;}50%{opacity:0.07;} }
+    @keyframes heroGlowShift { 0%{transform:translateX(-50%) scale(1);opacity:0.07;}50%{transform:translateX(-50%) scale(1.15);opacity:0.12;}100%{transform:translateX(-50%) scale(1);opacity:0.07;} }
+    @keyframes counterGlow { 0%,100%{text-shadow:0 0 0 transparent;}50%{text-shadow:0 0 20px rgba(184,147,90,0.4);} }
+    @keyframes borderTrace { 0%{background-position:0% 0%;}100%{background-position:200% 0%;} }
+    @keyframes fadeSlideUp { from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes gradientFlow { 0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;} }
+    @keyframes cursorBlink { 0%,49%{opacity:1;}50%,100%{opacity:0;} }
+    @keyframes shimmerSweep { 0%{background-position:-200% center;}100%{background-position:200% center;} }
+    @keyframes neonPulseGold { 0%,100%{box-shadow:0 0 6px rgba(184,147,90,0.2),0 0 20px rgba(184,147,90,0.08);}50%{box-shadow:0 0 12px rgba(184,147,90,0.35),0 0 40px rgba(184,147,90,0.15);} }
+    @keyframes neonPulse { 0%,100%{box-shadow:0 0 6px rgba(22,163,74,0.2),0 0 20px rgba(22,163,74,0.08);}50%{box-shadow:0 0 12px rgba(22,163,74,0.35),0 0 40px rgba(22,163,74,0.15);} }
+    @keyframes particleFloat { 0%,100%{transform:translateY(0) translateX(0) scale(1);opacity:0.5;}33%{transform:translateY(-20px) translateX(8px) scale(1.1);opacity:0.8;}66%{transform:translateY(-10px) translateX(-6px) scale(0.9);opacity:0.6;} }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);} }
+
+    .hero-gradient-text { background-size:200% 200% !important;animation:gradientFlow 6s ease-in-out infinite; }
+    .hero-label::after { content:'▋';display:inline-block;margin-left:6px;font-size:0.85em;color:var(--gold);animation:cursorBlink 1s step-start infinite;vertical-align:middle; }
+    .traction-num { position:relative;overflow:hidden; }
+    .btn-primary { animation:neonPulseGold 4s ease-in-out infinite; }
+    .btn-primary:hover { animation:none; }
+    [data-theme="light"] .btn-primary { animation:neonPulse 4s ease-in-out infinite; }
+    .bevi-card,.traction-card { transition:transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94),box-shadow 0.3s ease;transform-style:preserve-3d; }
+    .bevi-card:hover { transform:perspective(800px) rotateX(-2deg) rotateY(2deg) translateY(-4px); }
+    .traction-card:hover { transform:perspective(600px) rotateX(-1.5deg) rotateY(1.5deg) translateY(-3px); }
+    .section-title-accent { position:relative;display:inline-block; }
+    .section-title-accent::after { content:'';position:absolute;bottom:-3px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold3),var(--gold));background-size:200% 100%;animation:borderTrace 3s linear infinite;border-radius:1px; }
+    .letter-body { position:relative; }
+    .letter-body::before { content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,var(--gold) 0%,transparent 40%,transparent 60%,var(--gold3) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0.3;pointer-events:none;background-size:200% 200%;animation:gradientFlow 8s ease-in-out infinite; }
+
+    /* HERO */
+    .hero { padding-top:calc(var(--nav-h) + 80px);padding-bottom:80px;position:relative;overflow:hidden; }
+    .hero::after { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(184,147,90,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,147,90,0.04) 1px,transparent 1px);background-size:60px 60px;animation:gridPulse 6s ease-in-out infinite;pointer-events:none;z-index:0; }
+    .hero > * { position:relative;z-index:1; }
+    .hero::before { content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(184,147,90,0.10) 0%,rgba(22,163,74,0.04) 40%,transparent 70%);animation:heroGlowShift 8s ease-in-out infinite;pointer-events:none;z-index:0; }
+    .hero-scanline { position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(184,147,90,0.3),transparent);animation:scanLine 8s linear infinite;pointer-events:none; }
+    [data-theme="light"] .hero-scanline { background:linear-gradient(90deg,transparent,rgba(22,163,74,0.35),transparent);z-index:2; }
+    .hero-particles { position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden; }
+    .hero-particles span { position:absolute;width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0.3;animation:particleFloat var(--dur,8s) ease-in-out var(--delay,0s) infinite; }
+    [data-theme="light"] .hero-particles span { background:#22C55E;opacity:0.2; }
+    .hero-label { display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:6px 14px;border-radius:20px;margin-bottom:32px; }
+    .hero-label-dot { width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s ease-in-out infinite; }
+    .hero h1 { font-size:clamp(32px,5vw,54px);line-height:1.12;letter-spacing:-0.02em;margin-bottom:28px;max-width:820px; }
+    .hero-gradient-text { background:linear-gradient(135deg,var(--text) 0%,var(--gold2) 50%,var(--text) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    .hero-addressee { display:flex;align-items:flex-start;gap:16px;padding:20px 24px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;max-width:560px; }
+    .hero-addressee-icon { width:40px;height:40px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px; }
+    .hero-addressee-label { font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);margin-bottom:4px; }
+    .hero-addressee-name { font-size:17px;font-weight:800;color:var(--text);margin-bottom:2px; }
+    .hero-addressee-title { font-size:12px;color:var(--text2);line-height:1.4; }
+    .hero-meta { display:flex;gap:24px;flex-wrap:wrap; }
+    .hero-meta-item { display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text3); }
+    .hero-sub { font-size:15px;color:var(--text2);margin:16px 0 28px;font-weight:500;letter-spacing:0.03em;opacity:0.85; }
+
+    /* DIVIDER */
+    .section-divider { height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0; }
+
+    /* TRACTION */
+    .traction { padding:64px 0;background:var(--bg2);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2); }
+    .traction-label { font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3);margin-bottom:40px;text-align:center; }
+    .traction-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:2px; }
+    .traction-card { padding:28px 24px;background:var(--bg3);text-align:center;position:relative;transition:background 0.3s; }
+    .traction-card:hover { background:var(--bg4); }
+    .traction-card:first-child { border-radius:var(--radius) 0 0 var(--radius); }
+    .traction-card:last-child { border-radius:0 var(--radius) var(--radius) 0; }
+    .traction-number { font-size:clamp(32px,4vw,48px);font-weight:800;color:var(--gold);line-height:1;margin-bottom:8px; }
+    .traction-desc { font-size:12px;color:var(--text2);line-height:1.4; }
+    .traction-card-accent { position:absolute;top:0;left:50%;transform:translateX(-50%);width:40px;height:2px;background:var(--gold);border-radius:0 0 2px 2px; }
+
+    /* SECTIONS */
+    section { padding:80px 0; }
+    .section-tag { display:inline-block;font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;position:relative;padding-left:16px; }
+    .section-tag::before { content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;background:var(--gold);border-radius:50%; }
+    .section-h2 { font-size:clamp(24px,3.5vw,38px);line-height:1.2;letter-spacing:-0.02em;margin-bottom:20px;max-width:720px; }
+    .section-lead { font-size:16px;font-weight:500;color:var(--text2);max-width:680px;margin-bottom:48px;line-height:1.75; }
+
+    /* LETTER */
+    .letter-body { background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:48px;margin-bottom:40px; }
+    .letter-salutation { font-size:17px;font-weight:500;color:var(--text2);margin-bottom:24px;font-style:italic; }
+    .letter-para { font-size:15px;font-weight:500;color:var(--text2);line-height:1.8;margin-bottom:20px; }
+    .letter-para strong,.letter-para b { color:var(--text);font-weight:700; }
+    .letter-highlight { display:inline;color:var(--gold2);font-weight:700; }
+    .letter-stats { display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:28px 0;border-radius:var(--radius);overflow:hidden; }
+    .letter-stat { background:var(--bg4);padding:18px 20px;display:flex;flex-direction:column;gap:4px; }
+    .letter-stat-num { font-size:26px;font-weight:800;color:var(--gold);line-height:1;animation:counterGlow 3s ease-in-out infinite; }
+    .letter-stat-label { font-size:11px;color:var(--text2);line-height:1.4; }
+    [data-theme="light"] .letter-stat { background:#F4F6F8; }
+    .letter-2col { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0; }
+    .letter-info-box { background:var(--bg4);border:1px solid var(--border2);border-radius:var(--radius);padding:20px; }
+    .letter-info-box-icon { width:32px;height:32px;border-radius:8px;background:rgba(184,147,90,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:12px; }
+    .letter-info-box-title { font-size:13px;font-weight:800;color:var(--text);margin-bottom:6px; }
+    .letter-info-box-text { font-size:12px;color:var(--text2);line-height:1.6; }
+    [data-theme="light"] .letter-info-box { background:#F4F6F8;border-color:rgba(0,0,0,0.08); }
+    .letter-problem-solution { display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:28px 0;border-radius:var(--radius);overflow:hidden; }
+    .lps-panel { padding:24px;background:var(--bg4); }
+    .lps-label { font-size:9px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px; }
+    .lps-dot { width:6px;height:6px;border-radius:50%;flex-shrink:0; }
+    .lps-text { font-size:13px;color:var(--text2);line-height:1.65; }
+    .lps-text strong { color:var(--text); }
+    [data-theme="light"] .lps-panel { background:#F9FAFB; }
+
+    /* BEVI GRID */
+    .bevi-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:40px; }
+    .bevi-card { background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;transition:border-color 0.3s,transform 0.3s; }
+    .bevi-card:hover { border-color:var(--gold3); }
+    .bevi-card-icon { width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:16px; }
+    .bevi-card-icon.gold-bg { background:rgba(184,147,90,0.15); }
+    .bevi-card-icon.blue-bg { background:rgba(22,163,74,0.15); }
+    .bevi-card-icon.green-bg { background:rgba(46,138,110,0.15); }
+    .bevi-card-icon.silver-bg { background:rgba(122,138,158,0.12); }
+    .bevi-card-title { font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px; }
+    .bevi-card-sub { font-size:11px;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px; }
+    .bevi-card-desc { font-size:13px;color:var(--text2);line-height:1.6; }
+    .bevi-badge { display:inline-block;background:rgba(184,147,90,0.12);border:1px solid rgba(184,147,90,0.25);color:var(--gold);font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-top:10px; }
+
+    /* ALIGNMENT */
+    .alignment-split { display:grid;grid-template-columns:1fr auto 1fr;gap:2px;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:40px; }
+    .alignment-panel { padding:40px;background:var(--bg3); }
+    .alignment-panel-label { font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px; }
+    .alignment-panel-label .dot { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
+    .alignment-panel-title { font-size:18px;font-weight:800;color:var(--text);margin-bottom:12px;line-height:1.3; }
+    .alignment-panel-text { font-size:14px;font-weight:500;color:var(--text2);line-height:1.75; }
+    .alignment-arrow { display:flex;align-items:center;justify-content:center;background:var(--bg4);padding:20px;font-size:24px;color:var(--gold); }
+
+    /* SYNERGY */
+    .synergy-list { display:flex;flex-direction:column;gap:12px; }
+    .synergy-item { display:flex;align-items:flex-start;gap:20px;background:var(--bg3);border:1px solid var(--border2);border-left:3px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px;transition:background 0.25s,border-left-color 0.25s; }
+    .synergy-item:hover { background:var(--bg4);border-left-color:var(--gold2); }
+    .synergy-number { width:32px;height:32px;background:var(--gold);color:var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px; }
+    .synergy-content-title { font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px; }
+    .synergy-content-desc { font-size:13px;color:var(--text2);line-height:1.6; }
+
+    /* PARTNERS */
+    .partners-strip { padding:40px 0;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2); }
+    .partners-label { font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:var(--text3);text-align:center;margin-bottom:28px; }
+    .partners-grid { display:flex;gap:12px;flex-wrap:wrap;justify-content:center; }
+    .partner-tag { background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px 18px;font-size:12px;font-weight:800;color:var(--text2);letter-spacing:0.05em;transition:all 0.25s; }
+    .partner-tag:hover { border-color:var(--gold3);color:var(--gold); }
+
+    /* CTA */
+    .cta-section { padding:100px 0 80px;text-align:center;position:relative; }
+    .cta-section::before { content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(184,147,90,0.06) 0%,transparent 70%);pointer-events:none; }
+    .cta-eyebrow { font-size:11px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px; }
+    .cta-headline { font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:16px; }
+    .cta-sub { font-size:16px;color:var(--text2);margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto; }
+    .cta-buttons { display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:56px; }
+    .btn { display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:13px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border-radius:10px;padding:14px 28px;transition:all 0.25s;text-decoration:none; }
+    .btn-primary { background:var(--gold);color:var(--bg);border:2px solid var(--gold);box-shadow:0 0 0 0 rgba(184,147,90,0); }
+    .btn-primary:hover { background:var(--gold2);border-color:var(--gold2);box-shadow:0 0 32px rgba(184,147,90,0.3);transform:translateY(-1px); }
+    .btn-outline { background:transparent;color:var(--text2);border:2px solid var(--border2); }
+    .btn-outline:hover { border-color:var(--gold3);color:var(--gold); }
+
+    /* SIGNOFF */
+    .signoff { display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding-top:40px;border-top:1px solid var(--border2);min-width:320px;text-align:left; }
+    .signoff-farewell { font-style:italic;color:var(--text2);font-size:15px;margin-bottom:12px;width:100%; }
+    .signoff-name { font-size:20px;font-weight:800;color:var(--text);width:100%; }
+    .signoff-title { font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;width:100%; }
+    .signoff-contacts { display:flex;flex-wrap:wrap;gap:8px;width:100%; }
+    .signoff-contact-item { display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2);text-decoration:none;transition:color 0.2s; }
+    .signoff-contact-item:hover { color:var(--gold); }
+
+    /* FOOTER */
+    footer { background:var(--bg2);border-top:1px solid var(--border2);padding:28px 0;text-align:center; }
+    .footer-links { display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:16px; }
+    .footer-link { font-size:12px;color:var(--text3);text-decoration:none;letter-spacing:0.05em;transition:color 0.2s; }
+    .footer-link:hover { color:var(--gold); }
+    .footer-copy { font-size:11px;color:var(--text3); }
+
+    /* QUOTE */
+    .quote-block { background:var(--bg3);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;padding:28px 32px;margin:32px 0;position:relative; }
+    .quote-block::before { content:'"';position:absolute;top:-10px;left:20px;font-size:64px;color:var(--gold);opacity:0.2;line-height:1;font-weight:800; }
+    .quote-text { font-size:15px;color:var(--text);line-height:1.7;font-style:italic; }
+
+    /* ROADMAP */
+    .roadmap-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px; }
+    .roadmap-card { background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s; }
+    .roadmap-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px; }
+    .roadmap-card.done::before { background:var(--green); }
+    .roadmap-card.active::before { background:linear-gradient(90deg,var(--gold),var(--gold2)); }
+    .roadmap-card.soon::before { background:var(--blue);opacity:0.6; }
+    .roadmap-card.future::before { background:var(--silver);opacity:0.4; }
+    .roadmap-card.done { border-left:2px solid var(--green); }
+    .roadmap-card.active { border-left:2px solid var(--gold);box-shadow:0 0 28px rgba(184,147,90,0.10); }
+    .roadmap-card.soon { border-left:2px solid var(--blue);opacity:0.92; }
+    .roadmap-card.future { border-left:2px solid var(--silver);opacity:0.85; }
+    .roadmap-card:hover { transform:translateY(-2px);border-color:var(--gold3);opacity:1; }
+    .roadmap-quarter { font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold); }
+    .roadmap-status-badge { font-size:9px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border-radius:10px; }
+    .roadmap-card.done .roadmap-status-badge { background:rgba(46,138,110,0.15);color:var(--green); }
+    .roadmap-card.active .roadmap-status-badge { background:rgba(184,147,90,0.15);color:var(--gold); }
+    .roadmap-card.soon .roadmap-status-badge { background:rgba(22,163,74,0.12);color:var(--blue); }
+    .roadmap-card.future .roadmap-status-badge { background:rgba(122,138,158,0.12);color:var(--silver); }
+    .roadmap-title { font-size:15px;font-weight:800;color:var(--text);margin:10px 0 8px; }
+    .roadmap-milestones { list-style:none;display:flex;flex-direction:column;gap:6px; }
+    .roadmap-milestones li { display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text2); }
+    .roadmap-milestones li::before { content:'→';color:var(--gold);flex-shrink:0;font-weight:700; }
+
+    /* FADE UP */
+    .fade-up { opacity:0;transform:translateY(32px);transition:opacity 0.65s cubic-bezier(0.16,1,0.3,1),transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+    .fade-up.visible { opacity:1;transform:translateY(0); }
+    .fade-up.d1 { transition-delay:0.08s; }
+    .fade-up.d2 { transition-delay:0.16s; }
+    .fade-up.d3 { transition-delay:0.24s; }
+    .fade-up.d4 { transition-delay:0.32s; }
+
+    /* SPACE ZONES */
+    .zones-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px; }
+    .zone-card { background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;transition:all 0.3s;position:relative;overflow:hidden; }
+    .zone-card::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold3)); }
+    .zone-card:hover { border-color:var(--gold3);transform:translateY(-2px); }
+    .zone-icon { font-size:28px;margin-bottom:14px; }
+    .zone-title { font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px; }
+    .zone-area { font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:10px; }
+    .zone-desc { font-size:12px;color:var(--text2);line-height:1.6; }
+
+    /* IMPACT ROW */
+    .impact-row { display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border-radius:var(--radius);overflow:hidden;margin-bottom:40px; }
+    .impact-cell { background:var(--bg3);padding:24px 20px;text-align:center; }
+    .impact-icon { font-size:24px;margin-bottom:10px; }
+    .impact-title { font-size:13px;font-weight:800;color:var(--text);margin-bottom:6px; }
+    .impact-desc { font-size:11px;color:var(--text2);line-height:1.5; }
+
+    /* PNP TIMELINE */
+    .pnp-timeline { display:flex;flex-direction:column;gap:0;position:relative; }
+    .pnp-timeline::before { content:'';position:absolute;left:27px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--green),var(--gold),var(--silver));opacity:0.4; }
+    .pnp-step { display:flex;align-items:flex-start;gap:20px;padding:20px 0;position:relative; }
+    .pnp-dot { width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;border:2px solid var(--border2);background:var(--bg3);flex-shrink:0;position:relative;z-index:1; }
+    .pnp-step.done .pnp-dot { background:var(--green2);border-color:var(--green); }
+    .pnp-step.highlight .pnp-dot { background:rgba(184,147,90,0.2);border-color:var(--gold);box-shadow:0 0 20px rgba(184,147,90,0.3); }
+    .pnp-step.future .pnp-dot { background:rgba(22,163,74,0.1);border-color:var(--blue); }
+    .pnp-content { padding-top:12px; }
+    .pnp-year { font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px; }
+    .pnp-title { font-size:15px;font-weight:800;color:var(--text);margin-bottom:6px; }
+    .pnp-text { font-size:13px;color:var(--text2);line-height:1.65; }
+
+    /* DEAL STRUCTURE */
+    .deal-table { border:1px solid var(--border2);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:40px; }
+    .deal-row { display:grid;grid-template-columns:1fr 2fr;border-bottom:1px solid var(--border2);transition:background 0.2s; }
+    .deal-row:last-child { border-bottom:none; }
+    .deal-row:hover { background:var(--bg4); }
+    .deal-row.header { background:var(--bg4); }
+    .deal-cell { padding:16px 24px;font-size:13px;display:flex;align-items:center; }
+    .deal-cell:first-child { border-right:1px solid var(--border2);font-weight:800;color:var(--text);font-size:12px;letter-spacing:0.05em;text-transform:uppercase; }
+    .deal-cell:last-child { color:var(--text2); }
+    .deal-row.header .deal-cell { font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:var(--text3); }
+    .deal-row.highlight .deal-cell:last-child { color:var(--gold);font-weight:700; }
+
+    /* RESPONSIVE */
+    @media (max-width:768px) {
+      .traction-grid { grid-template-columns:repeat(2,1fr); }
+      .bevi-grid { grid-template-columns:1fr; }
+      .alignment-split { grid-template-columns:1fr; }
+      .alignment-arrow { display:none; }
+      .letter-body { padding:28px 24px; }
+      .nav-badge { display:none; }
+      .signoff { min-width:unset;width:100%; }
+      .letter-problem-solution { grid-template-columns:1fr; }
+      .letter-stats { grid-template-columns:1fr; }
+      .letter-2col { grid-template-columns:1fr; }
+      .zones-grid { grid-template-columns:1fr 1fr; }
+      .impact-row { grid-template-columns:1fr 1fr; }
+      .roadmap-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width:480px) {
+      .traction-grid { grid-template-columns:1fr 1fr; }
+      .cta-buttons { flex-direction:column;align-items:center; }
+      .btn { width:100%;justify-content:center; }
+      .zones-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-main"><span class="nav-logo-dot"></span>CASE × AI LAB</span>
+        <span class="nav-logo-sub">Startup Hub · Алматы · Партнёрское предложение</span>
+      </a>
+      <div class="nav-right">
+        <span class="nav-badge">Конфиденциально · 2026</span>
+        <button class="theme-btn" id="themeToggle" title="Toggle theme">
+          <span class="icon-light">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </span>
+          <span class="icon-dark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-scanline"></div>
+    <div class="hero-particles" aria-hidden="true">
+      <span style="--dur:9s;--delay:0s;top:15%;left:8%;"></span>
+      <span style="--dur:12s;--delay:2s;top:30%;left:78%;"></span>
+      <span style="--dur:7s;--delay:1.5s;top:65%;left:22%;"></span>
+      <span style="--dur:11s;--delay:3s;top:50%;left:88%;"></span>
+      <span style="--dur:8s;--delay:0.5s;top:80%;left:55%;"></span>
+      <span style="--dur:14s;--delay:4s;top:20%;left:45%;"></span>
+    </div>
+    <div class="container">
+
+      <div class="fade-up">
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          Предложение о сотрудничестве · Алматы, 2026
+        </div>
+      </div>
+
+      <h1 class="fade-up d1">
+        <span class="hero-gradient-text">Startup Hub в горах Алматы —<br>CASE × AI LAB</span>
+      </h1>
+
+      <p class="hero-sub fade-up d2">
+        Учебный центр для стартапов + продакшен команда · 400 кв.м · 150 проектов к 2030 году
+      </p>
+
+      <div class="hero-addressee fade-up d3">
+        <div class="hero-addressee-icon">🏔️</div>
+        <div>
+          <div class="hero-addressee-label">Объект партнёрства</div>
+          <div class="hero-addressee-name">СО Свежесть 156, Алматы</div>
+          <div class="hero-addressee-title">Дом в горах · 400 кв.м · Полностью оборудован под офис<br>Идеальное пространство для стартап-хаба нового поколения</div>
+        </div>
+      </div>
+
+      <div class="hero-meta fade-up d4">
+        <div class="hero-meta-item">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          400 кв.м · Горы Алматы
+        </div>
+        <div class="hero-meta-item">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          CASE Ecosystem · AI LAB
+        </div>
+        <div class="hero-meta-item">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Цель: 150 стартапов к 2030
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- TRACTION STRIP -->
+  <div class="traction">
+    <div class="container">
+      <div class="traction-label fade-up">Ключевые параметры проекта</div>
+      <div class="traction-grid">
+        <div class="traction-card fade-up d1">
+          <div class="traction-card-accent"></div>
+          <div class="traction-number">400</div>
+          <div class="traction-desc">кв.м оборудованного<br>пространства в горах</div>
+        </div>
+        <div class="traction-card fade-up d2">
+          <div class="traction-card-accent"></div>
+          <div class="traction-number">2</div>
+          <div class="traction-desc">Направления: Edu-центр<br>+ Production команда</div>
+        </div>
+        <div class="traction-card fade-up d3">
+          <div class="traction-card-accent"></div>
+          <div class="traction-number">150</div>
+          <div class="traction-desc">Стартапов в портфеле<br>хаба к 2030 году</div>
+        </div>
+        <div class="traction-card fade-up d4">
+          <div class="traction-card-accent"></div>
+          <div class="traction-number">12+</div>
+          <div class="traction-desc">Институциональных<br>партнёров CASE уже сейчас</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- LETTER: СУТЬ ПРЕДЛОЖЕНИЯ -->
+  <section>
+    <div class="container">
+      <div class="section-tag fade-up">Суть предложения</div>
+      <h2 class="section-h2 fade-up d1">Ваш дом становится<br>точкой входа в экосистему ЦА</h2>
+
+      <div class="letter-body fade-up d2">
+        <p class="letter-salutation">Уважаемый партнёр,</p>
+        <p class="letter-para">
+          У вас есть <strong>уникальный актив</strong> — дом в горах Алматы (СО Свежесть 156), 400 квадратных метров, полностью оборудованных под офис. Это не просто недвижимость — это готовая инфраструктура в одной из самых привлекательных локаций города.
+        </p>
+        <p class="letter-para">
+          Мы предлагаем вместе реализовать проект <span class="letter-highlight">CASE × AI LAB Startup Hub</span> — первый в Алматы стартап-хаб нового формата, где обучение, менторство и реальная разработка продуктов происходят под одной крышей. Две составляющие: <strong>учебный центр для стартапов</strong> и <strong>продакшен команда AI LAB</strong>, которая помогает стартапам с конкретными задачами.
+        </p>
+
+        <div class="letter-problem-solution">
+          <div class="lps-panel">
+            <div class="lps-label" style="color:var(--silver);">
+              <span class="lps-dot" style="background:var(--silver);"></span>
+              Что предоставляете вы
+            </div>
+            <div class="lps-text">
+              <strong>Помещение 400 кв.м</strong> в горах Алматы на долгосрочной основе. Уже оборудовано — не требует капитальных вложений. Уникальная локация, которая сама по себе становится <strong>частью бренда</strong> хаба.
+            </div>
+          </div>
+          <div class="lps-panel" style="border-left:2px solid var(--gold);">
+            <div class="lps-label" style="color:var(--gold);">
+              <span class="lps-dot" style="background:var(--gold);"></span>
+              Что обеспечиваем мы
+            </div>
+            <div class="lps-text">
+              <strong>Операционное управление</strong>, наполнение резидентами, программы для стартапов, экосистему CASE, AI LAB команду, партнёрскую сеть из 12+ институциональных игроков и постоянный поток проектов.
+            </div>
+          </div>
+        </div>
+
+        <div class="letter-stats">
+          <div class="letter-stat">
+            <div class="letter-stat-num">15+</div>
+            <div class="letter-stat-label">Стартапов уже в экосистеме CASE готовы к резидентству</div>
+          </div>
+          <div class="letter-stat">
+            <div class="letter-stat-num">2026</div>
+            <div class="letter-stat-label">Год запуска — рынок ЦА на пике роста интереса к стартапам</div>
+          </div>
+          <div class="letter-stat">
+            <div class="letter-stat-num">×10</div>
+            <div class="letter-stat-label">Потенциальный рост стоимости доли к 2030 году</div>
+          </div>
+        </div>
+
+        <div class="quote-block" style="margin-bottom:0;">
+          <p class="quote-text">
+            Стартап-хаб CASE × AI LAB — это не коворкинг. Это <strong style="color:var(--gold)">живая операционная система для стартапов</strong>: они приходят с идеей, получают образование, экспертизу, команду и выходят с готовым продуктом и первыми инвестициями.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ИНФРАСТРУКТУРА ПРОСТРАНСТВА -->
+  <section style="background:var(--bg2);">
+    <div class="container">
+      <div class="section-tag fade-up">Инфраструктура</div>
+      <h2 class="section-h2 fade-up d1">Что будет в пространстве —<br>7 функциональных зон</h2>
+      <p class="section-lead fade-up d2">400 кв.м разделятся на специализированные зоны, каждая из которых усиливает работу стартапов и создаёт уникальный продукт для резидентов хаба.</p>
+
+      <div class="zones-grid fade-up d3">
+        <div class="zone-card">
+          <div class="zone-icon">💻</div>
+          <div class="zone-area">~80 кв.м</div>
+          <div class="zone-title">Коворкинг-зона</div>
+          <div class="zone-desc">20–25 постоянных рабочих мест для резидентов. Выделенные столы, hot-desk зона, высокоскоростной интернет, принтеры и перегородки для концентрации.</div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-icon">🤖</div>
+          <div class="zone-area">~60 кв.м</div>
+          <div class="zone-title">AI Lab</div>
+          <div class="zone-desc">Мощные рабочие станции, GPU-серверы для AI-разработки и дата-сайенс. Здесь работает продакшен команда AI LAB и резиденты, строящие AI-продукты.</div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-icon">🎤</div>
+          <div class="zone-area">~70 кв.м</div>
+          <div class="zone-title">Event Space</div>
+          <div class="zone-desc">Зал до 50 человек для воркшопов, Demo Days, питч-сессий с инвесторами и образовательных мероприятий. Трансформируется под разные форматы.</div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-icon">🤝</div>
+          <div class="zone-area">~40 кв.м</div>
+          <div class="zone-title">Переговорные комнаты</div>
+          <div class="zone-desc">2–3 закрытых переговорных для встреч с инвесторами, менторскими сессиями и важными звонками. Оборудованы ТВ, вайтбордом и видеосвязью.</div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-icon">🎬</div>
+          <div class="zone-area">~30 кв.м</div>
+          <div class="zone-title">Контент-студия</div>
+          <div class="zone-desc">Студия записи питч-видео, подкастов, демо-материалов и контента для соцсетей. Стартапы создают профессиональный контент прямо в хабе.</div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-icon">☕</div>
+          <div class="zone-area">~50 кв.м</div>
+          <div class="zone-title">Lounge & Нетворкинг</div>
+          <div class="zone-desc">Кухня-лаунж для неформального общения — место, где рождаются коллаборации. Плюс зона для размещения приезжих менторов и инвесторов из других городов.</div>
+        </div>
+        <div class="zone-card" style="grid-column:span 1;">
+          <div class="zone-icon">📚</div>
+          <div class="zone-area">~70 кв.м</div>
+          <div class="zone-title">Edu-центр CASE</div>
+          <div class="zone-desc">Класс для образовательных программ: курсы по продукту, привлечению инвестиций, AI-разработке и строительству бизнеса. Постоянные когорты резидентов проходят здесь обучение.</div>
+        </div>
+      </div>
+
+      <!-- Impact row -->
+      <div class="impact-row fade-up d4">
+        <div class="impact-cell">
+          <div class="impact-icon">🏔️</div>
+          <div class="impact-title">Горная локация</div>
+          <div class="impact-desc">Уединённость + чистый воздух = фокус и продуктивность. Это часть бренда хаба</div>
+        </div>
+        <div class="impact-cell">
+          <div class="impact-icon">⚡</div>
+          <div class="impact-title">Всё под одной крышей</div>
+          <div class="impact-desc">Резиденты не тратят время на организацию — всё готово для работы с первого дня</div>
+        </div>
+        <div class="impact-cell">
+          <div class="impact-icon">🤝</div>
+          <div class="impact-title">Живое сообщество</div>
+          <div class="impact-desc">Физическое присутствие создаёт связи, которые невозможно построить онлайн</div>
+        </div>
+        <div class="impact-cell">
+          <div class="impact-icon">🚀</div>
+          <div class="impact-title">Команда on-site</div>
+          <div class="impact-desc">AI LAB команда работает здесь же — мгновенная помощь стартапам без задержек</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PLUG AND PLAY EXAMPLE -->
+  <section>
+    <div class="container">
+      <div class="section-tag fade-up">Мировой прецедент</div>
+      <h2 class="section-h2 fade-up d1">Plug and Play: с офиса в Калифорнии<br>до крупнейшей платформы мира</h2>
+      <p class="section-lead fade-up d2">История компании, которая начиналась ровно так же — с одного физического пространства. И именно это пространство стало фундаментом глобальной экосистемы.</p>
+
+      <div class="pnp-timeline fade-up d3">
+        <div class="pnp-step done">
+          <div class="pnp-dot">🏢</div>
+          <div class="pnp-content">
+            <div class="pnp-year">2006 — Начало</div>
+            <div class="pnp-title">Просто офисное пространство в Саннивейле</div>
+            <div class="pnp-text">Саид Амиди арендовал несколько помещений в Кремниевой долине и начал сдавать их молодым командам по льготным ставкам. Никакого фонда, никакой формальной структуры акселератора — только пространство и вера в то, что правильные люди должны быть рядом друг с другом.</div>
+          </div>
+        </div>
+        <div class="pnp-step done">
+          <div class="pnp-dot">💡</div>
+          <div class="pnp-content">
+            <div class="pnp-year">2007–2012 — Резиденты</div>
+            <div class="pnp-title">PayPal, Dropbox, LendingClub, Google начинали здесь</div>
+            <div class="pnp-text">Физическое соседство создало эффект, который невозможно воспроизвести онлайн: основатели решали задачи вместе, инвесторы регулярно посещали пространство, экспертиза передавалась в неформальных разговорах. Пространство стало магнитом для лучших команд региона.</div>
+          </div>
+        </div>
+        <div class="pnp-step highlight">
+          <div class="pnp-dot">🌍</div>
+          <div class="pnp-content">
+            <div class="pnp-year">2013–2020 — Масштабирование</div>
+            <div class="pnp-title">Физическое → Глобальная платформа</div>
+            <div class="pnp-text">Успех одного хаба стал доказательством модели. Plug and Play начала открывать офисы по всему миру — сначала в крупных городах США, затем в Европе, Азии, на Ближнем Востоке. Физическое пространство стало ядром, вокруг которого выросла корпоративная акселерационная программа.</div>
+          </div>
+        </div>
+        <div class="pnp-step future">
+          <div class="pnp-dot">📊</div>
+          <div class="pnp-content">
+            <div class="pnp-year">Сегодня — Результат</div>
+            <div class="pnp-title">50+ локаций · 4 000+ стартапов ежегодно · $9 млрд+ инвестиций</div>
+            <div class="pnp-text">Корпоративные партнёры: Walmart, Mercedes-Benz, Nestlé, Pfizer, Samsung. Plug and Play сегодня — это крупнейшая в мире инновационная платформа. Всё началось с одного физического пространства и веры в то, что экосистема важнее отдельных игроков.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-block fade-up d4">
+        <p class="quote-text">
+          <strong style="color:var(--gold)">CASE × AI LAB Startup Hub — это наш Plug and Play для Центральной Азии.</strong> Алматы — крупнейший деловой центр региона. Горная локация, уникальная экосистема CASE и продакшен команда AI LAB создают условия, которых здесь ещё никогда не было.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CASE ECOSYSTEM -->
+  <section style="background:var(--bg2);">
+    <div class="container">
+      <div class="section-tag fade-up">Экосистема CASE</div>
+      <h2 class="section-h2 fade-up d1">Central Asia Startup Ecosystem —<br>первая единая платформа региона</h2>
+      <p class="section-lead fade-up d2">CASE — это не просто сайт или CRM. Это первая попытка построить прозрачную, измеримую и привлекательную для международного капитала инфраструктуру стартап-рынка Центральной Азии.</p>
+
+      <div class="bevi-grid fade-up d3">
+        <div class="bevi-card">
+          <div class="bevi-card-icon gold-bg">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="bevi-card-title">AI-скоринг CASEM</div>
+          <div class="bevi-card-sub">Ключевая технология</div>
+          <div class="bevi-card-desc">Central Asia Startup Evaluation Methodology — 40+ метрик оценки стартапов, разработанная на базе PhD-диссертации. Единственная объективная система оценки в регионе, устраняющая субъективность в сделках. Инвесторы получают прозрачные данные, стартапы — честную обратную связь.</div>
+          <span class="bevi-badge">40+ метрик</span>
+        </div>
+        <div class="bevi-card">
+          <div class="bevi-card-icon blue-bg">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="bevi-card-title">Матчинг с инвесторами</div>
+          <div class="bevi-card-sub">Инфраструктура сделок</div>
+          <div class="bevi-card-desc">Платформа автоматически сопоставляет стартапы с релевантными инвесторами на основе скоринга CASEM, стадии развития и отраслевого фокуса. Устраняет самую болезненную проблему рынка — непрозрачность и случайность в поиске финансирования.</div>
+          <span class="bevi-badge">Автоматический матчинг</span>
+        </div>
+        <div class="bevi-card">
+          <div class="bevi-card-icon green-bg">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <div class="bevi-card-title">Аналитика экосистемы</div>
+          <div class="bevi-card-sub">Прозрачность рынка</div>
+          <div class="bevi-card-desc">Единый дашборд с данными о венчурном рынке ЦА в реальном времени: динамика стартапов, активность инвесторов, статистика сделок, тренды по секторам. Делает рынок видимым для международного капитала.</div>
+          <span class="bevi-badge">Real-time данные</span>
+        </div>
+        <div class="bevi-card">
+          <div class="bevi-card-icon silver-bg">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--silver)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div class="bevi-card-title">Экосистема 360°</div>
+          <div class="bevi-card-sub">Объединение игроков</div>
+          <div class="bevi-card-desc">CASE объединяет всех: стартапы, инвесторов, корпорации, университеты, государство и экспертов — в единой точке входа. 15+ стартапов-резидентов, 12+ институциональных партнёров. Запуск платформы Q2 2026.</div>
+          <span class="bevi-badge">Запуск Q2 2026</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- AI LAB -->
+  <section>
+    <div class="container">
+      <div class="section-tag fade-up">AI LAB — Продакшен команда</div>
+      <h2 class="section-h2 fade-up d1">Команда, которая решает<br>реальные задачи стартапов</h2>
+      <p class="section-lead fade-up d2">AI LAB — это не консультанты и не менторы. Это действующая продакшен команда, которая работает вместе со стартапами над конкретными результатами: от MVP до привлечения инвестиций.</p>
+
+      <div class="alignment-split fade-up d3">
+        <div class="alignment-panel">
+          <div class="alignment-panel-label">
+            <span class="dot" style="background:var(--gold);"></span>
+            <span style="color:var(--gold);">Что делает AI LAB</span>
+          </div>
+          <div class="alignment-panel-title">Строим продукты вместе со стартапами</div>
+          <div class="alignment-panel-text">
+            Команда AI LAB берётся за задачи, которые стартап не может решить в одиночку: разработка AI-функционала, построение продуктовой стратегии, дизайн UX/UI, настройка growth-каналов, подготовка питч-деков для инвесторов.<br><br>
+            Модель работы гибкая: equity-for-services (доля в обмен на работу) или fee-for-service. Это создаёт прямую заинтересованность команды в успехе каждого стартапа.
+          </div>
+        </div>
+        <div class="alignment-arrow">⚡</div>
+        <div class="alignment-panel">
+          <div class="alignment-panel-label">
+            <span class="dot" style="background:var(--green);"></span>
+            <span style="color:var(--green);">Что получает стартап</span>
+          </div>
+          <div class="alignment-panel-title">Команда и экспертиза без найма</div>
+          <div class="alignment-panel-text">
+            Стартап получает доступ к опытным специалистам в AI-разработке, продукте и маркетинге — без необходимости нанимать дорогостоящих сотрудников на ранней стадии.<br><br>
+            Присутствие AI LAB в хабе означает: любой резидент может поставить задачу и получить результат в тот же день. Это критически ускоряет development cycle и сокращает time-to-market.
+          </div>
+        </div>
+      </div>
+
+      <div class="synergy-list fade-up d4">
+        <div class="synergy-item">
+          <div class="synergy-number">1</div>
+          <div>
+            <div class="synergy-content-title">AI-разработка и MVP</div>
+            <div class="synergy-content-desc">Разработка AI-функционала, автоматизации, чат-ботов, рекомендательных систем и интеграций. Стартап получает работающий прототип за недели, а не месяцы.</div>
+          </div>
+        </div>
+        <div class="synergy-item">
+          <div class="synergy-number">2</div>
+          <div>
+            <div class="synergy-content-title">Продуктовая стратегия и UX</div>
+            <div class="synergy-content-desc">Исследование пользователей, построение product roadmap, дизайн интерфейсов и пользовательских сценариев. Продукт строится правильно с первого дня.</div>
+          </div>
+        </div>
+        <div class="synergy-item">
+          <div class="synergy-number">3</div>
+          <div>
+            <div class="synergy-content-title">Инвестиционная подготовка</div>
+            <div class="synergy-content-desc">Финансовые модели, питч-деки, data room, подготовка к due diligence. Команда AI LAB уже помогла 15+ проектам пройти этот путь.</div>
+          </div>
+        </div>
+        <div class="synergy-item">
+          <div class="synergy-number">4</div>
+          <div>
+            <div class="synergy-content-title">Growth и маркетинг</div>
+            <div class="synergy-content-desc">Построение каналов привлечения, контент-стратегия, SEO, запуск performance-кампаний. Стартапы получают первых пользователей, а не только красивый продукт.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PARTNERS STRIP -->
+  <div class="partners-strip">
+    <div class="container">
+      <div class="partners-label">Текущие партнёры и резиденты экосистемы CASE</div>
+      <div class="partners-grid">
+        <div class="partner-tag">Satbayev University</div>
+        <div class="partner-tag">Astana Hub</div>
+        <div class="partner-tag">QazTech</div>
+        <div class="partner-tag">Benevsky IT Hub</div>
+        <div class="partner-tag">ИТК Казахстан</div>
+        <div class="partner-tag">MOST Ventures</div>
+        <div class="partner-tag">Казахстанские бизнес-ангелы</div>
+        <div class="partner-tag">Digital Almaty</div>
+        <div class="partner-tag">AIFC FinTech Hub</div>
+        <div class="partner-tag">12+ институциональных</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ROADMAP К 150 ПРОЕКТАМ -->
+  <section style="background:var(--bg2);">
+    <div class="container">
+      <div class="section-tag fade-up">Дорожная карта</div>
+      <h2 class="section-h2 fade-up d1">Путь к 150 проектам<br>в портфеле к 2030 году</h2>
+      <p class="section-lead fade-up d2">Каждый стартап, прошедший через хаб, приносит хабу долю — это классическая модель equity-based акселератора. К 2030 году портфель из 150 проектов создаст диверсифицированный актив с потенциальной стоимостью сотен миллионов долларов.</p>
+
+      <div class="roadmap-grid fade-up d3">
+        <div class="roadmap-card done">
+          <div class="roadmap-card-header">
+            <span class="roadmap-quarter">Q2 2026</span>
+            <span class="roadmap-status-badge">✓ Запуск</span>
+          </div>
+          <div class="roadmap-title">Открытие хаба и первая когорта</div>
+          <ul class="roadmap-milestones">
+            <li>Запуск пространства и оборудование зон</li>
+            <li>Первые 15–20 резидентов из CASE</li>
+            <li>Запуск образовательной программы</li>
+            <li>Официальный запуск платформы CASE</li>
+          </ul>
+        </div>
+        <div class="roadmap-card active">
+          <div class="roadmap-card-header">
+            <span class="roadmap-quarter">Q3–Q4 2026</span>
+            <span class="roadmap-status-badge">▶ Активный рост</span>
+          </div>
+          <div class="roadmap-title">Первые 30 проектов в портфеле</div>
+          <ul class="roadmap-milestones">
+            <li>2–3 когорты резидентов (по 10–15 стартапов)</li>
+            <li>Первые сделки equity-for-services</li>
+            <li>Demo Days с инвесторами</li>
+            <li>Первые инвестиционные раунды резидентов</li>
+          </ul>
+        </div>
+        <div class="roadmap-card soon">
+          <div class="roadmap-card-header">
+            <span class="roadmap-quarter">2027–2028</span>
+            <span class="roadmap-status-badge">◎ Масштаб</span>
+          </div>
+          <div class="roadmap-title">50–80 проектов · Региональный бренд</div>
+          <ul class="roadmap-milestones">
+            <li>CASE × AI LAB — топ хаб ЦА</li>
+            <li>Корпоративные партнёрства</li>
+            <li>Программа для международных стартапов</li>
+            <li>Первые выходы (exits) из портфеля</li>
+          </ul>
+        </div>
+        <div class="roadmap-card future">
+          <div class="roadmap-card-header">
+            <span class="roadmap-quarter">2029–2030</span>
+            <span class="roadmap-status-badge">◇ Цель</span>
+          </div>
+          <div class="roadmap-title">150 проектов · Стоимость портфеля</div>
+          <ul class="roadmap-milestones">
+            <li>150 проектов в портфеле хаба</li>
+            <li>Средняя оценка Seed: $2–5 млн</li>
+            <li>Доля хаба: 3–7% в каждом проекте</li>
+            <li>Расчётная стоимость портфеля: $30–100 млн+</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- DEAL STRUCTURE -->
+  <section>
+    <div class="container">
+      <div class="section-tag fade-up">Условия партнёрства</div>
+      <h2 class="section-h2 fade-up d1">Структура сделки —<br>прозрачно и по существу</h2>
+      <p class="section-lead fade-up d2">Мы предлагаем долевое партнёрство: ваш актив (помещение) конвертируется в долю в стартап-хабе. Хаб в свою очередь накапливает доли в каждом прошедшем через него стартапе.</p>
+
+      <div class="deal-table fade-up d3">
+        <div class="deal-row header">
+          <div class="deal-cell">Параметр</div>
+          <div class="deal-cell">Детали</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-cell">Объект</div>
+          <div class="deal-cell">СО Свежесть 156, Алматы — 400 кв.м, дом в горах, оборудован под офис</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-cell">Что вносит партнёр</div>
+          <div class="deal-cell">Предоставление помещения на долгосрочной основе (долгосрочная аренда или совместное пользование)</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-cell">Что вносим мы</div>
+          <div class="deal-cell">Операционное управление, резиденты, программы, экосистема CASE, AI LAB команда, партнёрская сеть, бренд и трафик проектов</div>
+        </div>
+        <div class="deal-row highlight">
+          <div class="deal-cell">Доля партнёра</div>
+          <div class="deal-cell">X% в CASE × AI LAB Startup Hub — обсуждается индивидуально. Доля фиксируется в юридическом соглашении</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-cell">Что даёт доля</div>
+          <div class="deal-cell">Процент от прибыли хаба, участие в governance, пропорциональная доля в портфеле из 150 проектов к 2030 году</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-cell">Формат управления</div>
+          <div class="deal-cell">Операционное управление — команда CASE × AI LAB. Стратегические решения — совместно с партнёром пропорционально доле</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-cell">Горизонт</div>
+          <div class="deal-cell">Долгосрочное партнёрство с целевым горизонтом до 2030 года и возможностью пролонгации</div>
+        </div>
+        <div class="deal-row highlight">
+          <div class="deal-cell">Потенциал к 2030</div>
+          <div class="deal-cell">150 проектов в портфеле, расчётная стоимость долей: $30–100 млн+ при средней оценке Seed $2–5 млн и доле 3–7% в каждом</div>
+        </div>
+      </div>
+
+      <div class="quote-block fade-up d4" style="margin-top:0;">
+        <p class="quote-text">
+          Plug and Play в 2006 году отдал первым резидентам пространство практически бесплатно. Сегодня его портфель оценивается в миллиарды. <strong style="color:var(--gold)">Ваш дом в горах — это не просто актив. Это точка входа в следующие 150 историй успеха из Центральной Азии.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-eyebrow fade-up">CASE × AI LAB · Алматы · 2026</div>
+      <h2 class="cta-headline fade-up d1">
+        Давайте обсудим<br><span class="gold">условия партнёрства</span>
+      </h2>
+      <p class="cta-sub fade-up d2">
+        Готовы показать детальный бизнес-план, финансовую модель и ответить на все вопросы при личной встрече. Следующий шаг — короткий звонок или встреча в удобном для вас формате.
+      </p>
+
+      <div class="cta-buttons fade-up d3">
+        <a href="mailto:savva@benevsky-ithub.com?subject=CASE × AI LAB — Партнёрское предложение" class="btn btn-primary">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Написать — обсудить условия
+        </a>
+        <a href="tel:+77066996633" class="btn btn-outline">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.59 1.13h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.69a16 16 0 006.29 6.29l.96-.96a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Позвонить — +7 706 699 66 33
+        </a>
+      </div>
+
+      <div class="signoff fade-up d4">
+        <div class="signoff-farewell">С уважением и верой в этот проект,</div>
+        <div class="signoff-name">Савва Беневский</div>
+        <div class="signoff-title">Founder &amp; CEO · Benevsky IT Hub / CASE Ecosystem</div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:16px;">Член Совета ИТК · Докторант Satbayev University</div>
+        <div class="signoff-contacts">
+          <a href="tel:+77066996633" class="signoff-contact-item">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.59 1.13h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.69a16 16 0 006.29 6.29l.96-.96a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            +7 706 699 66 33
+          </a>
+          <a href="https://t.me/benevsky" target="_blank" class="signoff-contact-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.008 9.464c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.871.757z"/></svg>
+            t.me/benevsky
+          </a>
+          <a href="https://linkedin.com/in/benevsky" target="_blank" class="signoff-contact-item">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            linkedin.com/in/benevsky
+          </a>
+          <a href="https://benevsky.space" target="_blank" class="signoff-contact-item">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+            benevsky.space
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://benevsky.space/" class="footer-link">CASE Ecosystem</a>
+        <a href="https://benevsky.work/" target="_blank" class="footer-link">Benevsky IT Hub</a>
+        <a href="https://t.me/benevsky" target="_blank" class="footer-link">Telegram</a>
+        <a href="https://linkedin.com/in/benevsky" target="_blank" class="footer-link">LinkedIn</a>
+      </div>
+      <div class="footer-copy">© 2026 CASE × AI LAB Startup Hub · Benevsky IT Hub · Алматы · Конфиденциально</div>
+    </div>
+  </footer>
+
+  <script>
+    // THEME TOGGLE
+    const themeBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    function setTheme(t) { htmlEl.setAttribute('data-theme', t); try { localStorage.setItem('bih-theme', t); } catch(e){} }
+    themeBtn.addEventListener('click', () => { setTheme(htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light'); });
+    try {
+      const saved = localStorage.getItem('bih-theme');
+      if (saved === 'light' || saved === 'dark') { setTheme(saved); }
+      else { setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+    } catch(e) { setTheme('dark'); }
+
+    // FADE UP
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    // COUNTER ANIMATION
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const text = el.textContent;
+        const num = parseInt(text);
+        const suffix = text.replace(/[0-9]/g, '');
+        if (isNaN(num)) return;
+        let start = 0;
+        const duration = 1200;
+        const startTime = performance.now();
+        function update(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(eased * num) + suffix;
+          if (progress < 1) requestAnimationFrame(update);
+          else el.textContent = num + suffix;
+        }
+        requestAnimationFrame(update);
+        counterObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.traction-number').forEach(c => counterObs.observe(c));
+
+    // NAV SCROLL
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      const isLight = htmlEl.getAttribute('data-theme') === 'light';
+      nav.style.borderBottomColor = window.scrollY > 60
+        ? (isLight ? 'rgba(22,163,74,0.15)' : 'rgba(184,147,90,0.12)')
+        : (isLight ? 'rgba(22,163,74,0.06)' : 'rgba(255,255,255,0.06)');
+    }, { passive: true });
+
+    // 3D TILT
+    document.querySelectorAll('.traction-card, .bevi-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        card.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 4}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    // PARTICLE VARIATION
+    document.querySelectorAll('.hero-particles span').forEach(el => {
+      el.style.width = (3 + Math.random() * 4) + 'px';
+      el.style.height = el.style.width;
+      el.style.opacity = (0.2 + Math.random() * 0.4).toFixed(2);
+    });
+  </script>
+
+</body>
+</html>
