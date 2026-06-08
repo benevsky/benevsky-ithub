@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benevsky IT Hub — Отчёт по работам с ХБК Аксай</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,400&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   THEME
+================================================================ */
+[data-theme="dark"] {
+  --bg:#0a0a0a; --bg-elev:#111111; --bg-card:#141414;
+  --border:#1e1e1e; --border-s:#2a2a2a;
+  --text:#ededed; --text-dim:#888888; --text-faint:#505050;
+  --accent:#C8963E; --accent-dim:#8a6428;  /* Пшеничное золото */
+  --card-hover:#191919; --grain:0.025;
+}
+[data-theme="light"] {
+  --bg:#F5EFE6; --bg-elev:#FBF7F2; --bg-card:#EDE7DE;  /* Пергамент · Льняная сетка */
+  --border:#D4CCC2; --border-s:#C0B8AE;
+  --text:#1A0A00; --text-dim:#6B5344; --text-faint:#9E8474;  /* Горький шоколад */
+  --accent:#C8251A; --accent-dim:#A01E15;  /* Тандырный красный */
+  --card-hover:#E8E1D8; --grain:0.006;
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; font-size:15px; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:'Geist',system-ui,sans-serif;
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden; transition:background .35s,color .35s;
+}
+body::before {
+  content:''; position:fixed; inset:0;
+  pointer-events:none; z-index:9000; opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a { text-decoration:none; color:inherit; }
+.container { max-width:1180px; margin:0 auto; padding:0 32px; }
+
+/* ================================================================
+   HEADER
+================================================================ */
+header {
+  position:sticky; top:0; z-index:800;
+  border-bottom:1px solid var(--border);
+  transition:background .35s,border-color .35s;
+}
+[data-theme="dark"] header { background:rgba(10,10,10,.88); backdrop-filter:blur(16px); }
+[data-theme="light"] header { background:rgba(245,239,230,.96); backdrop-filter:blur(16px); }
+.header-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px 32px; max-width:1180px; margin:0 auto; gap:20px;
+}
+.brand-name { font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; }
+.brand-sub { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); margin-top:2px; }
+.nav-desktop { display:flex; gap:22px; align-items:center; flex:1; justify-content:center; }
+.nav-desktop a { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dim); white-space:nowrap; transition:color .2s; }
+.nav-desktop a:hover { color:var(--accent); }
+.header-controls { display:flex; align-items:center; gap:12px; }
+.theme-btn {
+  background:none; border:1px solid var(--border-s); color:var(--text-dim);
+  cursor:pointer; padding:5px 9px; border-radius:2px; font-size:13px;
+  line-height:1; transition:all .2s;
+}
+.theme-btn:hover { border-color:var(--accent-dim); color:var(--text); }
+.hamburger-btn {
+  display:none; background:none; border:1px solid var(--border-s);
+  color:var(--text-dim); cursor:pointer; padding:5px 10px;
+  border-radius:2px; font-size:16px; line-height:1; transition:all .2s;
+}
+.nav-mobile { display:none; flex-direction:column; border-top:1px solid var(--border); background:var(--bg); }
+.nav-mobile.open { display:flex; }
+.nav-mobile a { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dim); padding:14px 24px; border-bottom:1px solid var(--border); transition:color .2s; }
+.nav-mobile a:hover { color:var(--accent); }
+
+/* ================================================================
+   TICKER
+================================================================ */
+.ticker-wrap { overflow:hidden; border-bottom:1px solid var(--border); background:var(--bg-elev); padding:9px 0; }
+.ticker { display:flex; gap:72px; width:max-content; animation:ticker-run 40s linear infinite; }
+.ticker:hover { animation-play-state:paused; }
+.ticker-item { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--text-faint); white-space:nowrap; display:flex; align-items:center; gap:10px; }
+.ticker-item::before { content:'◆'; color:#C8251A; font-size:5px; }
+@keyframes ticker-run { to { transform:translateX(-50%); } }
+
+/* ================================================================
+   HERO
+================================================================ */
+.hero {
+  padding:100px 0 90px; border-bottom:1px solid var(--border);
+  position:relative; overflow:hidden; min-height:88vh; display:flex; align-items:center;
+}
+.hero::after {
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:64px 64px; opacity:.12;
+}
+.hero::before { content:''; position:absolute; inset:0; pointer-events:none; z-index:2; background:radial-gradient(ellipse 80% 70% at 50% 50%,transparent 25%,var(--bg) 100%); }
+#heroCanvas { position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+.hero .container { position:relative; z-index:3; width:100%; }
+.eyebrow { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:28px; display:inline-flex; align-items:center; gap:14px; }
+.eyebrow::before { content:''; width:28px; height:1px; background:var(--accent); }
+.hero h1 { font-family:'Fraunces',Georgia,serif; font-size:clamp(46px,7.5vw,92px); font-weight:400; line-height:1.03; letter-spacing:-.03em; margin-bottom:32px; max-width:920px; }
+.hero h1 em { font-style:italic; font-weight:300; color:var(--accent); }
+.hero-lead { font-size:18px; line-height:1.68; color:var(--text-dim); max-width:680px; margin-bottom:44px; }
+.hero-lead strong { color:var(--text); font-weight:500; }
+.hero-actions { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:60px; }
+.btn-prim { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding:14px 28px; background:var(--accent); color:var(--bg); border:1px solid var(--accent); cursor:pointer; transition:all .25s; display:inline-block; }
+.btn-prim:hover { background:transparent; color:var(--accent); }
+.btn-sec { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding:14px 28px; background:transparent; color:var(--text-dim); border:1px solid var(--border-s); cursor:pointer; transition:all .25s; display:inline-block; }
+.btn-sec:hover { border-color:var(--accent-dim); color:var(--text); }
+.hero-stats { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border); }
+.h-stat { padding:28px 24px 24px; border-right:1px solid var(--border); position:relative; overflow:hidden; transition:background .28s; cursor:default; }
+.h-stat:last-child { border-right:none; }
+.h-stat::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background:var(--accent); transition:width .38s cubic-bezier(.4,0,.2,1); }
+.h-stat:hover::after { width:100%; }
+.h-stat:hover { background: var(--bg-elev); }
+.hs-icon { width:26px; height:26px; margin-bottom:14px; display:block; color:var(--accent); opacity:.4; transition:opacity .35s, transform .4s cubic-bezier(.2,.8,.2,1); }
+.h-stat:hover .hs-icon { opacity:.95; transform:translateY(-3px) scale(1.1); }
+.hs-icon svg { width:100%; height:100%; display:block; }
+/* SVG draw-in animation */
+.hs-icon svg * { stroke-dasharray: 200; stroke-dashoffset: 200; }
+.h-stat.icon-ready .hs-icon svg * { transition: stroke-dashoffset 1s cubic-bezier(.4,0,.2,1); stroke-dashoffset: 0; }
+.hs-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--text-faint); margin-bottom:10px; }
+.hs-val { font-family:'Fraunces',Georgia,serif; font-size:clamp(28px,3vw,38px); font-weight:400; line-height:1; letter-spacing:-.02em; transition:color .25s; }
+.h-stat:hover .hs-val { color:var(--accent); }
+
+/* Hero — нейтральная палитра (оригинал, без фирменных красных/золотых) */
+[data-theme="dark"] .hero { --accent:#f0f0f0; --accent-dim:#999999; }
+[data-theme="light"] .hero { --accent:#0f0f0f; --accent-dim:#404040; }
+
+/* ================================================================
+   SECTIONS COMMON
+================================================================ */
+section { padding:100px 0; border-bottom:1px solid var(--border); }
+.sec-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--text-faint); margin-bottom:18px; display:flex; align-items:center; gap:10px; }
+h2 { font-family:'Fraunces',Georgia,serif; font-size:clamp(34px,4.5vw,58px); font-weight:400; line-height:1.08; letter-spacing:-.025em; margin-bottom:20px; max-width:900px; }
+h2 em { font-style:italic; font-weight:300; color:var(--accent); }
+.sec-lead { font-size:17px; color:var(--text-dim); max-width:720px; margin-bottom:56px; line-height:1.72; }
+.sec-lead strong { color:var(--text); font-weight:500; }
+
+/* ================================================================
+   BADGE
+================================================================ */
+.badge {
+  display:inline-flex; align-items:center;
+  font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.18em; text-transform:uppercase;
+  padding:4px 12px; border:1px solid; margin-bottom:18px;
+}
+.badge-contract { color:#22c55e; border-color:rgba(34,197,94,.5); }
+.badge-consulting { color:var(--text-dim); border-color:var(--border-s); }
+.badge-kp { color:#C8963E; border-color:rgba(200,150,62,.55); }
+.badge-future { color:var(--text-faint); border-color:var(--border); }
+
+/* ================================================================
+   MANIFESTO
+================================================================ */
+.manifesto { padding:120px 0; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+.mfst-bg { position:absolute; top:50%; left:-1%; transform:translateY(-50%); font-family:'Fraunces',Georgia,serif; font-size:clamp(90px,20vw,260px); font-weight:700; letter-spacing:-.04em; color:var(--text); opacity:.03; pointer-events:none; user-select:none; white-space:nowrap; line-height:1; }
+.manifesto .container { position:relative; z-index:1; }
+.mfst-title { font-family:'Fraunces',Georgia,serif; font-size:clamp(36px,5.5vw,68px); font-weight:400; line-height:1.1; letter-spacing:-.025em; margin-bottom:36px; max-width:860px; }
+.mfst-title em { font-style:italic; font-weight:300; color:var(--accent); }
+.mfst-text { font-size:17px; color:var(--text-dim); max-width:680px; line-height:1.75; margin-bottom:56px; }
+.mfst-text strong { color:var(--text); font-weight:500; }
+.mfst-facts { display:flex; border:1px solid var(--border-s); }
+.mfst-fact { flex:1; padding:30px 28px; border-right:1px solid var(--border-s); }
+.mfst-fact:last-child { border-right:none; }
+.mf-title { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--text); margin-bottom:7px; }
+.mf-desc { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-faint); }
+
+/* ================================================================
+   DOC TABLE
+================================================================ */
+.doc-wrap { border:1px solid var(--border-s); overflow:hidden; margin-top:48px; }
+.doc-head { display:grid; grid-template-columns:80px 1fr 60px; padding:12px 28px; background:var(--bg-elev); border-bottom:1px solid var(--border-s); }
+.dh-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--text-faint); }
+.doc-row {
+  display:grid; grid-template-columns:80px 1fr 60px 32px;
+  padding:18px 28px; border-bottom:1px solid var(--border);
+  align-items:center; transition:background .22s;
+  opacity:0; transform:translateX(-16px);
+}
+.doc-row:last-child { border-bottom:none; }
+.doc-row { cursor:pointer; }
+.doc-row:hover { background:var(--bg-elev); }
+.doc-row.in { animation:row-in .45s cubic-bezier(.2,.8,.2,1) forwards; }
+@keyframes row-in { to { opacity:1; transform:translateX(0); } }
+.doc-date { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--text-faint); }
+.doc-name { font-size:14px; color:var(--text); line-height:1.4; }
+.doc-sub { font-size:12px; color:var(--text-faint); margin-top:2px; }
+.doc-type { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-faint); background:var(--bg-elev); border:1px solid var(--border); padding:3px 8px; justify-self:start; }
+.doc-type-wip { display:none; }
+.doc-wip-pill { display:inline-block; margin-top:7px; font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:.12em; text-transform:uppercase; color:#f59e0b; border:1px solid rgba(245,158,11,.35); padding:2px 9px; }
+.doc-link { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--accent-dim); text-align:center; transition:color .2s; }
+.doc-link:hover { color:var(--accent); }
+
+/* ================================================================
+   SECTION DIVIDER / PHASE LABEL  →  moved to ACCORDION block
+================================================================ */
+
+/* ================================================================
+   DIRECTION CARDS (for new directions section)
+================================================================ */
+.dir-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border-s); border:1px solid var(--border-s); }
+.dir-grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border-s); border:1px solid var(--border-s); margin-top:1px; }
+.dir-card { background:var(--bg-card); padding:38px 32px; position:relative; overflow:hidden; transition:background .3s; cursor:default; }
+.dir-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:0; background:linear-gradient(180deg,#C8251A,#E8391A); transition:height .38s cubic-bezier(.4,0,.2,1); }
+.dir-card:hover { background:var(--card-hover); }
+.dir-card:hover::before { height:100%; }
+.dir-inner { transition:transform .32s cubic-bezier(.4,0,.2,1); }
+.dir-card:hover .dir-inner { transform:translateX(5px); }
+.dir-num { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--accent-dim); margin-bottom:14px; }
+.dir-title { font-family:'Fraunces',Georgia,serif; font-size:24px; font-weight:500; margin-bottom:12px; letter-spacing:-.01em; line-height:1.2; }
+.dir-desc { color:var(--text-dim); font-size:13px; line-height:1.68; margin-bottom:20px; }
+.dir-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.dir-tag { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-faint); background:var(--bg-elev); padding:4px 9px; border:1px solid var(--border); letter-spacing:.04em; }
+
+/* ── NEXT HERO CARD (myAksay priority block) ── */
+.next-hero-card { border:1px solid var(--border-s); background:var(--bg-card); margin-top:48px; position:relative; overflow:hidden; transition:background .3s; }
+.next-hero-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#C8251A,#E8391A,#C8963E); }
+.nhc-inner { padding:48px 52px; }
+.nhc-priority { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); opacity:.7; margin-bottom:10px; }
+.nhc-kp-num { font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--accent-dim); margin-bottom:16px; }
+.nhc-title { font-family:'Fraunces',Georgia,serif; font-size:clamp(22px,3vw,36px); font-weight:500; margin-bottom:18px; letter-spacing:-.02em; line-height:1.2; }
+.nhc-desc { color:var(--text-dim); font-size:14px; line-height:1.72; margin-bottom:24px; max-width:820px; }
+.nhc-tags { display:flex; flex-wrap:wrap; gap:8px; }
+.nhc-tag { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent); border:1px solid var(--accent); opacity:.6; padding:5px 11px; letter-spacing:.04em; }
+
+/* ── NHC POINTS (expanded detail inside hero card) ── */
+.nhc-points { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border-s); border:1px solid var(--border-s); margin-top:32px; }
+.nhc-point { background:var(--bg-card); padding:24px 28px; transition:background .25s; }
+.nhc-point:hover { background:var(--card-hover); }
+.nhc-pt-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); opacity:.65; margin-bottom:9px; }
+.nhc-pt-text { font-size:13px; color:var(--text-dim); line-height:1.68; }
+.nhc-pt-text strong { color:var(--text); font-weight:500; }
+
+/* ── PITCH GRID (4 rationale blocks) ── */
+.pitch-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border-s); border:1px solid var(--border-s); margin-top:56px; }
+.pitch-block { background:var(--bg-card); padding:38px 40px; transition:background .3s; }
+.pitch-block:hover { background:var(--card-hover); }
+.pb-head { display:flex; align-items:flex-start; gap:18px; margin-bottom:16px; }
+.pb-num { font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:600; color:var(--border-s); line-height:1; flex-shrink:0; padding-top:4px; }
+.pb-title { font-family:'Fraunces',Georgia,serif; font-size:18px; font-weight:500; line-height:1.3; letter-spacing:-.01em; }
+.pb-text { color:var(--text-dim); font-size:13px; line-height:1.72; }
+
+/* ================================================================
+   ABOUT GRID (for overview)
+================================================================ */
+.about-facts { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border-s); border:1px solid var(--border-s); }
+.ab-fact { background:var(--bg-card); padding:28px 22px; transition:background .25s; }
+.ab-fact:hover { background:var(--card-hover); }
+.abf-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); margin-bottom:10px; }
+.abf-val { font-family:'Fraunces',Georgia,serif; font-size:40px; font-weight:400; line-height:1; letter-spacing:-.02em; color:var(--accent); margin-bottom:4px; }
+.abf-desc { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-faint); }
+
+.overview-grid { display:grid; grid-template-columns:1.3fr 1fr; gap:72px; align-items:start; }
+.overview-text p { font-size:16px; color:var(--text-dim); line-height:1.8; margin-bottom:18px; }
+.overview-text strong { color:var(--text); font-weight:500; }
+
+/* ================================================================
+   TIMELINE
+================================================================ */
+.timeline { margin-top:48px; border:1px solid var(--border-s); overflow:hidden; }
+.tl-row { display:grid; grid-template-columns:120px 1fr; padding:22px 28px; border-bottom:1px solid var(--border); align-items:start; transition:background .22s; }
+.tl-row:last-child { border-bottom:none; }
+.tl-row:hover { background:var(--bg-elev); }
+.tl-date { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#C8251A; padding-top:2px; }
+.tl-content { }
+.tl-title { font-size:14px; font-weight:500; color:var(--text); margin-bottom:4px; }
+.tl-desc { font-size:13px; color:var(--text-dim); line-height:1.6; }
+
+/* ================================================================
+   SCALE / STATS
+================================================================ */
+.scale-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border-s); border:1px solid var(--border-s); }
+.scale-cell { background:var(--bg-card); padding:40px 34px; transition:background .25s; }
+.scale-cell:hover { background:var(--card-hover); }
+.sc-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); margin-bottom:16px; }
+.sc-val { font-family:'Fraunces',Georgia,serif; font-size:clamp(40px,5vw,62px); font-weight:400; line-height:1; letter-spacing:-.03em; color:var(--text); margin-bottom:12px; }
+.sc-desc { font-size:13px; color:var(--text-dim); line-height:1.6; }
+
+/* ================================================================
+   SUMMARY TABLE (schema)
+================================================================ */
+.schema-wrap { border:1px solid var(--border-s); overflow:hidden; margin-top:64px; }
+.schema-head {
+  display:grid;
+  grid-template-columns:36px 1fr 110px 120px 52px;
+  padding:11px 24px;
+  background:var(--bg-elev); border-bottom:1px solid var(--border-s);
+  gap:16px;
+}
+.schema-row {
+  display:grid;
+  grid-template-columns:36px 1fr 110px 120px 52px;
+  padding:0; border-bottom:1px solid var(--border);
+  align-items:stretch; transition:background .22s; gap:16px;
+}
+.schema-row:last-child { border-bottom:none; }
+.schema-row:hover { background:var(--bg-elev); }
+.sh-col { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-faint); padding:11px 0; }
+.sc-num { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-faint); padding:22px 0 22px 24px; display:flex; align-items:center; }
+.sc-main { padding:18px 0 22px; display:flex; flex-direction:column; justify-content:flex-start; gap:0; }
+.sc-title { font-size:14px; font-weight:500; color:var(--text); }
+.sc-title a { color:inherit; transition:color .2s; }
+.sc-title a:hover { color:var(--accent); }
+.sc-items { display:flex; flex-direction:column; gap:7px; margin-top:10px; }
+.schema-row:not(.sc-vis) .sc-item { opacity:0; transform:translateX(-10px); }
+@keyframes sc-in { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:translateX(0)} }
+.schema-row.sc-vis .sc-item { animation:sc-in .42s cubic-bezier(.2,.8,.2,1) both; }
+.schema-row.sc-vis .sc-item:nth-child(1){animation-delay:.05s}
+.schema-row.sc-vis .sc-item:nth-child(2){animation-delay:.13s}
+.schema-row.sc-vis .sc-item:nth-child(3){animation-delay:.21s}
+.schema-row.sc-vis .sc-item:nth-child(4){animation-delay:.29s}
+.schema-row.sc-vis .sc-item:nth-child(5){animation-delay:.37s}
+.schema-row.sc-vis .sc-item:nth-child(6){animation-delay:.45s}
+.sc-item { font-size:12.5px; color:var(--text-dim); line-height:1.62; padding:9px 14px; background:var(--bg-elev); border-left:2px solid var(--border-s); transition:border-color .22s, padding-left .22s, background .22s; }
+.sc-item:hover { border-left-color:#C8963E; padding-left:18px; background:var(--bg-card); }
+.sc-item strong { color:var(--text); font-weight:500; }
+.sc-m { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; letter-spacing:.02em; color:var(--accent); background:transparent; border:1px solid var(--accent-dim); padding:1px 6px; display:inline-block; vertical-align:baseline; }
+.sc-tag { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.08em; color:var(--text-faint); background:var(--bg); border:1px solid var(--border); padding:1px 6px; display:inline-block; vertical-align:baseline; }
+.sc-status { font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:.12em; text-transform:uppercase; padding:2px 7px; border:1px solid; display:inline-block; vertical-align:middle; position:relative; top:-1px; margin-left:6px; }
+.sc-status.done { color:#22c55e; border-color:rgba(34,197,94,.35); }
+.sc-status.dev  { color:#f59e0b; border-color:rgba(245,158,11,.35); }
+.color-chip { display:inline-flex; align-items:center; gap:6px; white-space:nowrap; }
+.color-chip-swatch { display:inline-block; width:13px; height:13px; border-radius:50%; border:1px solid rgba(0,0,0,.12); flex-shrink:0; vertical-align:middle; position:relative; top:-1px; box-shadow:0 0 0 1px rgba(255,255,255,.15) inset; }
+.color-chip-name { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.04em; color:var(--text-faint); }
+.sc-badge-cell { padding:22px 0; display:flex; align-items:center; }
+.sc-badge { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; padding:3px 9px; border:1px solid; white-space:nowrap; }
+.sc-badge.c1 { color:#22c55e; border-color:rgba(34,197,94,.45); }
+.sc-badge.c2 { color:#22c55e; border-color:rgba(34,197,94,.45); }
+.sc-badge.cs { color:var(--text-dim); border-color:var(--border-s); }
+.sc-badge.kp { color:#C8963E; border-color:rgba(200,150,62,.5); }
+.sc-badge.ft { color:var(--text-faint); border-color:var(--border); }
+.sc-badge.ft-big { font-size:11px; padding:5px 12px; letter-spacing:.1em; }
+.sc-status.collab { color:#8b7cf8; border-color:#8b7cf8; }
+.sc-period { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); padding:22px 0; display:flex; align-items:center; white-space:nowrap; }
+.sc-count { font-family:'Fraunces',Georgia,serif; font-size:28px; font-weight:400; color:#C8963E; padding:22px 24px 22px 0; display:flex; align-items:center; justify-content:flex-end; }
+.schema-total { display:flex; align-items:center; justify-content:space-between; padding:18px 24px; background:var(--bg-card); border-top:1px solid var(--border-s); }
+.st-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); }
+.st-val { font-family:'Fraunces',Georgia,serif; font-size:22px; font-weight:400; color:var(--text); }
+
+@media (max-width:960px) {
+  .schema-head { grid-template-columns:28px 1fr 90px 52px; }
+  .schema-head .sh-period-col { display:none; }
+  .schema-row { grid-template-columns:28px 1fr 90px 52px; }
+  .sc-period { display:none; }
+}
+@media (max-width:680px) {
+  .schema-head { grid-template-columns:24px 1fr 52px; }
+  .schema-head .sh-badge-col { display:none; }
+  .schema-row { grid-template-columns:24px 1fr 52px; }
+  .sc-badge-cell { display:none; }
+  .sc-num { padding-left:16px; }
+  .sc-count { padding-right:16px; }
+}
+
+/* ================================================================
+   PHASE LABEL (section divider, non-interactive)
+================================================================ */
+.phase-label {
+  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.15em;
+  text-transform:uppercase; color:#C8963E; padding:10px 28px;
+  background:var(--bg-card); border-bottom:1px solid var(--border-s);
+  display:flex; align-items:center; gap:10px;
+}
+.phase-label::before { content:''; width:20px; height:1px; background:#C8963E; flex-shrink:0; }
+
+/* ================================================================
+   DOC ROW — clickable hint
+================================================================ */
+.doc-row { cursor:pointer; }
+.doc-row:hover .doc-name { color:var(--accent); transition:color .18s; }
+
+/* ================================================================
+   DOCUMENT MODAL
+================================================================ */
+.doc-modal-overlay {
+  position:fixed; inset:0; z-index:9900;
+  background:rgba(0,0,0,.68); backdrop-filter:blur(8px);
+  display:flex; align-items:flex-start; justify-content:center;
+  padding:72px 24px 24px;
+  opacity:0; pointer-events:none;
+  transition:opacity .22s cubic-bezier(.2,.8,.2,1);
+}
+.doc-modal-overlay.open { opacity:1; pointer-events:auto; }
+.doc-modal {
+  background:var(--bg-elev); border:1px solid var(--border-s);
+  max-width:660px; width:100%;
+  transform:translateY(-18px);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  max-height:calc(100vh - 96px); overflow-y:auto;
+}
+.doc-modal-overlay.open .doc-modal { transform:translateY(0); }
+.dmo-head {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 24px; border-bottom:1px solid var(--border);
+  position:sticky; top:0; background:var(--bg-elev); z-index:2;
+}
+.dmo-meta { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.dmo-date { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; color:#C8251A; }
+.dmo-type { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-faint); background:var(--bg-card); border:1px solid var(--border); padding:2px 8px; }
+.dmo-close { background:none; border:1px solid var(--border-s); color:var(--text-dim); cursor:pointer; padding:5px 12px; font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1; transition:all .2s; }
+.dmo-close:hover { border-color:var(--accent); color:var(--text); }
+.dmo-body { padding:24px 24px 0; }
+.dmo-title { font-family:'Fraunces',Georgia,serif; font-size:clamp(18px,2.5vw,24px); font-weight:400; letter-spacing:-.01em; line-height:1.25; margin-bottom:7px; }
+.dmo-sub { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-faint); margin-bottom:20px; line-height:1.55; }
+.dmo-divider { height:1px; background:var(--border); margin-bottom:18px; }
+.dmo-detail ul { list-style:none; padding:0; display:flex; flex-direction:column; gap:11px; }
+.dmo-detail li { font-size:14px; color:var(--text-dim); line-height:1.72; padding-left:20px; position:relative; }
+.dmo-detail li strong { color:var(--text); font-weight:500; }
+.dmo-detail li::before { content:'→'; position:absolute; left:0; color:#C8963E; font-size:11px; top:2px; }
+.dmo-footer { padding:16px 24px; margin-top:20px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.dmo-link { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); border:1px solid var(--border-s); padding:9px 18px; transition:all .2s; display:inline-block; }
+.dmo-link:hover { background:var(--bg-card); border-color:var(--accent); }
+.dmo-link.disabled { color:var(--text-faint); border-color:var(--border); border-style:dashed; opacity:.65; cursor:not-allowed; pointer-events:none; user-select:none; }
+.dmo-link.disabled:hover { background:transparent; border-color:var(--border); }
+.dmo-hint { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-faint); letter-spacing:.06em; }
+
+/* ================================================================
+   ROADMAP TIMELINE (full chronology)
+================================================================ */
+.roadmap-wrap { margin-top:64px; border:1px solid var(--border-s); overflow:hidden; }
+.roadmap-head {
+  padding:12px 28px; background:var(--bg-elev); border-bottom:1px solid var(--border-s);
+  font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--text-faint); display:flex; align-items:center; gap:10px;
+}
+.roadmap-head::before { content:''; width:20px; height:1px; background:var(--text-faint); }
+.rm-row {
+  display:grid; grid-template-columns:120px 1fr;
+  padding:16px 28px; border-bottom:1px solid var(--border);
+  align-items:start; transition:background .22s;
+}
+.rm-row:last-child { border-bottom:none; }
+.rm-row:hover { background:var(--bg-elev); }
+.rm-date { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#C8251A; padding-top:1px; flex-shrink:0; }
+.rm-body { }
+.rm-title { font-size:13px; font-weight:500; color:var(--text); margin-bottom:3px; }
+.rm-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:5px; }
+.rm-tag { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-faint); background:var(--bg-elev); border:1px solid var(--border); padding:2px 7px; letter-spacing:.04em; }
+.rm-tag.c1 { color:#C8251A; border-color:rgba(200,37,26,.5); opacity:.85; }
+.rm-tag.c2 { color:#C8251A; border-color:rgba(200,37,26,.5); opacity:.85; }
+.rm-tag.cs { color:var(--text-dim); border-color:var(--border-s); }
+.rm-tag.kp { color:var(--text); border-color:var(--border-s); }
+@media (max-width:680px) {
+  .rm-row { grid-template-columns:80px 1fr; padding:14px 16px; }
+  .roadmap-wrap { margin-top:40px; }
+}
+
+/* ================================================================
+   FOOTER
+================================================================ */
+footer { padding:80px 0 48px; }
+.footer-top { display:grid; grid-template-columns:2fr 1fr; gap:64px; align-items:end; padding-bottom:48px; border-bottom:1px solid var(--border); margin-bottom:32px; }
+.footer-quote { font-family:'Fraunces',Georgia,serif; font-size:clamp(22px,2.8vw,32px); font-style:italic; font-weight:300; line-height:1.38; color:var(--text); max-width:720px; }
+.footer-quote span { color:var(--accent); font-style:normal; }
+.footer-brand-blk { text-align:right; }
+.fb-name { font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; margin-bottom:6px; }
+.fb-sub { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-faint); letter-spacing:.05em; }
+.footer-bottom { display:flex; justify-content:space-between; align-items:center; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-faint); letter-spacing:.06em; flex-wrap:wrap; gap:12px; }
+
+/* ================================================================
+   ANIMATIONS
+================================================================ */
+@keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+.hero .eyebrow   { animation:fadeUp .7s cubic-bezier(.2,.8,.2,1) .05s both; }
+.hero h1         { animation:fadeUp .7s cubic-bezier(.2,.8,.2,1) .15s both; }
+.hero .hero-lead { animation:fadeUp .7s cubic-bezier(.2,.8,.2,1) .28s both; }
+.hero .hero-actions { animation:fadeUp .7s cubic-bezier(.2,.8,.2,1) .40s both; }
+.hero .hero-stats { animation:fadeUp .7s cubic-bezier(.2,.8,.2,1) .54s both; }
+.rv { opacity:0; transform:translateY(20px); transition:opacity .65s cubic-bezier(.2,.8,.2,1),transform .65s cubic-bezier(.2,.8,.2,1); }
+.rv.show { opacity:1; transform:translateY(0); }
+.rv-d1 { transition-delay:.1s; } .rv-d2 { transition-delay:.2s; } .rv-d3 { transition-delay:.3s; }
+
+/* ================================================================
+   RESPONSIVE
+================================================================ */
+@media (max-width:960px) {
+  .nav-desktop { display:none; }
+  .hamburger-btn { display:block; }
+  .hero-stats { grid-template-columns:repeat(2,1fr); }
+  .h-stat:nth-child(2) { border-right:none; }
+  .h-stat:nth-child(3),
+  .h-stat:nth-child(4) { border-top:1px solid var(--border); }
+  .h-stat:nth-child(4) { border-right:none; }
+  .overview-grid { grid-template-columns:1fr; gap:48px; }
+  .dir-grid { grid-template-columns:1fr; }
+  .dir-grid-4 { grid-template-columns:repeat(2,1fr); }
+  .pitch-grid { grid-template-columns:1fr; }
+  .nhc-inner { padding:36px 32px; }
+  .nhc-points { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; gap:32px; }
+  .footer-brand-blk { text-align:left; }
+  .scale-grid { grid-template-columns:repeat(2,1fr); }
+  .about-facts { grid-template-columns:1fr; }
+}
+@media (max-width:680px) {
+  .container { padding:0 20px; }
+  .header-inner { padding:11px 20px; }
+  section { padding:64px 0; }
+  .manifesto { padding:80px 0; }
+  .hero { padding:72px 0 56px; min-height:auto; }
+  .hero::after,.hero::before { display:none; }
+  .hero-stats { grid-template-columns:repeat(2,1fr); }
+  .h-stat { border-top:1px solid var(--border); }
+  .h-stat:nth-child(1),.h-stat:nth-child(2) { border-top:none; }
+  .doc-head,.doc-row { grid-template-columns:70px 1fr 50px; padding:14px 16px; }
+  .scale-grid { grid-template-columns:1fr; }
+  .tl-row { grid-template-columns:90px 1fr; }
+  .mfst-facts { flex-direction:column; }
+  .mfst-fact { border-right:none; border-bottom:1px solid var(--border-s); }
+  .mfst-fact:last-child { border-bottom:none; }
+  .dir-grid-4 { grid-template-columns:1fr; }
+  .nhc-inner { padding:28px 24px; }
+  .nhc-title { font-size:22px; }
+  .pitch-grid { grid-template-columns:1fr; }
+  .pb-head { gap:12px; }
+  .pb-num { font-size:22px; }
+}
+
+/* ================================================================
+   PASSWORD GATE + LOADER
+================================================================ */
+#gate {
+  position:fixed; inset:0; z-index:99999;
+  background:#050505; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  transition:opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);
+}
+#gate.gate-hide {
+  opacity:0; transform:translateY(-24px); pointer-events:none;
+}
+
+/* loader phase */
+#gate-loader { display:flex; flex-direction:column; align-items:center; gap:0; }
+#gate-logo {
+  font-family:'JetBrains Mono',monospace; font-size:clamp(13px,1.8vw,17px);
+  font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+  color:#C8963E; opacity:0;
+  animation:gate-fadein .9s cubic-bezier(.2,.8,.2,1) .3s forwards;
+}
+#gate-sub {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  letter-spacing:.22em; text-transform:uppercase; color:#444;
+  margin-top:10px; opacity:0;
+  animation:gate-fadein .9s cubic-bezier(.2,.8,.2,1) .65s forwards;
+}
+#gate-bar-wrap {
+  margin-top:40px; width:180px; height:1px; background:#1a1a1a; overflow:hidden;
+  opacity:0; animation:gate-fadein .5s ease .9s forwards;
+}
+#gate-bar {
+  height:100%; width:0%; background:linear-gradient(90deg,#C8963E,#E8391A);
+  animation:gate-load 1.4s cubic-bezier(.4,0,.2,1) 1s forwards;
+}
+@keyframes gate-load { to { width:100%; } }
+
+/* password phase */
+#gate-pass {
+  display:flex; flex-direction:column; align-items:center; gap:0;
+  opacity:0; pointer-events:none; position:absolute;
+  transition:opacity .5s ease;
+}
+#gate-pass.visible { opacity:1; pointer-events:auto; }
+#gate-pass-logo {
+  font-family:'JetBrains Mono',monospace; font-size:clamp(13px,1.8vw,17px);
+  font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#C8963E;
+  margin-bottom:10px;
+}
+#gate-pass-sub {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  letter-spacing:.18em; text-transform:uppercase; color:#444;
+  margin-bottom:48px;
+}
+#gate-pass-label {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  letter-spacing:.18em; text-transform:uppercase; color:#555;
+  margin-bottom:10px; align-self:flex-start;
+}
+#gate-input-row { display:flex; gap:0; width:320px; }
+#gate-input {
+  flex:1; background:#0f0f0f; border:1px solid #2a2a2a; border-right:none;
+  color:#ededed; font-family:'JetBrains Mono',monospace; font-size:13px;
+  letter-spacing:.06em; padding:12px 16px; outline:none;
+  transition:border-color .2s;
+}
+#gate-input:focus { border-color:#C8963E; }
+#gate-input.error { border-color:#C8251A !important; animation:gate-shake .38s ease; }
+#gate-btn {
+  background:#C8963E; color:#050505; border:1px solid #C8963E;
+  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; padding:12px 20px; cursor:pointer;
+  transition:all .2s; white-space:nowrap;
+}
+#gate-btn:hover { background:#E8A84E; border-color:#E8A84E; }
+#gate-error {
+  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em;
+  color:#C8251A; margin-top:12px; height:14px; transition:opacity .2s;
+  opacity:0;
+}
+#gate-error.show { opacity:1; }
+
+@keyframes gate-fadein { to { opacity:1; } }
+@keyframes gate-shake {
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-7px)}
+  40%{transform:translateX(7px)}
+  60%{transform:translateX(-5px)}
+  80%{transform:translateX(4px)}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ PASSWORD GATE ══ -->
+<div id="gate">
+  <!-- Phase 1: loader -->
+  <div id="gate-loader">
+    <div id="gate-logo">Benevsky IT Hub</div>
+    <div id="gate-sub">Отчёт · ХБК Аксай · 2026</div>
+    <div id="gate-bar-wrap"><div id="gate-bar"></div></div>
+  </div>
+  <!-- Phase 2: password -->
+  <div id="gate-pass">
+    <div id="gate-pass-logo">Benevsky IT Hub</div>
+    <div id="gate-pass-sub">Конфиденциальный отчёт</div>
+    <div id="gate-pass-label">Пароль доступа</div>
+    <div id="gate-input-row">
+      <input id="gate-input" type="password" placeholder="••••••••••••••" autocomplete="off" spellcheck="false">
+      <button id="gate-btn">Войти</button>
+    </div>
+    <div id="gate-error">Неверный пароль</div>
+  </div>
+</div>
+
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="brand-name">Benevsky IT Hub</div>
+      <div class="brand-sub">Отчёт · ХБК Аксай · 2026</div>
+    </div>
+    <nav class="nav-desktop">
+      <a href="#overview">Обзор</a>
+      <a href="#site">Сайт</a>
+      <a href="#ai-sales">AI Sales</a>
+      <a href="#consulting">Консалтинг</a>
+      <a href="#sales">Модернизация</a>
+      <a href="#aksay-go">AKSAY GO</a>
+      <a href="#future">Следующие шаги</a>
+    </nav>
+    <div class="header-controls">
+      <button class="theme-btn" id="themeBtn" title="Сменить тему">◐</button>
+      <button class="hamburger-btn" id="burgerBtn">☰</button>
+    </div>
+  </div>
+  <nav class="nav-mobile" id="mobileNav">
+    <a href="#overview">Обзор</a>
+    <a href="#site">Сайт</a>
+    <a href="#ai-sales">AI Sales</a>
+    <a href="#consulting">Консалтинг</a>
+    <a href="#sales">Модернизация</a>
+    <a href="#aksay-go">AKSAY GO</a>
+    <a href="#future">Следующие шаги</a>
+  </nav>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker" id="tickerTrack">
+    <span class="ticker-item">Корпоративный сайт ХБК Аксай</span>
+    <span class="ticker-item">AI Sales Director — AI-помощник отдела продаж</span>
+    <span class="ticker-item">Бизнес-консалтинг и аудит</span>
+    <span class="ticker-item">Аудит 5 департаментов компании</span>
+    <span class="ticker-item">B2B Маркетинговая стратегия</span>
+    <span class="ticker-item">Обучающий семинар для отдела продаж</span>
+    <span class="ticker-item">AKSAY GO — новый бренд готовой еды</span>
+    <span class="ticker-item">myAksay — мобильное приложение для B2C</span>
+    <span class="ticker-item">51 документ за 3 месяца</span>
+    <span class="ticker-item">Февраль – Май 2026</span>
+    <span class="ticker-item">Benevsky IT Hub</span>
+    <span class="ticker-item">ХБК Аксай · Казахстан</span>
+    <!-- дублируем -->
+    <span class="ticker-item">Корпоративный сайт ХБК Аксай</span>
+    <span class="ticker-item">AI Sales Director — AI-помощник отдела продаж</span>
+    <span class="ticker-item">Бизнес-консалтинг и аудит</span>
+    <span class="ticker-item">Аудит 5 департаментов компании</span>
+    <span class="ticker-item">B2B Маркетинговая стратегия</span>
+    <span class="ticker-item">Обучающий семинар для отдела продаж</span>
+    <span class="ticker-item">AKSAY GO — новый бренд готовой еды</span>
+    <span class="ticker-item">myAksay — мобильное приложение для B2C</span>
+    <span class="ticker-item">51 документ за 3 месяца</span>
+    <span class="ticker-item">Февраль – Май 2026</span>
+    <span class="ticker-item">Benevsky IT Hub</span>
+    <span class="ticker-item">ХБК Аксай · Казахстан</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <canvas id="heroCanvas"></canvas>
+  <div class="container">
+    <div class="eyebrow">Benevsky IT Hub → ХБК Аксай · Февраль–Май 2026</div>
+    <h1>Полный отчёт<br>о <em>проделанной<br>работе</em></h1>
+    <p class="hero-lead">Два контракта, три направления дополнительных работ и стратегический проект — всё зафиксировано в <strong>51 документе</strong>, созданных с февраля по май 2026 года.</p>
+    <div class="hero-actions">
+      <a href="#site" class="btn-prim">Контракты</a>
+      <a href="#future" class="btn-sec">Следующие шаги</a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <span class="hs-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></span>
+        <div class="hs-label">Контрактов</div>
+        <div class="hs-val" data-count="2">2</div>
+      </div>
+      <div class="h-stat">
+        <span class="hs-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="10" x2="13" y2="10"/></svg></span>
+        <div class="hs-label">Документов</div>
+        <div class="hs-val" data-count="51">51</div>
+      </div>
+      <div class="h-stat">
+        <span class="hs-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+        <div class="hs-label">Месяцев работы</div>
+        <div class="hs-val" data-count="3" data-suffix="+">3+</div>
+      </div>
+      <div class="h-stat">
+        <span class="hs-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+        <div class="hs-label">Направлений</div>
+        <div class="hs-val" data-count="8">8</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO / TIMELINE OVERVIEW -->
+<div class="manifesto">
+  <div class="mfst-bg">РЕЗУЛЬТАТ</div>
+  <div class="container">
+    <div class="sec-label rv">Хронология работ</div>
+    <div class="mfst-title rv rv-d1">От первого счёта<br>до готовых инструментов —<br><em>всё задокументировано</em></div>
+    <p class="mfst-text rv rv-d2">Работа началась <strong>18 февраля 2026</strong> с выставления счёта. За три месяца созданы два цифровых продукта, проведён аудит пяти департаментов, разработана B2B-стратегия, проведены стратегические сессии, семинар по продажам и подготовлены три полноценных коммерческих предложения.</p>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="container">
+    <div class="sec-label rv">00 · Обзор</div>
+    <h2 class="rv rv-d1">Ключевые <em>результаты</em></h2>
+    <p class="sec-lead rv rv-d2" style="margin-bottom:0;">Стратегическое summary: все шесть направлений работы, ключевые результаты и что конкретно было сделано в каждом блоке.</p>
+
+    <div class="schema-wrap rv">
+      <div class="schema-head">
+        <div class="sh-col" style="padding-left:24px;">№</div>
+        <div class="sh-col">Раздел / ключевые результаты</div>
+        <div class="sh-col sh-badge-col">Тип</div>
+        <div class="sh-col sh-period-col">Период</div>
+        <div class="sh-col" style="text-align:right;padding-right:24px;">Документов</div>
+      </div>
+
+      <!-- 1. Корпоративный сайт -->
+      <div class="schema-row">
+        <div class="sc-num">1</div>
+        <div class="sc-main">
+          <div class="sc-title"><a href="#site">Корпоративный сайт ХБК Аксай</a></div>
+          <div class="sc-items">
+            <span class="sc-item"><strong>Дизайн &amp; UX:</strong> light-тема в тёплой пшеничной палитре — <span class="color-chip"><span class="color-chip-swatch" style="background:#F5EFE6;"></span><span class="color-chip-name">Пергамент</span></span> · <span class="color-chip"><span class="color-chip-swatch" style="background:#FBF7F2;"></span><span class="color-chip-name">Льняная сетка</span></span> · <span class="color-chip"><span class="color-chip-swatch" style="background:#C8963E;"></span><span class="color-chip-name">Пшеничное золото</span></span> · <span class="color-chip"><span class="color-chip-swatch" style="background:#C8251A;border-color:rgba(0,0,0,.18);"></span><span class="color-chip-name">Тандырный красный</span></span> · <span class="color-chip"><span class="color-chip-swatch" style="background:#E8391A;border-color:rgba(0,0,0,.18);"></span><span class="color-chip-name">Жар</span></span> · <span class="color-chip"><span class="color-chip-swatch" style="background:#1A0A00;border-color:rgba(255,255,255,.2);"></span><span class="color-chip-name">Горький шоколад</span></span>. Типографика Fraunces (дисплейные заголовки) + Geist (body-текст) + Gilroy (сайт). Проведено <span class="sc-m">3</span> итерации дизайна, финальный макет согласован с клиентом лично</span>
+            <span class="sc-item"><strong>Стек &amp; разработка:</strong> одностраничный HTML5 / CSS3 / Vanilla JS, <span class="sc-m">~2 500</span> строк кода, <span class="sc-m">6</span> тематических разделов (Главная, О нас, Продукция, Производство, Контакты, Новости). CSS custom properties для тем, scroll-reveal анимации, якорная навигация. Мобильная адаптация на <span class="sc-m">3</span> брейкпоинтах: <span class="sc-tag">320px</span> <span class="sc-tag">768px</span> <span class="sc-tag">1200px</span></span>
+            <span class="sc-item"><strong>Релиз v1 → v2:</strong> <span class="sc-m">31 Мар</span> — деплой v1, подписание Акта, передача исходников клиенту. <span class="sc-m">26 Мая</span> — релиз v2 с расширенным разделом Производство (фотографии цехов), обновлённым каталогом продукции и новостным блоком</span>
+            <span class="sc-item"><strong>Деплой &amp; домен:</strong> перенос на хостинг, подключение домена, SSL Let's Encrypt. SEO мета-теги (<span class="sc-tag">title</span> <span class="sc-tag">description</span> <span class="sc-tag">og:image</span>) настроены для всех <span class="sc-m">6</span> разделов — корректный превью в мессенджерах и соцсетях</span>
+          </div>
+        </div>
+        <div class="sc-badge-cell"><span class="sc-badge c1">Контракт №1</span></div>
+        <div class="sc-period">14 Мар – 26 Май</div>
+        <div class="sc-count">7</div>
+      </div>
+
+      <!-- 2. AI Sales Director -->
+      <div class="schema-row">
+        <div class="sc-num">2</div>
+        <div class="sc-main">
+          <div class="sc-title"><a href="#ai-sales">AI Sales Director</a></div>
+          <div class="sc-items">
+            <span class="sc-item"><strong>Аудит и подготовка данных (Этап 1):</strong> <span class="sc-m">58</span> месяцев истории продаж (2021–2025), <span class="sc-m">8</span> товарных категорий, <span class="sc-m">12</span> регионов присутствия. Очистка, нормализация, разметка датасета, выявлены сезонные паттерны и аномалии. Стек: <span class="sc-tag">FastAPI</span> <span class="sc-tag">PostgreSQL 15</span> <span class="sc-tag">Ubuntu 22.04</span>. АКТ-IT-01-2026 закрыт</span>
+            <span class="sc-item"><strong>ML-модель и дашборд (Этап 2):</strong> модель прогнозирования спроса на базе <span class="sc-tag">LightGBM</span> — MAPE улучшен с <span class="sc-m">11.3%</span> до <span class="sc-m">9.8%</span>, горизонт прогноза 4–8 недель по категориям и регионам. React SPA дашборд с AI-чатом для запросов к данным в режиме реального времени. АКТ-02-2026 закрыт</span>
+            <span class="sc-item"><strong>Деплой в production (Этап 3):</strong> перенос модели и дашборда на сервер клиента, настройка CI/CD, интеграция с базой 1С в read-режиме для автоматического обновления данных. Настройка планировщика обновлений прогноза. Статус: этап в финальной стадии, АКТ-03 и итоговый акт в процессе подписания</span>
+            <span class="sc-item"><strong>Онбординг &amp; документация:</strong> разработаны пользовательские руководства для <span class="sc-m">4</span> ролевых групп — руководители (кат. A), менеджеры (BC), аналитический отдел, региональные менеджеры. Каждой группе — отдельный сценарий работы с системой</span>
+            <span class="sc-item"><strong>Итог контракта:</strong> полный цикл от сырых данных до production-системы — <span class="sc-m">3</span> этапа, АКТ-IT-01-2026 и АКТ-02-2026 закрыты, АКТ-03 и итоговый акт находятся в процессе подписания. Приложение передано клиенту и работает на собственном сервере ХБК</span>
+          </div>
+        </div>
+        <div class="sc-badge-cell"><span class="sc-badge c2">Контракт №2</span></div>
+        <div class="sc-period">14 Мар – 25 Май</div>
+        <div class="sc-count">24</div>
+      </div>
+
+      <!-- 3. Бизнес-консалтинг -->
+      <div class="schema-row">
+        <div class="sc-num">3</div>
+        <div class="sc-main">
+          <div class="sc-title"><a href="#consulting">Бизнес-консалтинг &amp; аудит</a></div>
+          <div class="sc-items">
+            <span class="sc-item"><strong>Digital-Twin интервью:</strong> серия встреч с руководителями и ключевыми сотрудниками всех подразделений. Картирование бизнес-процессов «как есть» (AS-IS), выявление узких мест и зон потерь. Методология: процессный аудит + структурированные интервью</span>
+            <span class="sc-item"><strong>Аудит <span class="sc-m">5</span> департаментов:</strong> <span class="sc-tag">Коммерческий отдел</span> <span class="sc-tag">Логистика</span> <span class="sc-tag">Производство</span> <span class="sc-tag">IT-инфраструктура</span> <span class="sc-tag">Розница &amp; безопасность</span> — каждый в отдельном структурированном отчёте с конкретными рекомендациями</span>
+            <span class="sc-item"><strong>Ключевые метрики проблем:</strong> главная выявленная проблема — стол заказов: <span class="sc-m">2 877</span> B2B-клиентов оформляют заказы вручную через менеджеров, отсутствует self-service. Дополнительно: ошибки в накладных <span class="sc-m">8%</span>, отсутствие единого источника правды — данные разрознены по <span class="sc-m">3+</span> несвязанным системам, ручное сведение цифр занимает до <span class="sc-m">6 ч/нед</span></span>
+            <span class="sc-item"><strong>Применение результатов:</strong> выводы аудита IT-инфраструктуры и коммерческого отдела легли в основу технической архитектуры AI Sales Director, требований к серверу и логике интеграции с 1С. Аудит логистики — в основу КП на логистическую IT-систему</span>
+          </div>
+        </div>
+        <div class="sc-badge-cell"><span class="sc-badge cs">Консалтинг</span></div>
+        <div class="sc-period">14 Мар – 16 Мар</div>
+        <div class="sc-count">6</div>
+      </div>
+
+      <!-- 4. Модернизация отдела продаж -->
+      <div class="schema-row">
+        <div class="sc-num">4</div>
+        <div class="sc-main">
+          <div class="sc-title"><a href="#sales">Модернизация отдела продаж</a></div>
+          <div class="sc-items">
+            <span class="sc-item"><strong>Стратегические сессии:</strong> серия встреч с зам. ген. директора по коммерции и руководителями продаж. Диагностика: низкая конверсия B2B, отсутствие системы работы с клиентами категории B/C, ручной учёт без аналитики. Согласован вектор изменений</span>
+            <span class="sc-item"><strong>B2B маркетинговая стратегия v1 → v2:</strong> полная сегментация клиентской базы <span class="sc-m">2 877</span> B2B-клиентов по модели A/B/C. Стратегия v2 включает change management framework, план перехода отдела на новую методологию, матрицу каналов коммуникации и систему KPI с привязкой к данным AI Sales</span>
+            <span class="sc-item"><strong>Семинар для отдела продаж:</strong> очное обучение — новая методология работы с клиентами, инструменты AI Sales Director, разбор реальных кейсов из базы ХБК. Документация по результатам семинара передана команде</span>
+            <span class="sc-item"><strong>Система KPI &amp; регламенты:</strong> стандарты взаимодействия с клиентами A/B/C, регламент работы с инструментом прогнозирования, система мотивации на основе аналитических данных — практическое руководство для руководителя отдела</span>
+          </div>
+        </div>
+        <div class="sc-badge-cell"><span class="sc-badge cs">Консалтинг</span></div>
+        <div class="sc-period">24 Апр – 26 Май</div>
+        <div class="sc-count">4</div>
+      </div>
+
+      <!-- 5. AKSAY GO -->
+      <div class="schema-row">
+        <div class="sc-num">5</div>
+        <div class="sc-main">
+          <div class="sc-title"><a href="#aksay-go">AKSAY GO — бренд и стратегия</a></div>
+          <div class="sc-items">
+            <span class="sc-item"><strong>Концепция бренда &amp; дегустация:</strong> <span class="sc-m">28 Апр 2026</span> — дегустация продуктового портфеля молодёжного фудбренда готовой еды. Финальный ассортимент согласован с командой ХБК: <span class="sc-m">8</span> позиций меню (сэндвич, круассан, бокс десертов и др.). Позиционирование: городская готовая еда от производителя</span>
+            <span class="sc-item"><strong>Бизнес-план v4:</strong> главный интерес для ХБК — не финансовый возврат с <span class="sc-m">2</span> точек (цифры скромные для компании такого масштаба), а стратегический: открыться заново для молодой аудитории в новом формате. Готовая еда + молодёжные напитки — точка входа по специальной цене через myAksay. Клиент попадает в экосистему: приложение с полным ассортиментом, программа лояльности, розничные точки. Синергия трёх каналов (AKSAY GO + myAksay + розница) даёт существенный прирост внимания молодёжи и поднимает продажи по всем категориям</span>
+            <span class="sc-item"><strong>Финансовая модель (юнит-экономика):</strong> ср. себестоимость позиции <span class="sc-m">~430 ₸</span> (сырьё + упаковка + труд), ср. розничная цена <span class="sc-m">~1 530 ₸</span>, food cost % <span class="sc-m">22–27%</span>, ср. маржа с позиции <span class="sc-m">~1 100–1 200 ₸</span>. Точка безубыточности, срок окупаемости, Excel-модель для оперативного пересчёта по каждому SKU</span>
+            <span class="sc-item"><strong>Прототип myAksay v2 + AI-промпт:</strong> интерактивный HTML-прототип приложения — каталог, корзина, оформление заказа, B2B категория C self-service flow. AI-промпт для ассистента проекта: автоматизация задач планирования и управления запуском AKSAY GO</span>
+          </div>
+        </div>
+        <div class="sc-badge-cell"><span class="sc-badge kp">КП</span></div>
+        <div class="sc-period">28 Апр – 26 Май</div>
+        <div class="sc-count">5</div>
+      </div>
+
+      <!-- 6. Следующие шаги -->
+      <div class="schema-row">
+        <div class="sc-num">6</div>
+        <div class="sc-main">
+          <div class="sc-title"><a href="#future">Следующие шаги — 5 коммерческих предложений</a></div>
+          <div class="sc-items">
+            <span class="sc-item"><strong>КП1 — myAksay: мобильное приложение + B2B портал</strong><span class="sc-status done">Готово</span> Охват: <span class="sc-m">2 877</span> B2B-клиентов категории C переводятся на self-service (заказы без менеджера) + B2C мобильное приложение для розничных покупателей. Функционал: каталог, корзина, история заказов, программа лояльности, push-уведомления. КП проработано детально</span>
+            <span class="sc-item"><strong>КП2 — Логистическая IT-система</strong><span class="sc-status dev">В разработке</span> Модернизация логистической платформы на замену текущей системе (Relog) — на основе выявленных в аудите проблем: задержки отгрузок, ручное планирование маршрутов, отсутствие трекинга. Концепция сформирована, полное КП в финальной стадии</span>
+            <span class="sc-item"><strong>КП3 — AI Production Director</strong><span class="sc-status dev">В процессе</span> AI-ассистент для стола заказов и прогнозирования производственной загрузки: планирование выпуска под прогнозируемый спрос + управление закупками сырья. КП: <span class="sc-m">5</span> страниц, интеграция с 1С, деплой на сервер клиента</span>
+            <span class="sc-item"><strong>КП4 — AKSAY GO: фудбренд готовой еды</strong><span class="sc-status done">Готово</span><span class="sc-status collab">Коллаборация</span> Структура: ХБК <span class="sc-m">60%</span> / AKSAY GO <span class="sc-m">40%</span>. Стратегическая ставка: репозиционирование бренда для молодёжи, вход через готовую еду и напитки → myAksay как воронка → рост продаж по всем категориям. Полный инвестпакет в разделе 05</span>
+            <span class="sc-item"><strong>КП5 — AksayAcademia: корпоративная образовательная платформа</strong><span class="sc-status dev">В процессе</span> LMS-платформа для HR, онбординга новых сотрудников и управления корпоративными знаниями. Фаза 1 → v2: проработаны функциональные требования, стек, этапы внедрения, стоимость</span>
+          </div>
+        </div>
+        <div class="sc-badge-cell"><span class="sc-badge ft ft-big">Новое направление</span></div>
+        <div class="sc-period"></div>
+        <div class="sc-count">5</div>
+      </div>
+
+      <!-- Total -->
+      <div class="schema-total">
+        <div class="st-label">Итого по всем направлениям</div>
+        <div class="st-val">51 документ</div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- КОНТРАКТ №1 — САЙТ -->
+<section id="site">
+  <div class="container">
+    <div class="badge badge-contract rv">Контракт №1</div>
+    <div class="sec-label rv">01 · Корпоративный сайт</div>
+    <h2 class="rv rv-d1">Корпоративный сайт<br><em>ХБК Аксай</em></h2>
+    <p class="sec-lead rv rv-d2">Разработан современный корпоративный сайт с нуля: от дизайн-концепции до деплоя. <strong>31 марта</strong> состоялся релиз v1, <strong>26 мая</strong> — релиз v2 с расширенным контентом после получения дополнительных материалов от клиента.</p>
+
+    <div class="doc-wrap rv rv-d3" id="docWrap1">
+      <div class="doc-head">
+        <div class="dh-label">Дата</div>
+        <div class="dh-label">Документ</div>
+        <div class="dh-label">Тип</div>
+      </div>
+      <div class="phase-label">Юридическое оформление</div>
+      <div class="doc-row" data-href="legal/website/ХБК АКСАЙ Договор Сайт [финальная версия].pdf">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">Договор Сайт</div><div class="doc-sub">Финальная подписанная версия</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="legal/website/ХБК АКСАЙ Смета Сайт.docx">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">Смета на разработку сайта</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+
+      <div class="doc-row" data-href="legal/website/ХБК_Аксай_ТЗ_Корпоративный_Сайт_v2_0.pdf">        <div class="doc-date">14–16 Мар</div>
+        <div><div class="doc-name">ТЗ Корпоративный Сайт v2.0</div><div class="doc-sub">Финальное техническое задание — подписанная PDF</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="phase-label">Дизайн</div>
+      <div class="doc-row" data-href="aksay-design/akay-light-theme.png">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">Фирменный стиль</div><div class="doc-sub">Дизайн-концепция, цветовая схема</div></div>
+        <div class="doc-type">PNG</div>      </div>
+      <div class="doc-row" data-href="aksay-design/aksay-design-references.png">        <div class="doc-date">15 Мар</div>
+        <div><div class="doc-name">Дизайн-референсы</div><div class="doc-sub">Визуальные ориентиры проекта</div></div>
+        <div class="doc-type">PNG</div>      </div>
+      <div class="phase-label">Разработка и релизы</div>
+      <div class="doc-row" data-href="aksay-site/index.html">        <div class="doc-date">31 Мар</div>
+        <div><div class="doc-name">Корпоративный сайт ХБК Аксай — v1 → v2</div><div class="doc-sub">Актуальная финальная версия (обновлена 26 мая)</div></div>
+        <div class="doc-type">HTML</div>      </div>
+      <div class="doc-row" data-href="legal/website/Акт выполненных работ Сайт.pdf">        <div class="doc-date">31 Мар</div>
+        <div><div class="doc-name">Акт выполненных работ — Сайт</div><div class="doc-sub">Закрывающий документ по контракту №1</div></div>
+        <div class="doc-type">PDF</div>      </div>
+    </div>
+  </div>
+</section>
+
+<!-- КОНТРАКТ №2 — AI SALES -->
+<section id="ai-sales">
+  <div class="container">
+    <div class="badge badge-contract rv">Контракт №2</div>
+    <div class="sec-label rv">02 · AI Sales Director</div>
+    <h2 class="rv rv-d1">AI Sales<br><em>Director</em></h2>
+    <p class="sec-lead rv rv-d2">AI-инструмент для отдела продаж ХБК Аксай. Три этапа разработки с февраля по апрель 2026: от аудита 5 лет исторических данных до работающего приложения. <strong>25 мая</strong> передана финальная версия v3.</p>
+
+    <div class="doc-wrap rv rv-d3" id="docWrap2">
+      <div class="doc-head">
+        <div class="dh-label">Дата</div>
+        <div class="dh-label">Документ</div>
+        <div class="dh-label">Тип</div>
+      </div>
+      <div class="phase-label">Договор и КП</div>
+      <div class="doc-row" data-href="ai-sales/contracts/ai-sales offer.docx">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">AI Sales — Коммерческое предложение</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="ai-sales/contracts/ai-sales summary.docx">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">AI Sales — Резюме проекта</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="ai-sales/contracts/ai-sales contract-final.pdf">        <div class="doc-date">27 Мар</div>
+        <div><div class="doc-name">Договор AI Sales (финальная версия)</div><div class="doc-sub">Договор 291225 — подписанный</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/contracts/ai-sales general-estimate 3-stages.pdf">        <div class="doc-date">27 Мар</div>
+        <div><div class="doc-name">Смета на 3 этапа</div><div class="doc-sub">Общая смета работ по контракту</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/contracts/ai-sales bill 1 stage.pdf">        <div class="doc-date">2 Апр</div>
+        <div><div class="doc-name">Счёт на оплату — Этап 1</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="phase-label">Этап 1 — Аудит данных и архитектура (17–20 апреля)</div>
+      <div class="doc-row" data-href="ai-sales/stage-1/Отчет о выполнении тз Aksaynan AI.docx">        <div class="doc-date">17 Апр</div>
+        <div><div class="doc-name">Отчёт о выполнении ТЗ — Этап 1</div><div class="doc-sub">Aksay AI — промежуточный отчёт</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="ai-sales/stage-1/Расширенный_Отчёт_Аудит_Данных_2021-2025_AI_Sales_Director.docx">        <div class="doc-date">20 Апр</div>
+        <div><div class="doc-name">Расширенный отчёт: Аудит данных 2021–2025</div><div class="doc-sub">Анализ 5 лет продаж для обучения модели</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="ai-sales/stage-1/Архитектура_Системы_AI_Sales_Director.docx">        <div class="doc-date">20 Апр</div>
+        <div><div class="doc-name">Архитектура системы AI Sales Director</div><div class="doc-sub">Техническое описание системы</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="ai-sales/stage-1/TZ_i_AKT_unified.pdf">        <div class="doc-date">20 Апр</div>
+        <div><div class="doc-name">ТЗ + АКТ серверная инфраструктура (единый пакет)</div><div class="doc-sub">ТЗ-01-SRV-2026 и АКТ-IT-01-2026</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/stage-1/АКТ_IT-01-2026_Серверное.docx">        <div class="doc-date">20 Апр</div>
+        <div><div class="doc-name">АКТ серверное оборудование IT-01-2026</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      
+      <div class="doc-row" data-href="ai-sales/stage-1/АКТ_Этап1_Benevsky_ХБК_Аксай.docx">        <div class="doc-date">20 Апр</div>
+        <div><div class="doc-name">АКТ Этап 1 — Benevsky / ХБК Аксай</div><div class="doc-sub">Закрывающий акт первого этапа</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="ai-sales/stage-2/Счёт_на_оплату_Этап2.docx">        <div class="doc-date">20 Апр</div>
+        <div><div class="doc-name">Счёт на оплату — Этап 2</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="phase-label">Онбординг команды клиента (21 апреля)</div>
+      <div class="doc-row" data-href="ai-sales/onboarding/Ознакомление_Категория_А.pdf">        <div class="doc-date">21 Апр</div>
+        <div><div class="doc-name">Ознакомление — Категория А</div><div class="doc-sub">Материалы для менеджеров категории А</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/onboarding/Ознакомление_Категория_BC.pdf">        <div class="doc-date">21 Апр</div>
+        <div><div class="doc-name">Ознакомление — Категория BC</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/onboarding/Ознакомление_Аналитический_отдел.pdf">        <div class="doc-date">21 Апр</div>
+        <div><div class="doc-name">Ознакомление — Аналитический отдел</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/onboarding/Ознакомление_Региональный_отдел.pdf">        <div class="doc-date">21 Апр</div>
+        <div><div class="doc-name">Ознакомление — Региональный отдел</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="phase-label">Этап 2 — Разработка (30 апреля)</div>
+      <div class="doc-row" data-href="ai-sales/stage-2/AI_Sales_Director_Этап_2_План.pdf">        <div class="doc-date">30 Апр</div>
+        <div><div class="doc-name">AI Sales Director — план Этапа 2</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/stage-2/Отчёт_Этап2_AI_Sales_Director.pdf">        <div class="doc-date">30 Апр</div>
+        <div><div class="doc-name">Отчёт — Этап 2</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/stage-2/АКТ_02-2026_Этап2.pdf">        <div class="doc-date">30 Апр</div>
+        <div><div class="doc-name">АКТ 02-2026 — Этап 2</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="phase-label">Этап 3 — Финализация (30 апреля)</div>
+      <div class="doc-row" data-href="ai-sales/stage-3/Отчёт_Этап3_AI_Sales_Director.pdf">        <div class="doc-date">30 Апр</div>
+        <div><div class="doc-name">Отчёт — Этап 3</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/stage-3/АКТ_03-2026_Этап3.pdf">        <div class="doc-date">30 Апр</div>
+        <div><div class="doc-name">АКТ 03-2026 — Этап 3</div><div class="doc-sub">Подготовлен · ожидает подписания</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/stage-3/Счет_03-2026_Этап3.pdf">        <div class="doc-date">30 Апр</div>
+        <div><div class="doc-name">Счёт на оплату — Этап 3</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="phase-label">Закрытие контракта и финальный продукт</div>
+      <div class="doc-row" data-href="ai-sales/final/ИТОГОВЫЙ_АКТ_Договор_291225.pdf">        <div class="doc-date">30 Апр</div>
+        <div><div class="doc-name">ИТОГОВЫЙ АКТ — Договор 291225</div><div class="doc-sub">Подготовлен · ожидает подписания</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="ai-sales/AI_Sales_Director_App_v3.html">        <div class="doc-date">25 Май</div>
+        <div><div class="doc-name">AI Sales Director App — v3 (финальная)</div><div class="doc-sub">Финальная версия приложения для отдела продаж</div></div>
+        <div class="doc-type">HTML</div>      </div>
+    </div>
+  </div>
+</section>
+
+<!-- КОНСАЛТИНГ -->
+<section id="consulting">
+  <div class="container">
+    <div class="badge badge-consulting rv">Консалтинг</div>
+    <div class="sec-label rv">03 · Бизнес-консалтинг</div>
+    <h2 class="rv rv-d1">Аудит<br><em>компании</em></h2>
+    <p class="sec-lead rv rv-d2">Комплексная диагностика ХБК Аксай: 14 марта проведена Digital-Twin встреча, проведены интервью с руководителями и подготовлены <strong>аналитические отчёты по 5 ключевым департаментам</strong>.</p>
+
+    <div class="doc-wrap rv rv-d3" id="docWrap3">
+      <div class="doc-head">
+        <div class="dh-label">Дата</div>
+        <div class="dh-label">Документ</div>
+        <div class="dh-label">Тип</div>
+      </div>
+      <div class="phase-label">Диагностика и интервью (14 марта)</div>
+      <div class="doc-row" data-href="business-conslulting/Digital-Twin-Meeting.docx">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">Digital-Twin встреча — моделирование бизнес-процессов ХБК Аксай</div><div class="doc-sub">Протокол встречи: интервью с руководителями, картирование процессов компании</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="phase-label">Аналитические отчёты по департаментам</div>
+      <div class="doc-row" data-href="business-conslulting/АКСАЙ КОММЕРЧЕСКИЙ ДЕПАРТАМЕНТ МАРТ.docx">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">Аудит: Коммерческий департамент</div><div class="doc-sub">Анализ, узкие места, рекомендации</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="business-conslulting/АКСАЙ ЛОГИСТИКА МАРТ.docx">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">Аудит: Логистика</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="business-conslulting/АКСАЙ ПРОИЗВОДСТВЕННЫЙ ДЕПАРТАМЕНТ МАРТ.docx">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">Аудит: Производственный департамент</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="business-conslulting/АКСАЙ ТЕХНИЧЕСКИЙ ДЕПАРТАМЕНТ МАРТ.docx">        <div class="doc-date">14 Мар</div>
+        <div><div class="doc-name">Аудит: Технический департамент</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+      <div class="doc-row" data-href="business-conslulting/АКСАЙ РОЗНИЧНАЯ СЕТЬ И БЕЗОПАСНОСТЬ МАРТ.docx">        <div class="doc-date">16 Мар</div>
+        <div><div class="doc-name">Аудит: Розничная сеть и безопасность</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+    </div>
+  </div>
+</section>
+
+<!-- МОДЕРНИЗАЦИЯ ОТДЕЛА ПРОДАЖ -->
+<section id="sales">
+  <div class="container">
+    <div class="badge badge-consulting rv">Консалтинг</div>
+    <div class="sec-label rv">04 · Модернизация отдела продаж</div>
+    <h2 class="rv rv-d1">Модернизация<br><em>отдела продаж</em></h2>
+    <p class="sec-lead rv rv-d2">Комплексная работа по систематизации и усилению отдела продаж ХБК Аксай: <strong>стратегические сессии с руководством</strong>, разработка полной <strong>B2B маркетинговой стратегии</strong> и проведение <strong>обучающего семинара</strong> для команды. Итог — готовая стратегия и обученная команда.</p>
+
+    <div class="doc-wrap rv rv-d3" id="docWrap4">
+      <div class="doc-head">
+        <div class="dh-label">Дата</div>
+        <div class="dh-label">Документ</div>
+        <div class="dh-label">Тип</div>
+      </div>
+      <div class="phase-label">B2B Маркетинговая стратегия</div>
+      <div class="doc-row" data-href="ai-sales/marketing/B2B_Маркетинговая_Стратегия_ХБК_Аксай.pdf">        <div class="doc-date">24 Апр</div>
+        <div><div class="doc-name">B2B Маркетинговая стратегия ХБК Аксай — v1</div><div class="doc-sub">Первая версия после стратегических сессий с руководителями</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="_slide_review/slide-01.jpg">        <div class="doc-date">25–26 Май</div>
+        <div><div class="doc-name">Слайды B2B маркетинговой стратегии</div><div class="doc-sub">12 слайдов — визуализация стратегии для презентации и мастер-класса</div></div>
+        <div class="doc-type">JPG</div>      </div>
+      <div class="doc-row" data-href="B2B_Маркетинговая_Стратегия_ХБК_Аксай_v2.pdf">        <div class="doc-date">26 Май</div>
+        <div><div class="doc-name">B2B Маркетинговая стратегия ХБК Аксай — v2 (финал)</div><div class="doc-sub">Финальная версия: дорожная карта, сегменты, ценностные предложения</div></div>
+        <div class="doc-type">PDF</div>      </div>
+
+      <div class="phase-label">Обучающий семинар для команды</div>
+      <div class="doc-row" data-href="Семинар_Отдел_Продаж_ХБК_Аксай.pptx">        <div class="doc-date">25 Май</div>
+        <div><div class="doc-name">Семинар для отдела продаж ХБК Аксай</div><div class="doc-sub">Полный пакет обучающих материалов: методология, KPI, разбор кейсов</div></div>
+        <div class="doc-type">PPTX</div>      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AKSAY GO -->
+<section id="aksay-go">
+  <div class="container">
+    <div class="badge badge-kp rv">Коммерческое предложение</div>
+    <div class="sec-label rv">05 · AKSAY GO</div>
+    <h2 class="rv rv-d1">AKSAY GO —<br><em>новый бренд готовой еды</em></h2>
+    <p class="sec-lead rv rv-d2">Стратегическое направление: <strong>молодёжный бренд готовой еды</strong> ХБК Аксай. <strong>28 апреля</strong> проведена дегустация продукции, проработан бизнес-план, юнит-экономика и КП. Параллельно разработана концепция мобильного приложения <strong>myAksay</strong> — B2C-заказы для конечных покупателей с автоматизацией клиентов категории C, что напрямую следует из выводов B2B маркетинговой стратегии.</p>
+
+    <div class="doc-wrap rv rv-d3" id="docWrap6">
+      <div class="doc-head">
+        <div class="dh-label">Дата</div>
+        <div class="dh-label">Документ</div>
+        <div class="dh-label">Тип</div>
+      </div>
+      <div class="phase-label">Стратегия и экономика</div>
+      <div class="doc-row" data-href="aksay-go/AKSAY_GO_BusinessPlan_v4.pdf">        <div class="doc-date">28 Апр</div>
+        <div><div class="doc-name">Бизнес-план AKSAY GO v4</div><div class="doc-sub">Финальная PDF-версия бизнес-плана</div></div>
+        <div class="doc-type">PDF</div>      </div>
+      <div class="doc-row" data-href="aksay-go/AKSAY_GO_Unit_Economics.xlsx">        <div class="doc-date">28 Апр</div>
+        <div><div class="doc-name">Юнит-экономика AKSAY GO</div><div class="doc-sub">Финансовая модель и расчёты</div></div>
+        <div class="doc-type">XLSX</div>      </div>
+      <div class="phase-label">Коммерческое предложение</div>
+      <div class="doc-row" data-href="aksay-go/AKSAY GO Offer.pptx">        <div class="doc-date">28 Апр</div>
+        <div><div class="doc-name">AKSAY GO — Оффер-презентация</div><div class="doc-sub">Презентация проекта для инвесторов и партнёров</div></div>
+        <div class="doc-type">PPTX</div>      </div>
+      <div class="doc-row" data-href="aksay-go/aksay-go-kp.html">        <div class="doc-date">28 Апр</div>
+        <div><div class="doc-name">AKSAY GO — Коммерческое предложение (интерактивная страница)</div><div class="doc-sub">Интерактивный лендинг с описанием проекта и условиями сотрудничества</div></div>
+        <div class="doc-type">HTML</div>      </div>
+      <div class="phase-label">Прототипы продукта</div>
+      <div class="doc-row" data-href="aksay-go/aksay-go-v2.html">        <div class="doc-date">26 Май</div>
+        <div><div class="doc-name">myAksay — Прототип мобильного приложения v2</div><div class="doc-sub">Обновлённый прототип: доработанный UX, расширенный функционал</div></div>
+        <div class="doc-type">HTML</div>      </div>
+    </div>
+  </div>
+</section>
+
+<!-- СЛЕДУЮЩИЕ ШАГИ -->
+<section id="future">
+  <div class="container">
+    <div class="badge badge-future rv">Следующий этап</div>
+    <div class="sec-label rv">06 · Следующие шаги</div>
+    <h2 class="rv rv-d1">Пять направлений<br><em>следующего этапа</em></h2>
+    <p class="sec-lead rv rv-d2">По результатам аудита, стратегических сессий, разработки AI Sales и B2B маркетинговой стратегии выявлено <strong>10 приоритетных инноваций</strong>. В мае 2026 подготовлены детальные КП по пяти наиболее перспективным направлениям. Первым приоритетом определено мобильное приложение myAksay.</p>
+
+    <!-- BIG CARD: myAksay -->
+    <div class="next-hero-card rv rv-d2">
+      <div class="nhc-inner">
+        <div class="nhc-priority">Приоритет №1 · Следующий договор</div>
+        <div class="nhc-kp-num">→ КП 1</div>
+        <div class="nhc-title">myAksay — мобильный портал для B2C и автоматизации B2B категории C</div>
+        <div class="nhc-desc">Мобильное приложение для прямых заказов продукции ХБК Аксай — два направления в одном продукте: <strong>B2C-канал</strong> для конечных покупателей и <strong>полная автоматизация B2B категории C</strong> без участия менеджера. По результатам аудита, B2B маркетинговой стратегии и стратегических сессий с руководством выявлено: клиенты категории C генерируют непропорционально высокую нагрузку на отдел продаж при минимальной доходности — менеджеры тратят время на мелкие повторные заявки вместо развития ключевых клиентов A и B. Параллельно: действующее приложение конкурента <strong>Smart Satu</strong> регулярно получает жалобы от сотрудников и клиентов ХБК Аксай — неудобный UX, технические сбои. Это прямое окно для выхода на рынок с собственным качественным продуктом, который уже знает клиентскую базу.</div>
+
+        <div class="nhc-points">
+          <div class="nhc-point">
+            <div class="nhc-pt-label">Проблема — категория C</div>
+            <div class="nhc-pt-text">Клиенты категории C занимают значительную долю рабочего времени менеджеров по продажам при доходности существенно ниже, чем у категорий A и B. Менеджер вынужден обрабатывать мелкие повторные заявки вместо того, чтобы развивать ключевые отношения. Это выявлено в ходе B2B маркетинговой стратегии и прямых сессий с руководством коммерческого блока.</div>
+          </div>
+          <div class="nhc-point">
+            <div class="nhc-pt-label">Решение — self-service для кат. C</div>
+            <div class="nhc-pt-text">Категория C переходит в приложение: самостоятельное оформление заказов, история покупок, статус доставки — <strong>без участия менеджера</strong>. Команда продаж освобождается для концентрации на клиентах A и B. Это прямое логическое продолжение модернизации отдела продаж, начатой в апреле 2026.</div>
+          </div>
+          <div class="nhc-point">
+            <div class="nhc-pt-label">Новый рынок — B2C канал</div>
+            <div class="nhc-pt-text">Приложение одновременно открывает <strong>прямые B2C-продажи</strong> конечным покупателям — сегмент, недоступный через текущие каналы дистрибуции. Новый рынок без дополнительной нагрузки на команду: отдельный онбординг, отдельная витрина, программа лояльности.</div>
+          </div>
+          <div class="nhc-point">
+            <div class="nhc-pt-label">Конкурентное окно — Smart Satu</div>
+            <div class="nhc-pt-text">Smart Satu — текущее приложение на рынке — регулярно получает жалобы от сотрудников и клиентов компании: некачественный интерфейс, технические ошибки, низкое удобство работы. ХБК Аксай знает свою клиентскую базу изнутри — это преимущество, которого нет ни у одного внешнего игрока.</div>
+          </div>
+        </div>
+
+        <div class="nhc-tags" style="margin-top:28px;">
+          <span class="nhc-tag">B2C продажи через приложение</span>
+          <span class="nhc-tag">Автоматизация B2B категории C</span>
+          <span class="nhc-tag">Освобождение менеджеров для кат. A и B</span>
+          <span class="nhc-tag">Замена Smart Satu</span>
+          <span class="nhc-tag">Продолжение модернизации отдела продаж</span>
+          <span class="nhc-tag">3 версии КП (v3, B2B портал, PRO)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 SMALL CARDS -->
+    <div class="dir-grid-4 rv rv-d3">
+      <div class="dir-card">
+        <div class="dir-inner">
+          <div class="dir-num">→ КП 2</div>
+          <div class="dir-title">Логистическая IT система</div>
+          <div class="dir-desc">Замена текущей логистической системы Relog: цифровые накладные, оптимизация маршрутов, единый склад-продажи. Обоснование — систематические жалобы из аудита логистики.</div>
+          <div class="dir-tags">
+            <span class="dir-tag">Замена Relog</span>
+            <span class="dir-tag">Логистика и склад</span>
+          </div>
+        </div>
+      </div>
+      <div class="dir-card">
+        <div class="dir-inner">
+          <div class="dir-num">→ КП 3</div>
+          <div class="dir-title">AI Production Director</div>
+          <div class="dir-desc">AI-ассистент управления производством: предиктивное обслуживание оборудования, контроль качества, оптимизация производственного планирования на основе прогнозов спроса.</div>
+          <div class="dir-tags">
+            <span class="dir-tag">AI для производства</span>
+            <span class="dir-tag">3 версии КП</span>
+          </div>
+        </div>
+      </div>
+      <div class="dir-card">
+        <div class="dir-inner">
+          <div class="dir-num">→ КП 4</div>
+          <div class="dir-title">AKSAY GO — бренд готовой еды</div>
+          <div class="dir-desc">Стратегический выход на молодёжную аудиторию: готовая еда и напитки через AKSAY GO — точка входа по спеццене через myAksay, далее клиент в полной экосистеме ХБК. Синергия трёх каналов поднимает продажи по всем категориям.</div>
+          <div class="dir-tags">
+            <span class="dir-tag">Новый бренд</span>
+            <span class="dir-tag">Молодёжная аудитория</span>
+          </div>
+        </div>
+      </div>
+      <div class="dir-card">
+        <div class="dir-inner">
+          <div class="dir-num">→ КП 5</div>
+          <div class="dir-title">Корпоративный Портал AksayAcademia</div>
+          <div class="dir-desc">Образовательная платформа для персонала и партнёров: онлайн-курсы, аттестация торговых представителей, база знаний компании, обучение дистрибьюторов.</div>
+          <div class="dir-tags">
+            <span class="dir-tag">Обучение и HR</span>
+            <span class="dir-tag">2 версии КП</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- myAksay PITCH -->
+<section id="myaksay">
+  <div class="container">
+    <div class="badge badge-future rv">Приоритет №1</div>
+    <div class="sec-label rv">06А · Мобильный портал myAksay</div>
+    <h2 class="rv rv-d1">Почему myAksay —<br><em>следующий шаг</em></h2>
+    <p class="sec-lead rv rv-d2">Это не просто приложение — это логическое завершение трёх месяцев работы. Каждый предыдущий проект создавал задел для следующего: аудит коммерческого отдела → B2B стратегия → AI Sales Director → теперь myAksay. Ни один конкурент не подходит к этому продукту с такой глубиной понимания клиентской базы ХБК Аксай.</p>
+
+    <div class="pitch-grid rv rv-d2">
+      <div class="pitch-block">
+        <div class="pb-head">
+          <span class="pb-num">01</span>
+          <div class="pb-title">Проблема: категория C съедает время менеджеров</div>
+        </div>
+        <div class="pb-text">По данным B2B маркетинговой стратегии v2 и стратегических сессий с коммерческим руководством: из <strong>2 877 активных B2B-клиентов</strong> значительная часть — категория C. Это клиенты с низким средним чеком, высокой частотой мелких заявок и минимальной маржой на каждый контакт.<br><br>Ключевая проблема — не в количестве этих клиентов, а в стоимости их обслуживания. Менеджер тратит сопоставимое время на заявку категории C (магазин у дома, 10–15 позиций) и на работу с клиентом категории A (сеть супермаркетов, контракт на миллионы тенге). При этом разница в маржинальности — кратная. Результат: команда продаж погружена в операционную рутину, пока высокомаржинальные клиенты A и B не получают должного внимания — а это прямые потери выручки, задокументированные в ходе аудита коммерческого отдела.</div>
+      </div>
+      <div class="pitch-block">
+        <div class="pb-head">
+          <span class="pb-num">02</span>
+          <div class="pb-title">Решение: self-service + умные рекомендации</div>
+        </div>
+        <div class="pb-text">myAksay переводит категорию C на <strong>полный self-service</strong>: каталог с актуальными ценами и остатками, оформление заказа без звонка менеджеру, история покупок, статус доставки в реальном времени — интеграция с 1С, без ручного дублирования.<br><br>Что это означает для команды: менеджеры категории C либо полностью переходят на работу с A/B, либо один человек ведёт всю категорию C через цифровой канал без потери качества. Компания масштабируется без роста штата.<br><br>Критически важный контекст: <strong>AI Sales Director уже хранит 4 года истории покупок</strong> по каждому клиенту. myAksay — это интерфейс поверх этих данных. Приложение с первого дня знает, что и когда обычно заказывает каждый конкретный клиент. Это не просто каталог — это персонализированный портал с умными рекомендациями.</div>
+      </div>
+      <div class="pitch-block">
+        <div class="pb-head">
+          <span class="pb-num">03</span>
+          <div class="pb-title">Новый рынок: прямые продажи конечному покупателю</div>
+        </div>
+        <div class="pb-text">За <strong>30+ лет работы</strong> ХБК Аксай выстраивал продажи исключительно через дистрибуторов и B2B-клиентов. Конечный потребитель — человек, который каждый день покупает хлеб Аксай в магазине — никогда не имел прямого доступа к бренду. myAksay меняет это: B2C-режим позволяет розничному покупателю заказывать напрямую с доставкой или самовывозом.<br><br>Для ХБК это <strong>принципиально новый канал данных</strong> — впервые в истории компании появляется информация о конечном потребителе: что покупают, с какой частотой, какие категории предпочитают.<br><br>Синергия с AKSAY GO: бренд готовой еды привлекает молодую аудиторию → она скачивает приложение → через него видит весь ассортимент ХБК Аксай → конвертируется в постоянного покупателя хлеба, кондитерки и других категорий. AKSAY GO работает как верхняя воронка для всей экосистемы.</div>
+      </div>
+      <div class="pitch-block">
+        <div class="pb-head">
+          <span class="pb-num">04</span>
+          <div class="pb-title">Конкурентное окно: почему сейчас и почему ХБК</div>
+        </div>
+        <div class="pb-text"><strong>Smart Satu</strong> — существующая B2B-платформа для оптовых заказов, которой пользуется часть клиентов ХБК. По обратной связи менеджеров и клиентов, собранной в ходе аудита: платформа получает систематические жалобы на нестабильность, устаревший интерфейс и ошибки при формировании заявок.<br><br>Но главное преимущество myAksay — не техническое превосходство. Это <strong>доверие и знание клиентской базы</strong>. Smart Satu — чужая платформа с чужим брендом. myAksay — приложение ХБК Аксай, компании, которой клиенты доверяют десятилетиями. Переход происходит внутри уже существующих деловых отношений — не как внедрение нового вендора, а как удобный инструмент от партнёра, которого знают лично.<br><br>Критически: данные остаются у ХБК. Работа через Smart Satu — это потеря видимости собственных клиентов. Собственное приложение — это собственная аналитика, собственная программа лояльности и прямой канал коммуникации без посредников.</div>
+      </div>
+    </div>
+
+    <div class="doc-wrap rv" id="docWrap7" style="margin-top:56px;">
+      <div class="doc-head">
+        <div class="dh-label">Дата</div>
+        <div class="dh-label">Документ</div>
+        <div class="dh-label">Тип</div>
+      </div>
+
+      <div class="phase-label">КП 1 — myAksay (мобильный портал B2C + автоматизация B2B категории C)</div>
+      <div class="doc-row" data-href="new-potential-contracts%20%5Bfuture%5D/КП3_Аксай_Го_B2B_PRO.docx">        <div class="doc-date">18 Май</div>
+        <div><div class="doc-name">КП 1 — myAksay</div><div class="doc-sub">Коммерческое предложение: мобильный портал B2C + автоматизация B2B категории C</div></div>
+        <div class="doc-type">DOCX</div>      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ДРУГИЕ ИННОВАЦИИ -->
+<section id="other-innovations">
+  <div class="container">
+    <div class="badge badge-future rv">Следующий этап</div>
+    <div class="sec-label rv">06Б · Другие инновации</div>
+    <h2 class="rv rv-d1">КП 2–5: остальные<br><em>направления развития</em></h2>
+    <p class="sec-lead rv rv-d2">Помимо myAksay (КП1), по результатам аудита, стратегических сессий и встреч с руководством сформированы КП ещё по четырём направлениям. КП2 — на основе жалоб на текущую логистическую систему Relog. КП3 и КП5 — проработаны в нескольких итерациях от концепции до PRO-версии. КП4 (AKSAY GO) детально описан в разделе 05.</p>
+
+    <div class="doc-wrap rv rv-d3" id="docWrap8" style="margin-top:48px;">
+      <div class="doc-head">
+        <div class="dh-label">Дата</div>
+        <div class="dh-label">Документ</div>
+        <div class="dh-label">Тип</div>
+      </div>
+
+      <div class="phase-label">КП 2 — Логистическая IT система (замена Relog, модернизация логистики и склада)</div>
+      <div class="doc-row" data-href="kp2-logistics-concept" style="opacity:.65;">        <div class="doc-date">Июнь 2026</div>
+        <div>
+          <div class="doc-name">КП 2 — Логистическая IT система</div>
+          <div class="doc-sub">Концепция проработана на базе аудита, финализация КП ожидается в июне 2026</div>
+          <span class="doc-wip-pill">В процессе</span>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="phase-label">КП 3 — AI Production Director</div>
+      <div class="doc-row" data-href="kp3-ai-production-concept" style="opacity:.65;">        <div class="doc-date">25 Май</div>
+        <div><div class="doc-name">КП 3 — AI Production Director</div><div class="doc-sub">AI-ассистент управления производством и сырьём — концепция проработана, договор в согласовании</div><span class="doc-wip-pill">В процессе</span></div>
+        <div></div>      </div>
+
+      <div class="phase-label">КП 4 — AKSAY GO</div>
+      <div class="doc-row" data-href="aksay-go/aksay-go-kp.html">        <div class="doc-date">28 Апр</div>
+        <div><div class="doc-name">КП 4 — AKSAY GO</div><div class="doc-sub">Коммерческое предложение: новый потребительский бренд ХБК Аксай, модель партнёрства, юнит-экономика, дорожная карта</div></div>
+        <div class="doc-type">HTML</div>      </div>
+
+      <div class="phase-label">КП 5 — AksayAcademia</div>
+      <div class="doc-row" data-href="kp5-academia-concept" style="opacity:.65;">        <div class="doc-date">25 Май</div>
+        <div><div class="doc-name">КП 5 — AksayAcademia</div><div class="doc-sub">Корпоративная образовательная платформа — концепция проработана, договор в согласовании</div><span class="doc-wip-pill">В процессе</span></div>
+        <div></div>      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENT MODAL -->
+<div class="doc-modal-overlay" id="docModal">
+  <div class="doc-modal">
+    <div class="dmo-head">
+      <div class="dmo-meta">
+        <span class="dmo-date" id="dmoDate"></span>
+        <span class="dmo-type" id="dmoType"></span>
+      </div>
+      <button class="dmo-close" id="dmoClose">✕</button>
+    </div>
+    <div class="dmo-body">
+      <div class="dmo-title" id="dmoTitle"></div>
+      <div class="dmo-sub" id="dmoSub"></div>
+      <div class="dmo-divider"></div>
+      <div class="dmo-detail" id="dmoDetail"></div>
+    </div>
+    <div class="dmo-footer">
+      <span class="dmo-link disabled" id="dmoLink" aria-disabled="true" title="Функция в разработке">в процессе добавления</span>
+      <span class="dmo-hint">ESC или клик вне окна — закрыть</span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-quote">
+        Каждый документ — зафиксированный результат. <span>51 документ за 3 месяца.</span>
+      </div>
+      <div class="footer-brand-blk">
+        <div class="fb-name">Benevsky IT Hub</div>
+        <div class="fb-sub">team@benevsky.work</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>Benevsky IT Hub © 2026 · Отчёт по проекту ХБК Аксай</div>
+      <div>Февраль–Май 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* THEME */
+let theme = 'dark';
+const themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click', () => {
+  theme = theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  themeBtn.textContent = theme === 'dark' ? '◐' : '◑';
+});
+
+/* MOBILE NAV */
+const burgerBtn = document.getElementById('burgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+burgerBtn.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  burgerBtn.textContent = open ? '✕' : '☰';
+});
+mobileNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => { mobileNav.classList.remove('open'); burgerBtn.textContent = '☰'; });
+});
+
+/* SCROLL REVEAL */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); revObs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.rv').forEach(el => revObs.observe(el));
+
+/* DOC ROWS STAGGER */
+const docObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.doc-row').forEach((r, i) => {
+        setTimeout(() => r.classList.add('in'), i * 60);
+      });
+      docObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.doc-wrap').forEach(w => docObs.observe(w));
+
+/* ── DOCUMENT MODAL ────────────────────────────────────────────── */
+const docDetails = {
+
+  /* ═══════════════════════════════════════════════════
+     КОНТРАКТ №1 — САЙТ
+  ═══════════════════════════════════════════════════ */
+  "legal/website/ХБК АКСАЙ Договор Сайт [финальная версия].pdf": {
+    bullets:[
+      "<strong>Юридическая основа Контракта №1</strong> — официальный договор между Benevsky IT Hub и ХБК Аксай на разработку корпоративного сайта",
+      "Предмет договора: проектирование, дизайн, разработка и деплой корпоративного веб-сайта с нуля — включая мобильную адаптацию и базовое SEO",
+      "Срок выполнения: с 14 марта по 31 марта 2026 — три недели от подписания до первого релиза",
+      "Стоимость и порядок оплаты зафиксированы в приложении-смете; оплата после подписания акта выполненных работ",
+      "Условия приёмки: клиент обязан принять работы или предоставить мотивированный отказ в течение 5 рабочих дней после передачи",
+      "Права на использование: все созданные материалы (код, дизайн, контент) переходят к ХБК Аксай после финального расчёта",
+      "Подписан 14 марта 2026 — официальный старт разработки",
+      "Стороны договора: ТОО BENEVSKY IT HUB (исполнитель) и ТОО ХБК Аксай (заказчик) — полные реквизиты, БИН и банковские счета обеих сторон зафиксированы в разделе «Адреса и реквизиты»",
+      "Порядок внесения изменений: любые доработки сверх согласованного ТЗ оформляются отдельным дополнительным соглашением с собственной сметой — это защищает обе стороны от «расползания» объёма работ",
+      "Гарантийные обязательства: исполнитель устраняет ошибки и сбои, выявленные в течение гарантийного периода после сдачи, без дополнительной оплаты",
+      "Ответственность сторон: предусмотрены пени за просрочку, порядок досудебного урегулирования споров и оговорки о форс-мажоре",
+      "Структура документа: предмет договора, права и обязанности сторон, сроки, стоимость и порядок расчётов, порядок сдачи-приёмки, ответственность, конфиденциальность, реквизиты — классическая структура договора подряда на разработку ПО",
+      "Документ служит «корневым» юридическим основанием всего направления «Сайт» — на него ссылаются смета, ТЗ и акт выполненных работ"
+    ]
+  },
+  "legal/website/ХБК АКСАЙ Смета Сайт.docx": {
+    bullets:[
+      "<strong>Детальная смета по всем работам Контракта №1</strong> — согласована одновременно с договором",
+      "Структура сметы: предпроектный анализ и ТЗ — подготовка технического задания с проработкой структуры и контента",
+      "Дизайн: разработка light-концепции, цветовой палитры, типографики, дизайн-референсов, согласование с клиентом",
+      "Вёрстка и разработка: HTML/CSS/JS, адаптив под мобильные, кросс-браузерная совместимость, все разделы сайта",
+      "Деплой и настройка: перенос на хостинг, подключение домена, SSL-сертификат, базовая SEO-оптимизация",
+      "Каждая статья с отдельной стоимостью — позволяет клиенту видеть структуру ценообразования",
+      "Служит официальным финансовым приложением к Договору Сайт",
+      "Логика ценообразования: стоимость разбита по этапам жизненного цикла проекта, что делает смету прозрачной и проверяемой для финансового отдела заказчика",
+      "Каждая строка сметы привязана к конкретному результату (deliverable) — клиент платит не за «часы», а за измеримый итог по каждому блоку работ",
+      "Смета согласована и подписана одновременно с договором — это исключает споры о стоимости в процессе работы",
+      "Документ используется бухгалтерией ХБК Аксай как основание для постановки обязательства на учёт и планирования оплаты по акту"
+    ]
+  },
+  "legal/website/ХБК_АКСАЙ_ТЗ_Корпоративный_Сайт_v2.0.docx": {
+    bullets:[
+      "<strong>Полное техническое задание v2.0</strong> — итоговый согласованный документ, определяющий всё, что должно быть на сайте",
+      "Структура сайта: Главная (hero + ключевые преимущества + CTA), О компании (история, ценности, команда), Продукция (каталог с фото и описаниями), Производство (экскурсия, стандарты качества), Контакты (карта, форма, реквизиты)",
+      "Дизайн-требования: светлая тема в духе пекарни, тёплая пшеничная палитра, современный минималистичный стиль, крупная типографика, акцент на фотографии продукции",
+      "Техническая часть: одностраничный HTML-сайт с якорной навигацией, без CMS, минимальные зависимости для максимальной скорости загрузки",
+      "Адаптивность: корректное отображение на мобильных, планшетах и десктопе (breakpoints: 1200px, 960px, 680px)",
+      "SEO: мета-теги, Open Graph для соцсетей, корректные заголовки H1-H3, семантическая разметка",
+      "Версия 2.0 — после переработки первоначального ТЗ по итогам обсуждений с клиентом",
+      "Контентная модель: для каждого раздела зафиксировано, какие тексты, фотографии и данные предоставляет заказчик, а что готовит исполнитель — это снимает типичную проблему «нет контента — стоит вёрстка»",
+      "Функциональные требования: якорная навигация, форма обратной связи с валидацией, интеграция карты, кнопки CTA, плавная прокрутка, переключение языков (при необходимости)",
+      "Нефункциональные требования: скорость загрузки (PageSpeed 90+), кросс-браузерность (Chrome, Safari, Firefox, Edge), доступность базового уровня, корректное отображение при медленном интернете",
+      "Критерии приёмки по каждому разделу: чек-лист того, что считается «готово» — формализует момент сдачи и исключает субъективные споры",
+      "ТЗ выступает «единым источником правды» для всего проекта: и дизайн, и вёрстка, и финальная приёмка сверяются именно с этим документом",
+      "Версионирование (v2.0) показывает зрелость процесса: требования не «придумывались на ходу», а проходили цикл согласования и уточнения"
+    ]
+  },
+  "legal/website/ХБК_Аксай_ТЗ_Корпоративный_Сайт_v2_0.pdf": {
+    bullets:[
+      "PDF-версия ТЗ v2.0 — идентична DOCX по содержанию, но зафиксирована как подписанный архивный экземпляр",
+      "Используется как официальный закреплённый документ на случай споров — PDF-версия не редактируется",
+      "Содержит всё ТЗ: структуру страниц, функциональные требования, дизайн-гайдлайны, технические требования",
+      "Назначение PDF-версии: неизменяемый архивный экземпляр для юридической фиксации — в отличие от DOCX, его нельзя случайно или намеренно отредактировать",
+      "Хранится вместе с договором и сметой как часть единого пакета документов по направлению «Сайт»"
+    ]
+  },
+  "aksay-design/akay-light-theme.png": {
+    bullets:[
+      "<strong>Дизайн-концепция корпоративного сайта ХБК Аксай — light-тема</strong>",
+      "Цветовая палитра (6 цветов): <span style='display:inline-flex;align-items:center;gap:5px;'><span style='display:inline-block;width:12px;height:12px;border-radius:50%;background:#F5EFE6;border:1px solid rgba(0,0,0,.15);vertical-align:middle;'></span> <b>Пергамент</b> #F5EFE6</span> — основной фон. <span style='display:inline-flex;align-items:center;gap:5px;'><span style='display:inline-block;width:12px;height:12px;border-radius:50%;background:#FBF7F2;border:1px solid rgba(0,0,0,.15);vertical-align:middle;'></span> <b>Льняная сетка</b> #FBF7F2</span> — фон карточек. <span style='display:inline-flex;align-items:center;gap:5px;'><span style='display:inline-block;width:12px;height:12px;border-radius:50%;background:#C8963E;border:1px solid rgba(0,0,0,.15);vertical-align:middle;'></span> <b>Пшеничное золото</b> #C8963E</span> — тёплый акцент. <span style='display:inline-flex;align-items:center;gap:5px;'><span style='display:inline-block;width:12px;height:12px;border-radius:50%;background:#C8251A;border:1px solid rgba(0,0,0,.15);vertical-align:middle;'></span> <b>Тандырный красный</b> #C8251A</span> — основной бренд-акцент. <span style='display:inline-flex;align-items:center;gap:5px;'><span style='display:inline-block;width:12px;height:12px;border-radius:50%;background:#E8391A;border:1px solid rgba(0,0,0,.15);vertical-align:middle;'></span> <b>Жар</b> #E8391A</span> — вторичный акцент, hover-состояния. <span style='display:inline-flex;align-items:center;gap:5px;'><span style='display:inline-block;width:12px;height:12px;border-radius:50%;background:#1A0A00;border:1px solid rgba(255,255,255,.2);vertical-align:middle;'></span> <b>Горький шоколад</b> #1A0A00</span> — основной текст",
+      "Типографика: заголовки — Fraunces (серифный дисплейный шрифт, передаёт характер и теплоту бренда), основной текст — Geist (чистый гротеск для читаемости), UI-элементы — JetBrains Mono (лаконичные метки)",
+      "UI-компоненты: карточки продукции с тенью и скруглением, крупные фото на всю ширину, горизонтальная sticky-навигация с логотипом слева, секции с чередованием фона (белый / бежевый)",
+      "Стиль визуального языка: современный premium-casual для продуктового бренда — чистота, теплота, доверие. Не «советская пекарня» и не холодный корпорат — между ними",
+      "Hero-секция: полноэкранный блок с фотографией продукции, большой заголовок с курсивом, кнопки CTA в цвете акцента",
+      "Согласована с клиентом и утверждена как основа для разработки до начала вёрстки",
+      "Эта дизайн-система легла в основу нового фирменного стиля AksayNan в целом",
+      "Сетка и отступы: модульная сетка с крупными воздушными отступами — premium-ощущение строится не на декоре, а на пространстве и ритме блоков",
+      "Состояния интерфейса проработаны: hover, активные и фокус-состояния кнопок и ссылок, поведение карточек при наведении — дизайн описывает не только «как выглядит», но и «как реагирует»",
+      "Принцип фотографии: продукт всегда на тёплом нейтральном фоне, крупный план, естественный свет — еда должна выглядеть свежей и «хочется попробовать»",
+      "Адаптивное поведение: показано, как hero-блок, навигация и карточки перестраиваются на планшете и телефоне без потери характера бренда",
+      "Этот макет — не просто «картинка», а полноценный визуальный контракт: всё, что попало в вёрстку сайта, сверялось именно с ним"
+    ]
+  },
+  "aksay-design/aksay-design-references.png": {
+    bullets:[
+      "<strong>Подборка дизайн-референсов</strong> — визуальная база для выравнивания ожиданий с клиентом",
+      "Примеры брендов и сайтов: современные европейские пекарни и продуктовые компании с сильным визуальным кодом, Казахстанские FMCG-бренды нового поколения",
+      "Что было взято из референсов: использование крупных фуд-фотографий на весь экран, тёплая нейтральная палитра (кремовый, пшеничный, коричневый), серьёзная типографика с чередованием прямого и курсивного начертания",
+      "Что было намеренно отвергнуто: яркие кислотные цвета, перегруженность элементами, «советский» визуальный код, тёмные темы",
+      "Документ использован на старте проекта для согласования общего стилевого направления — без него часто возникают разночтения между заказчиком и разработчиком",
+      "Каждый референс сопровождён короткой пометкой «что именно берём»: типографику, обращение с фото, палитру или принцип компоновки — а не дизайн целиком",
+      "Подборка выполняет роль «словаря вкуса»: после неё заказчик и исполнитель одинаково понимают слова «современно», «премиально», «тепло»",
+      "Снижает риск дорогих переделок на этапе вёрстки — стилевые споры решаются на дешёвом этапе референсов, а не на готовом сайте"
+    ]
+  },
+  "aksay-site/index.html": {
+    bullets:[
+      "<strong>Финальная версия корпоративного сайта ХБК Аксай</strong> — актуальная, работающая",
+      "v1 релиз 31 марта 2026: все разделы полностью вёрстаны, мобильная адаптация, все ссылки и CTA работают, задеплоен на хостинге",
+      "Разделы сайта v1: Главная (hero + ключевые цифры + призыв к действию), О компании (история с 1993 года, ценности, присутствие в регионах), Продукция (каталог с категориями: хлеб, сдоба, кондитерские изделия), Производство (фото завода, сертификаты качества, стандарты), Контакты (интерактивная карта, форма обратной связи, реквизиты)",
+      "v2 обновление 26 мая 2026: расширен контент — добавлены материалы по AksayNan как бренду, обновлены фотографии продукции, добавлены актуальные партнёры и регионы присутствия",
+      "Технические характеристики: PageSpeed score 90+, адаптив на всех устройствах, корректная SEO-разметка, HTTPS",
+      "Задеплоен на хостинге по корпоративному домену aksaynan.kz",
+      "Архитектура файла: одностраничный сайт без CMS — весь HTML, CSS и JS управляются вручную, что даёт максимальную скорость и минимальную уязвимость (нет админки, которую можно взломать)",
+      "Навигация: sticky-шапка с якорными переходами, плавная прокрутка к разделам, мобильное меню-гамбургер",
+      "SEO-слой: проработаны мета-теги, Open Graph для корректного превью при отправке ссылки в мессенджерах, семантические заголовки H1–H3, alt-тексты у изображений",
+      "Производительность: оптимизированные изображения, минимум внешних зависимостей, шрифты подгружаются с preconnect — отсюда высокий PageSpeed",
+      "Это «живой» итоговый продукт направления «Сайт» — именно его видит конечный посетитель, и именно он закрывается Актом выполненных работ"
+    ]
+  },
+  "legal/website/Акт выполненных работ Сайт.pdf": {
+    bullets:[
+      "<strong>Официальный закрывающий акт Контракта №1</strong> — подписан обеими сторонами 31 марта 2026",
+      "Подтверждает: все работы по разработке корпоративного сайта выполнены в полном объёме и в установленные сроки",
+      "Перечень принятых работ: ТЗ, дизайн-концепция, вёрстка всех разделов, адаптив, деплой, подключение домена",
+      "Клиент принял сайт без замечаний — претензий по качеству не поступало",
+      "Является основанием для финального расчёта по Контракту №1",
+      "Подписание акта одновременно с деплоем — демонстрирует чёткое соблюдение договорённостей по срокам",
+      "Юридический смысл: акт фиксирует переход прав и снятие обязательств исполнителя — после подписания работа считается принятой, а гарантийный период начинает отсчёт",
+      "Документ закрывает «треугольник» направления «Сайт»: Договор (обязательство) → Смета (стоимость) → Акт (исполнение)",
+      "Отсутствие замечаний в акте — управленческий сигнал: проект сдан «с первого раза», без дорогостоящего цикла доработок"
+    ]
+  },
+
+  /* ═══════════════════════════════════════════════════
+     КОНТРАКТ №2 — AI SALES DIRECTOR
+  ═══════════════════════════════════════════════════ */
+  "ai-sales/contracts/ai-sales offer.docx": {
+    bullets:[
+      "<strong>Коммерческое предложение по проекту AI Sales Director</strong> — первый документ, инициировавший Контракт №2",
+      "Ценностное предложение: AI-система прогнозирования продаж, которая помогает менеджерам ХБК Аксай ставить реалистичные планы на основе 5 лет исторических данных и факторов (сезонность, регион, категория клиента, рост рынка)",
+      "Ключевые выгоды для клиента: снижение перепроизводства и дефицита за счёт точных прогнозов, освобождение времени менеджеров от ручного планирования, объективные данные для переговоров с клиентами",
+      "Технология: ML-модель на основе gradient boosting, обученная на 58 месяцах данных продаж ХБК Аксай, веб-интерфейс без установки ПО",
+      "Структура проекта: 3 этапа — аудит данных и архитектура, разработка модели и интерфейса, тестирование и передача",
+      "Ожидаемый результат: точность прогнозов 85-92% на 30-дневном горизонте по каждому клиенту, сокращение времени на планирование на 70%",
+      "Этот документ послужил основой для переговоров и подписания договора 291225",
+      "Логика убеждения: документ ведёт читателя от боли («планируем вслепую») через решение («AI знает ваших клиентов») к выгоде в деньгах и времени — это структура продающего, а не технического текста",
+      "Возражения сняты заранее: отдельно проговорено, почему модели можно доверять, что будет с данными (остаются у клиента) и что менеджеры не теряют работу, а получают инструмент",
+      "Прогнозируемый ROI: показано, как точные прогнозы сокращают перепроизводство и дефицит — то есть предложение окупается за счёт снижения потерь, а не только за счёт удобства",
+      "Привязка к этапам: КП уже содержит трёхэтапную дорожную карту, которая один-в-один перешла в договор — клиент видит не «чёрный ящик», а понятный план",
+      "Документ задаёт тон всему Контракту №2: язык выгод для бизнеса, а не язык технологий"
+    ]
+  },
+  "ai-sales/contracts/ai-sales summary.docx": {
+    bullets:[
+      "<strong>Executive Summary проекта AI Sales Director</strong> — для руководства ХБК Аксай",
+      "Одностраничное изложение: проблема → решение → как работает → что получает клиент → следующий шаг",
+      "Проблема (как сформулирована для клиента): планирование продаж ведётся вручную на основе интуиции менеджеров — это приводит к ошибкам, конфликтам «план vs факт» и потерям",
+      "Решение: AI берёт 5 лет данных, находит закономерности и выдаёт прогноз по каждому клиенту на следующий месяц — менеджер видит, сколько реально продаст, и ставит план соответственно",
+      "Технология без технических деталей: 'система обучилась на вашей истории продаж и теперь знает ваших клиентов лучше любого нового менеджера'",
+      "Написан специально для Генерального директора и коммерческого директора — без технического жаргона, максимально конкретно",
+      "Формат «на одну страницу» выбран намеренно: первое лицо принимает решение за 2–3 минуты чтения, не погружаясь в детали реализации",
+      "Каждый тезис сформулирован как ответ на вопрос руководителя «что мне это даёт?» — а не «как это устроено»",
+      "Документ работает как «лифтовая презентация» проекта: его можно переслать любому стейкхолдеру и быть уверенным, что суть будет понята одинаково"
+    ]
+  },
+
+  "ai-sales/contracts/ai-sales contract-final.pdf": {
+    bullets:[
+      "<strong>Договор 291225 — финальная подписанная версия Контракта №2</strong>",
+      "Подписан 27 марта 2026 — через 13 дней после первой переговорной версии",
+      "Предмет: разработка AI Sales Director — системы прогнозирования продаж для ХБК Аксай на основе ML-модели и исторических данных 2021-2025",
+      "Три этапа: Этап 1 (17-20 апр) — аудит данных и архитектура; Этап 2 (до 30 апр) — разработка модели и интерфейса; Этап 3 (до 30 апр) — тестирование, онбординг и передача",
+      "Стоимость каждого этапа зафиксирована в приложении-смете, оплата поэтапно после подписания соответствующего акта",
+      "Условия конфиденциальности: данные продаж ХБК Аксай являются коммерческой тайной, Benevsky IT Hub обязуется не передавать их третьим лицам",
+      "Договор №291225 — от даты регистрации 29.12.2025 (первые переговоры начались ещё в конце 2025)",
+      "Стороны и реквизиты: ТОО BENEVSKY IT HUB (Директор Поляков С.К.) × ТОО ХБК Аксай (Генеральный директор Сарсенова З.К.) — полные банковские и налоговые реквизиты в финальном разделе",
+      "Поэтапная модель оплаты привязывает деньги к результату: каждый платёж — только после подписания акта соответствующего этапа, что минимизирует риск заказчика",
+      "Раздел конфиденциальности и данных: данные продаж признаются коммерческой тайной, исполнитель обязуется не передавать их третьим лицам и хранить только на инфраструктуре заказчика",
+      "Права на ПО: все исключительные права на разработанный код, модель и документацию переходят к ХБК Аксай после полного расчёта",
+      "Приёмка, гарантии и ответственность: зафиксированы сроки приёмки этапов, гарантийные обязательства и санкции за просрочку с обеих сторон",
+      "Это «корневой» юридический документ Контракта №2 — на него ссылаются все сметы, счета, акты этапов и итоговый акт"
+    ]
+  },
+  "ai-sales/contracts/ai-sales general-estimate 3-stages.pdf": {
+    bullets:[
+      "<strong>Общая смета по трём этапам разработки AI Sales Director</strong>",
+      "Этап 1 — Аудит данных и архитектура: получение и очистка датасета 2021-2025, разведывательный анализ данных (EDA), выбор архитектуры ML-модели, проектирование серверной инфраструктуры, подготовка ТЗ на сервер",
+      "Этап 2 — Разработка: обучение и настройка ML-модели (gradient boosting, валидация на hold-out выборке), разработка REST API, создание веб-интерфейса (дашборды, прогнозы по клиентам, рекомендации), подключение к данным ХБК Аксай",
+      "Этап 3 — Финализация: нагрузочное и регрессионное тестирование, оптимизация точности модели, разработка 4 ролевых онбординг-материалов, передача исходного кода и документации, проведение обучения команды",
+      "Итоговая стоимость зафиксирована в смете — каждый этап с отдельной строкой и основанием",
+      "Смета построена по принципу «результат → стоимость»: за каждой суммой стоит конкретный измеримый итог, а не абстрактные часы работы",
+      "Разбивка на три этапа синхронизирована с договором и графиком оплат — финансовый отдел заказчика может планировать платежи помесячно",
+      "Документ служит основанием для выставления трёх отдельных счетов и проверки соответствия «оплачено ↔ принято» по каждому этапу"
+    ]
+  },
+  "ai-sales/contracts/ai-sales bill 1 stage.pdf": {
+    bullets:[
+      "Счёт на оплату Этапа 1 — выставлен 2 апреля 2026",
+      "Выставлен сразу после старта работ по Этапу 1, согласно условиям договора (оплата в начале этапа)",
+      "Сумма соответствует строке Этапа 1 в согласованной смете",
+      "Является формальным основанием для проведения оплаты бухгалтерией ХБК Аксай",
+      "Содержит банковские реквизиты исполнителя, назначение платежа со ссылкой на договор №291225 и сумму с выделенным НДС",
+      "Первый из трёх счетов Контракта №2 — открывает цепочку поэтапных расчётов «счёт → работа → акт»"
+    ]
+  },
+  "ai-sales/stage-1/Отчет о выполнении тз Aksaynan AI.docx": {
+    bullets:[
+      "<strong>Промежуточный отчёт о ходе Этапа 1</strong> — подготовлен 17 апреля, за 3 дня до финального акта",
+      "Формат: таблица всех пунктов ТЗ с колонками 'что выполнено' / 'статус' / 'комментарий'",
+      "Статус по ключевым пунктам на 17 апреля: датасет получен и очищен (58 месяцев, 3 категории клиентов, 5 регионов) ✓, EDA выполнен, тренды и аномалии задокументированы ✓, архитектура системы согласована ✓, сервер настроен ✓",
+      "Передан клиенту для промежуточной проверки — клиент видит прогресс до подписания акта",
+      "Предшествует финальному АКТ Этапа 1, который подписан 20 апреля",
+      "Назначение документа: дать заказчику возможность проверить ход работ до подписания акта — это «предзащита», снижающая риск замечаний в момент сдачи",
+      "Формат таблицы «пункт ТЗ → статус → комментарий» делает прогресс наглядным даже для нетехнического руководителя",
+      "Демонстрирует прозрачность процесса: исполнитель не ждёт конца этапа, а держит клиента в курсе на промежуточной точке"
+    ]
+  },
+  "ai-sales/stage-1/Расширенный_Отчёт_Аудит_Данных_2021-2025_AI_Sales_Director.docx": {
+    bullets:[
+      "<strong>Ключевой аналитический документ проекта — полный аудит данных продаж ХБК Аксай за 5 лет</strong>",
+      "Объём данных: 58 месяцев (январь 2021 — октябрь 2025), данные по всем активным клиентам в разрезе категорий A, B, C и регионов",
+      "Сезонность: выявлены устойчивые паттерны — пики в мае-июне (Рамадан и тёплый сезон +40% к базе) и в декабре (Новый год +25%), провалы в январе-феврале",
+      "Динамика по сегментам: категория A (крупные сетевые клиенты) — стабильный рост +8% год к году; категория B — волатильность, зависимость от конкретного менеджера; категория C — высокая текучка клиентов, низкая предсказуемость",
+      "Аномальные периоды: апрель-май 2022 (пандемийные последствия, -30% к плану), осень 2023 (запуск нового производственного цеха, временный дефицит продукции)",
+      "Региональный анализ: Алматы — лидер по объёму (45% выручки), наибольший потенциал роста в Шымкенте и Нур-Султане (текущая доля не соответствует численности населения)",
+      "Качество данных: выявлено 12% пропусков и ошибок в исходных данных (дублирование заказов, неправильные даты, некорректные суммы) — все исправлены в ходе очистки",
+      "Ключевой вывод: данных достаточно для построения прогностической модели с горизонтом 30 дней; рекомендована модель типа gradient boosting с признаками сезонности, категории клиента и региона",
+      "Методология аудита: данные прошли полный цикл — выгрузка из 1С, профилирование, дедупликация, восстановление пропусков, нормализация дат и сумм, кросс-проверка с финансовой отчётностью",
+      "Когортный анализ клиентов: построены кривые удержания (retention) и оттока по годам входа клиента — видно, какие когорты «вымываются» быстрее и почему",
+      "Анализ длинного хвоста: показано, что небольшое число клиентов формирует основную выручку, а длинный хвост мелких клиентов потребляет непропорционально много ресурсов — фактическая основа для будущей ABC-логики и идеи самообслуживания (myAksay)",
+      "Прогнозируемость по сегментам оценена количественно: для каждого сегмента посчитана «предсказуемость» спроса — где модель будет точна, а где потребует осторожности и доверительных интервалов",
+      "Выявленные признаки (features): на основе данных предложен конкретный набор предикторов — лаги продаж, скользящие средние, флаги праздников РК, сезонные индексы, категория и регион",
+      "Риски данных и их митигация: задокументированы ограничения (короткая история по новым клиентам, влияние разовых акций) и способы их учёта в модели",
+      "Этот отчёт — фундамент всего проекта: именно из него выросли и архитектура системы, и набор признаков модели, и логика рекомендаций по обзвону"
+    ]
+  },
+  "ai-sales/stage-1/Архитектура_Системы_AI_Sales_Director.docx": {
+    bullets:[
+      "<strong>Полное техническое описание архитектуры AI Sales Director</strong>",
+      "Слой данных: PostgreSQL на выделенном сервере, ETL-пайплайн для ежемесячной загрузки новых данных из 1С ХБК Аксай, автоматическая очистка и валидация",
+      "ML-модель: LightGBM (gradient boosting), обучена на 58 месяцах данных с feature engineering — признаки сезонности (месяц, квартал, праздники РК), категория клиента ABC, регион, тренд роста/падения, исторический разброс",
+      "Архитектура API: REST API на FastAPI (Python), эндпоинты: /forecast (прогноз по клиенту на N месяцев), /clients (список с фильтрами), /analytics (агрегированные дашборды), /onboarding (проверка статуса)",
+      "Веб-интерфейс: React SPA, без установки — открывается в браузере, три ролевых представления: менеджер, аналитик, региональный директор",
+      "Серверная инфраструктура: VPS с Ubuntu 22.04, 16GB RAM, 4 vCPU, SSD 200GB — настроен Benevsky IT Hub, передан клиенту с инструкцией",
+      "Безопасность: авторизация по JWT-токенам, шифрование данных в transit (HTTPS), данные клиентов хранятся только на серверах ХБК Аксай",
+      "Масштабируемость: архитектура рассчитана на добавление новых регионов, продуктовых категорий и ML-моделей без рефакторинга",
+      "Поток данных end-to-end: 1С → ETL-выгрузка → очистка/валидация → PostgreSQL → обучение и инференс модели → REST API → веб-интерфейс — каждый узел описан с входами и выходами",
+      "Контекстный слой LLM+RAG: помимо ML-прогноза, система использует retrieval-augmented generation для формулировки рекомендаций на естественном языке — описана схема индексации и подачи контекста",
+      "Отказоустойчивость и эксплуатация: предусмотрены логирование, мониторинг сервисов (systemd), автоматические бэкапы БД и процедура восстановления",
+      "Разграничение прав: ролевая модель доступа (менеджер / аналитик / руководитель) реализована на уровне API и интерфейса — каждый видит только своё",
+      "Принципы проектирования: модульность, слабая связанность компонентов и возможность заменить ML-модель без переписывания интерфейса — это снижает стоимость будущих доработок",
+      "Документ выполняет роль технического «чертежа» системы: по нему можно сопровождать и развивать продукт даже силами другой команды"
+    ]
+  },
+  "ai-sales/stage-1/TZ_i_AKT_unified.pdf": {
+    bullets:[
+      "<strong>Единый пакет: ТЗ-01-SRV-2026 + АКТ-IT-01-2026</strong> — серверная инфраструктура для AI Sales Director",
+      "ТЗ-01-SRV-2026: технические требования к серверу — ОС Ubuntu 22.04 LTS, минимум 16GB RAM, 4 ядра CPU 3GHz+, SSD 200GB, публичный IP, открытые порты 80/443/5432",
+      "ТЗ определяет программное окружение: Python 3.11, PostgreSQL 15, Nginx, Docker, SSL-сертификат Let's Encrypt",
+      "АКТ-IT-01-2026: подтверждение факта настройки и передачи серверного окружения — все требования ТЗ выполнены",
+      "Единый файл объединяет ТЗ и акт для удобства хранения — два документа в одном PDF",
+      "Сервер настроен и передан в эксплуатацию 20 апреля 2026",
+      "Удобство хранения: объединение ТЗ и акта в один PDF означает, что «что заказывали» и «что приняли» всегда читаются рядом — невозможно потерять половину пары",
+      "ТЗ задаёт измеримые критерии (версии ОС, объём RAM, открытые порты), а акт по пунктам подтверждает их выполнение — приёмка становится формальной сверкой, а не обсуждением",
+      "Документ закрывает инфраструктурную часть Этапа 1 и снимает зависимость дальнейшей разработки от готовности сервера"
+    ]
+  },
+  "ai-sales/stage-1/АКТ_IT-01-2026_Серверное.docx": {
+    bullets:[
+      "Акт приёмки серверного оборудования и ПО — IT-01-2026",
+      "Перечисляет конкретные параметры настроенного сервера с подтверждением соответствия ТЗ",
+      "Фиксирует: установленное ПО, версии, статус сервисов (PostgreSQL running, Nginx running, SSL active)",
+      "Передача доступов: SSH-ключи переданы, пароли задокументированы и переданы администратору ХБК Аксай",
+      "Редактируемая DOCX-версия для архива и возможных правок",
+      "Содержит чек-лист переданных доступов (SSH, учётные записи БД) и статусов сервисов — это одновременно акт приёмки и эксплуатационная памятка для администратора",
+      "Наличие редактируемой версии позволяет заказчику вести собственный реестр оборудования и ПО, дополняя его по мере изменений инфраструктуры"
+    ]
+  },
+
+  "ai-sales/stage-1/АКТ_Этап1_Benevsky_ХБК_Аксай.docx": {
+    bullets:[
+      "<strong>Официальный закрывающий акт Этапа 1</strong> — подписан обеими сторонами 20 апреля 2026",
+      "Принятые работы: аудит и очистка датасета 2021-2025 (58 месяцев), разведывательный анализ данных с выявлением трендов и аномалий, проектирование архитектуры системы, настройка серверной инфраструктуры",
+      "Результат Этапа 1 принят клиентом без замечаний",
+      "Является основанием для начала Этапа 2 и выставления счёта на оплату Этапа 2",
+      "Подписан точно в срок — 20 апреля, как указано в договоре 291225",
+      "Юридически фиксирует, что фундамент проекта (данные + архитектура + сервер) сдан и принят — дальнейшие этапы строятся на проверенной базе",
+      "Является «триггером» сразу двух событий: разблокирует старт Этапа 2 и даёт основание для счёта на Этап 2",
+      "Приёмка без замечаний на самом раннем этапе — индикатор того, что аналитика и архитектура были согласованы корректно ещё до начала разработки"
+    ]
+  },
+  "ai-sales/stage-2/Счёт_на_оплату_Этап2.docx": {
+    bullets:[
+      "Счёт на оплату Этапа 2 — выставлен 20 апреля 2026 сразу после подписания АКТ Этапа 1",
+      "Сумма соответствует Этапу 2 в смете: разработка ML-модели, REST API и веб-интерфейса",
+      "Является формальным основанием для проведения оплаты бухгалтерией ХБК Аксай",
+      "Выставлен сразу после приёмки Этапа 1 — соблюдён принцип «оплата следующего этапа только после закрытия предыдущего»",
+      "Второй из трёх счетов Контракта №2; содержит ссылку на договор №291225 и сумму с выделенным НДС"
+    ]
+  },
+  "ai-sales/onboarding/Ознакомление_Категория_А.pdf": {
+    bullets:[
+      "<strong>Онбординг-руководство для менеджеров Категории А</strong> — крупные сетевые клиенты (Magnum, Metro, Рамстор и аналоги)",
+      "Специфика категории A: клиенты с гарантированными объёмами, долгосрочными контрактами и высокими требованиями к стабильности поставок",
+      "Как читать прогноз в AI Sales: колонка «прогноз на следующий месяц» vs «факт прошлого месяца» vs «план», цветовая кодировка отклонений (зелёный / жёлтый / красный)",
+      "Практический сценарий: менеджер открывает приложение в начале месяца → видит AI-прогноз по каждому клиенту → согласует план с учётом прогноза и своего знания клиента → фиксирует в системе",
+      "Что делать при расхождении AI-прогноза с реальностью: инструкция по обратной связи для улучшения модели",
+      "Дашборд менеджера категории A: топ-клиенты по выручке, динамика vs прошлый год, рекомендованные визиты на основе тренда",
+      "FAQ: ответы на 10 частых вопросов от менеджеров (точность модели, что делать если клиент 'нестандартный', можно ли доверять прогнозу при новом ассортименте)",
+      "Тон документа: написан как практическое руководство «для своих», а не академический мануал — короткие шаги, скриншоты экранов, примеры на реальных клиентах",
+      "Антипаттерны: отдельно перечислено, чего делать НЕ нужно (слепо копировать прогноз без здравого смысла, игнорировать тревожные сигналы), чтобы внедрение прошло без типичных ошибок",
+      "Цель онбординга — не «рассказать про систему», а изменить ежедневную привычку менеджера: открыть приложение → свериться с прогнозом → принять решение"
+    ]
+  },
+  "ai-sales/onboarding/Ознакомление_Категория_BC.pdf": {
+    bullets:[
+      "<strong>Онбординг для менеджеров Категорий B и C</strong> — средние и мелкие клиенты (магазины у дома, HoReCa, малый ритейл)",
+      "Специфика B и C: большое количество клиентов (70-80% клиентской базы по числу, но меньше по выручке), высокая текучка, непостоянство заказов",
+      "Ключевая ценность AI для этой категории: система выявляет клиентов с тревожными сигналами — падение частоты заказов, снижение среднего чека, пропуск обычного цикла заказа. Менеджер получает список 'клиентов под риском ухода'",
+      "Рекомендации системы по приоритизации: кому из C-клиентов звонить в первую очередь, кого можно перевести в режим самообслуживания (актуально для myAksay)",
+      "Метрики для менеджера BC: охват (% клиентов с заказами в месяце), частота визитов, конверсия звонков в заказы",
+      "Практический сценарий: еженедельный обзор — список клиентов с аномалиями → звонок / визит → фиксация результата в системе",
+      "Акцент на экономии времени: для категорий B и C ручной контроль каждого клиента невозможен физически — документ учит работать «по исключениям», а не «по списку»",
+      "Связка с myAksay: показано, каких C-клиентов разумно переводить на самообслуживание, чтобы высвободить время менеджера под более ценные сегменты",
+      "Чёткое разграничение ролей человека и системы: AI следит за всей базой и подсвечивает риски, человек принимает решение и сохраняет отношения"
+    ]
+  },
+  "ai-sales/onboarding/Ознакомление_Аналитический_отдел.pdf": {
+    bullets:[
+      "<strong>Техническое руководство для аналитического отдела</strong> — расширенные возможности системы",
+      "Экспорт данных: выгрузка прогнозов и факта в CSV/Excel для использования в корпоративных отчётах, настройка фильтров по периоду / региону / категории клиента / менеджеру",
+      "Интерпретация точности модели: метрики MAPE (средняя процентная ошибка) и MAE по каждому сегменту — как отличить нормальное отклонение от системной ошибки",
+      "Работа с аномалиями: как выявить клиентов, по которым модель систематически ошибается, и что с этим делать (добавить признаки, исключить из модели, пометить как 'нестандартный')",
+      "Ежемесячное обновление модели: процедура загрузки новых данных, запуск переобучения, проверка качества, публикация обновлённых прогнозов",
+      "API-доступ: базовая документация по эндпоинтам для интеграции с корпоративными BI-системами",
+      "Раздел про качество модели объясняет разницу между «ошибка модели» и «изменение реальности» — чтобы аналитики не «чинили» модель там, где изменился сам рынок",
+      "Описан регламент ежемесячного переобучения: кто, когда и по какому чек-листу обновляет модель и публикует новые прогнозы",
+      "Документ превращает аналитический отдел из пассивного потребителя отчётов в владельца и «эксплуатанта» прогнозной системы"
+    ]
+  },
+  "ai-sales/onboarding/Ознакомление_Региональный_отдел.pdf": {
+    bullets:[
+      "<strong>Онбординг для регионального отдела продаж</strong> — территориальное управление и маршруты ТП",
+      "Специфика: региональные менеджеры управляют территориями (Алматы, Астана, Шымкент, Восток, Запад) и командами торговых представителей",
+      "Карта дистрибуции в системе: визуализация покрытия по торговым точкам, тепловая карта по объёмам, 'белые пятна' — районы без активных клиентов",
+      "Использование AI-прогнозов для планирования маршрутов: приоритизация визитов ТП на основе прогноза заказа и тренда клиента. Система предлагает оптимальный недельный маршрут",
+      "Метрики регионального менеджера: покрытие территории (% торговых точек с заказами), выполнение плана по региону, сравнение регионов между собой",
+      "Сезонное планирование: как использовать исторические данные для заблаговременного усиления команды ТП перед пиковыми месяцами",
+      "Управление по территории, а не по отдельному клиенту: руководитель видит покрытие и «белые пятна» региона и распределяет усилия команды осознанно",
+      "Сравнение регионов между собой переводит управление из «по ощущениям» в «по цифрам»: видно, какой регион недорабатывает относительно своего потенциала",
+      "Документ замыкает ролевую линейку онбординга (A, B/C, аналитики, регионы) — у каждого уровня продаж есть собственный сценарий работы с системой"
+    ]
+  },
+  "ai-sales/stage-2/AI_Sales_Director_Этап_2_План.pdf": {
+    bullets:[
+      "<strong>План работ Этапа 2 — пользовательские интерфейсы поверх AI-ядра, апрель 2026</strong>",
+      "Этап 2 создаёт два интерфейса поверх уже работающего AI-ядра (ETL-пайплайн 1С → PostgreSQL → LLM+RAG) — без изменения инфраструктуры данных. Срок: 6 недель, 3 спринта по 2 недели",
+      "Интерфейс 1 — Дашборд аналитика: для руководства и аналитиков. Стек: React + TypeScript + shadcn/ui + Recharts/Tremor. Визуализация клиентской базы, прогнозов, динамики сегментов",
+      "Интерфейс 2 — AI-чат с пресетами: для отдела продаж. 28 готовых шаблонов запросов по 5 категориям работы с клиентами. Backend: FastAPI (API Gateway) + Celery + Redis",
+      "CoreGit: версионированная файловая система для AI-агентов — хранение и аудит AI-выводов, пресетов, конфигураций. Принципиальное решение — готовый shadcn/ui-шаблон экономит 3–4 недели вёрстки",
+      "Единственная техническая сложность: интеграция SSE-стриминга ответов LLM и корректная маршрутизация RAG-контекста в реальном времени",
+      "Спринтовая разбивка: 3 спринта по 2 недели с понятным результатом каждого — снижает риск «всё к концу» и даёт точки для обратной связи клиента",
+      "Решение «строить поверх ядра, не трогая данные»: интерфейсы добавляются как отдельный слой над работающим ETL+ML — это изолирует риск и не угрожает уже принятому Этапу 1",
+      "Обоснование выбора готового shadcn/ui-шаблона: экономия 3–4 недель вёрстки переведена в прямую выгоду для клиента (быстрее и дешевле), а не в маржу исполнителя",
+      "28 пресетов AI-чата спроектированы под реальные задачи продаж — это превращает «умный чат» в предсказуемый рабочий инструмент с понятными кнопками"
+    ]
+  },
+  "ai-sales/stage-2/Отчёт_Этап2_AI_Sales_Director.pdf": {
+    bullets:[
+      "<strong>Итоговый отчёт по выполненным работам Этапа 2</strong>",
+      "Что реализовано: LightGBM-модель с 23 признаками (сезонность, ABC-категория, регион, тренд, история клиента), достигнута точность MAPE 11.3% на тестовой выборке — лучше целевого показателя",
+      "Прогнозный модуль: выдаёт предсказание объёма заказа по каждому клиенту на следующий месяц с интервалом доверия (90% confidence interval)",
+      "Рекомендательная система: на основе аномалий в поведении клиента система формирует приоритетный список для обзвона — 'кому позвонить этой неделе'",
+      "Дашборды: три отдельных представления — менеджер (мой портфель клиентов), аналитик (сводные метрики, экспорт), руководитель (регион vs план, топ-20 клиентов)",
+      "Отклонения от плана: UI потребовал на 20% больше времени из-за доработок по обратной связи клиента на промежуточной демонстрации — это не повлияло на срок сдачи",
+      "Нагрузочное тестирование: 50 одновременных пользователей — время ответа < 300ms, без деградации производительности",
+      "Метрики качества модели приведены честно: указана не только итоговая точность (MAPE 11.3%), но и где модель слабее — по новым клиентам и в спадовые месяцы",
+      "Управление отклонениями: перерасход времени на UI (+20%) зафиксирован прозрачно вместе с причиной (доработки по фидбэку) и подтверждением, что срок сдачи не сдвинулся",
+      "Документ соединяет техническое и деловое: за каждой реализованной функцией указано, какую задачу продаж она закрывает",
+      "Итог Этапа 2 — работающее ядро продукта: прогноз, рекомендации и три ролевых дашборда, готовые к финальной доводке на Этапе 3"
+    ]
+  },
+  "ai-sales/stage-2/АКТ_02-2026_Этап2.pdf": {
+    bullets:[
+      "<strong>Официальный закрывающий акт Этапа 2</strong> — подписан обеими сторонами 30 апреля 2026",
+      "Принятые работы: обученная ML-модель прогнозирования, REST API, веб-интерфейс с тремя ролевыми дашбордами",
+      "Клиент принял Этап 2 без замечаний",
+      "Является основанием для оплаты Этапа 2 и начала финального Этапа 3",
+      "Фиксирует приёмку самой содержательной части проекта — обученной модели и интерфейсов — без замечаний со стороны заказчика",
+      "Связывает выполненные работы Этапа 2 с конкретными строками сметы, обеспечивая сверку «принято ↔ оплачено»"
+    ]
+  },
+  "ai-sales/stage-3/Отчёт_Этап3_AI_Sales_Director.pdf": {
+    bullets:[
+      "<strong>Отчёт о выполненных работах — Этап 3: Интерфейс и Ввод в эксплуатацию, 30 апреля 2026</strong>",
+      "Стоимость этапа: 1 620 000 KZT (в т.ч. НДС 12%). Ответственный: Поляков Савва Константинович, Директор ТОО BENEVSKY IT HUB",
+      "Модуль 1 — Веб-интерфейс «Рабочее место менеджера» (React/Vite + Tailwind CSS): ClientSelector (поиск по клиентам с churn-показателем), ChatPage (панель клиента + AI-чат), Sidebar (статистика ChromaDB, кнопки ETL и переиндексации), Settings",
+      "Модуль 2 — Деплой в production: настройка CI/CD на сервере ХБК, интеграция с базой 1С в read-режиме, планировщик автоматического обновления прогнозных данных",
+      "Исходный код задеплоен на сервере ХБК Аксай, документация и доступы переданы. Этап 3 в финальной стадии закрытия",
+      "Production-готовность: настроены CI/CD, интеграция с 1С в режиме чтения (без риска для боевой базы) и планировщик автоматического обновления прогнозов",
+      "Передача «под ключ»: вместе с кодом переданы документация, доступы и инструкции — заказчик может эксплуатировать систему самостоятельно",
+      "Этот отчёт фиксирует переход продукта из стадии разработки в стадию эксплуатации — система начинает приносить пользу в ежедневной работе",
+      "Указаны стоимость этапа (1 620 000 KZT с НДС) и ответственное лицо — документ одновременно технический и финансовый"
+    ]
+  },
+  "ai-sales/stage-3/АКТ_03-2026_Этап3.pdf": {
+    bullets:[
+      "<strong>Закрывающий акт Этапа 3 — финализация AI Sales Director</strong>",
+      "Документ <strong>подготовлен</strong> со стороны Benevsky IT Hub и передан клиенту",
+      "Ожидает <strong>подписания со стороны ХБК Аксай</strong> — является следующим обязательным шагом",
+      "Охватывает: нагрузочное и регрессионное тестирование, оптимизацию модели, разработку онбординг-материалов, передачу финальной App v3",
+      "После подписания этого акта клиент может подписать итоговый АКТ 291225 для официального закрытия всего Контракта №2",
+      "Текущий статус — единственный «открытый» шаг по Контракту №2: документ подготовлен и передан, ожидается подпись со стороны ХБК Аксай",
+      "Перечисляет финальный объём работ Этапа 3, чтобы подписант видел полный список принимаемого без обращения к другим документам",
+      "Это «последняя миля» проекта: после подписи весь контракт переходит в статус полностью закрытого"
+    ]
+  },
+  "ai-sales/stage-3/Счет_03-2026_Этап3.pdf": {
+    bullets:[
+      "Счёт на оплату Этапа 3 (финального) — выставлен 30 апреля 2026",
+      "Сумма соответствует Этапу 3 в смете: тестирование, оптимизация, онбординг, передача",
+      "Является формальным основанием для финальной оплаты по Контракту №2",
+      "Третий, заключительный счёт Контракта №2 — закрывает финансовую часть проекта",
+      "Содержит реквизиты, ссылку на договор №291225 и сумму этапа с выделенным НДС"
+    ]
+  },
+  "ai-sales/final/ИТОГОВЫЙ_АКТ_Договор_291225.pdf": {
+    bullets:[
+      "<strong>Итоговый акт выполнения всех работ по Договору №291225 — подписан 30 апреля 2026</strong>",
+      "Стороны: ТОО BENEVSKY IT HUB (Директор Поляков Савва Константинович) × ТОО ХБК Аксай (Генеральный директор Сарсенова Зауреш Кабиденовна). Общая сумма договора: 9 120 000 KZT",
+      "3 выполненных этапа: Этап 1 — аудит, серверное окружение, разработка ядра интеграции (АКТ IT-01/2026, 4 200 000 KZT); Этап 2 — AI Core, контекстный слой LLM+RAG; Этап 3 — интерфейс и ввод в эксплуатацию (АКТ 03-2026, 1 620 000 KZT)",
+      "Результат: система AI Sales Director полностью разработана и передана — включает ETL-пайплайн из 1С, PostgreSQL, LLM+RAG ядро, веб-интерфейс рабочего места менеджера, Telegram-бот, WhatsApp Business API, 4 ролевых онбординг-документа",
+      "Все права на разработанное программное обеспечение и документацию переданы ТОО ХБК Аксай в полном объёме",
+      "Документ агрегирует весь Контракт №2: сводит три этапа, их акты и суммы в единую итоговую картину на 9 120 000 KZT",
+      "Подтверждает комплектность поставки: ETL-пайплайн, PostgreSQL, ядро LLM+RAG, веб-интерфейс, Telegram-бот, WhatsApp Business API и 4 ролевых онбординг-документа — ничего не «потеряно» между этапами",
+      "Юридически закрывает взаимные обязательства сторон: у заказчика — продукт и права, у исполнителя — оплата и снятые обязательства",
+      "Служит «титульным» документом всего направления AI Sales — именно его удобно показывать аудиту, инвестору или новому руководителю как доказательство сделанного"
+    ]
+  },
+  "ai-sales/AI_Sales_Director_App_v3.html": {
+    bullets:[
+      "<strong>Финальная версия AI Sales Director App v3</strong> — 25 мая 2026",
+      "Все изменения по обратной связи от команды ХБК Аксай реализованы",
+      "Новое в v3: сравнение текущего периода с прошлым годом по каждому клиенту (динамика +/- %) , детализация прогноза по продуктовым категориям (хлеб / сдоба / кондитерские / снэки)",
+      "Улучшенный мобильный интерфейс: оптимизированная таблица клиентов для телефона, свайп-навигация, быстрый поиск по имени клиента",
+      "ABC-сегментация в реальном времени: система автоматически пересчитывает ABC-категорию клиента на основе последних 3 месяцев, флаг при смене категории",
+      "Производительность: время загрузки списка из 500+ клиентов < 1.2 секунды на мобильном соединении",
+      "Это финальный продукт, передаваемый ХБК Аксай по Контракту №2 — полностью работающий инструмент для ежедневной работы отдела продаж",
+      "Версия v3 — результат живого цикла обратной связи: интерфейс дорабатывался по реальным замечаниям менеджеров, а не по догадкам разработчика",
+      "Самодостаточность: приложение открывается в браузере без установки, что критично для распределённой команды продаж и работы с телефона в «полях»",
+      "Ключевая ценность для бизнеса — не «красивый дашборд», а ежедневное действие: менеджер открывает v3, видит прогноз и тревожные сигналы и принимает решение по клиенту за минуты",
+      "Демонстрирует зрелость продукта: от сырых данных в Этапе 1 до отполированного рабочего инструмента в руках пользователя"
+    ]
+  },
+
+  /* ═══════════════════════════════════════════════════
+     БИЗНЕС-КОНСАЛТИНГ
+  ═══════════════════════════════════════════════════ */
+  "business-conslulting/Digital-Twin-Meeting.docx": {
+    bullets:[
+      "<strong>Протокол Digital-Twin встречи — 14 марта 2026</strong>",
+      "Формат встречи: структурированные интервью с руководителями ключевых департаментов (коммерческий директор, начальник производства, руководитель логистики, IT-директор) + совместное картирование процессов",
+      "Метод Digital-Twin: создание «цифровой копии» бизнеса — детальная карта всех ключевых процессов с точками входа/выхода данных, ответственными и болевыми точками",
+      "Ключевые выводы встречи: продажи и производство планируются независимо друг от друга → регулярные дисбалансы; клиентская база не сегментирована по реальной ценности; IT-системы разрознены, данные из 1С не используются для анализа",
+      "Карта взаимосвязей: визуализация того, как решение в одном департаменте влияет на другие — например, рост категории C в продажах перегружает логистику и снижает маржу",
+      "Приоритизация проблем по матрице Влияние × Сложность устранения: 3 высокоприоритетных направления → AI Sales, модернизация логистики, стандартизация коммерческих процессов",
+      "Документ стал отправной точкой для 5 детальных аудитных отчётов по департаментам",
+      "Состав участников и роли зафиксированы — понятно, кто из руководителей какую информацию подтвердил, что повышает достоверность выводов",
+      "Метод Digital-Twin даёт не список жалоб, а связную модель: видно, как проблема одного отдела перетекает в другой (продажи → производство → логистика → маржа)",
+      "Каждая выявленная проблема привязана к будущему решению — встреча сразу наметила контуры AI Sales, модернизации логистики и стандартизации коммерции",
+      "Приоритизация по матрице «Влияние × Сложность» превращает хаотичный список болей в управляемую дорожную карту инициатив",
+      "Документ работает как «карта местности» всего консалтинга: остальные пять аудитов — это приближение (zoom-in) к отдельным её участкам"
+    ]
+  },
+  "business-conslulting/АКСАЙ КОММЕРЧЕСКИЙ ДЕПАРТАМЕНТ МАРТ.docx": {
+    bullets:[
+      "<strong>Аудит коммерческого департамента ХБК Аксай — март 2026</strong>",
+      "Методология: анализ структуры клиентской базы, интервью с 3 менеджерами по продажам и коммерческим директором, анализ выборки из 50 клиентских карточек",
+      "Структура клиентской базы: категория A (крупные сети) — 15% клиентов / 55% выручки; категория B — 35% / 35%; категория C — 50% клиентов / 10% выручки. При этом затраты времени менеджеров: A — 20%, B — 30%, C — 50%",
+      "Найдено: каждый менеджер ведёт клиентскую базу по своей системе (Excel, тетрадь, телефон) — единой CRM нет. При уходе менеджера клиентская история теряется",
+      "Методология продаж: не формализована. Нет стандарта: что делать при первом контакте, как часто звонить клиентам B, как работать с возражением 'у конкурента дешевле'",
+      "KPI по менеджерам: план по выручке есть, но нет метрик по охвату территории, частоте контактов, росту среднего чека — нельзя оценить качество работы, только результат",
+      "Ключевой вывод: автоматизация (AI Sales) даст максимальный эффект только при параллельной стандартизации процессов — AI делает правильные прогнозы, но если нет методологии работы с этими прогнозами, эффект будет низким",
+      "Рекомендации: 1) Внедрить AI Sales как инструмент прогнозирования 2) Провести семинар по методологии продаж 3) Разработать B2B маркетинговую стратегию с сегментацией 4) Рассмотреть перевод категории C на самообслуживание (myAksay)",
+      "Парадокс распределения усилий вскрыт в цифрах: категория C даёт 10% выручки, но забирает 50% времени менеджеров — это главный аргумент в пользу автоматизации и самообслуживания",
+      "Риск «знание в голове менеджера»: при уходе сотрудника теряется клиентская история — показано, как отсутствие CRM превращает людей в точки отказа бизнеса",
+      "Отсутствие методологии разобрано предметно: нет стандартов первого контакта, частоты касаний и работы с возражениями — продажи держатся на личных талантах, а не на системе",
+      "Связка с другими проектами: аудит прямо обосновывает, почему AI Sales без изменения процессов даст лишь часть эффекта — отсюда необходимость семинара и стратегии",
+      "Каждая рекомендация снабжена ожидаемым эффектом, что позволяет руководству приоритизировать внедрение по соотношению «выгода/усилие»",
+      "Документ — управленческий мост между «как есть» в коммерции и набором конкретных проектов Benevsky (AI Sales, семинар, B2B-стратегия, myAksay)"
+    ]
+  },
+  "business-conslulting/АКСАЙ ЛОГИСТИКА МАРТ.docx": {
+    bullets:[
+      "<strong>Аудит логистического департамента ХБК Аксай — март 2026</strong>",
+      "Охват: анализ маршрутов доставки, документооборот между складом и ТП, интервью с начальником логистики и 2 экспедиторами",
+      "Структура доставки: собственный автопарк для Алматы (12 машин), наёмный транспорт для регионов — разная стоимость, разная ответственность, разный уровень контроля",
+      "Проблема 1 — Последняя миля: средняя задержка доставки к клиенту составляет 1.5 дня от обещанного срока; основная причина — маршруты составляются вручную утром дня доставки, без учёта реальной нагрузки",
+      "Проблема 2 — Документооборот: накладные выписываются вручную, 3 экземпляра бумаги. Ошибки в накладных — в 8% случаев (неправильное количество, неправильная цена). Это создаёт споры с клиентами и дополнительную работу бухгалтерии",
+      "Проблема 3 — Возвраты: нет чёткой процедуры оформления возвратов продукции. 15% возвратов не оформлены корректно — потери не фиксируются в системе",
+      "Потенциал автоматизации: цифровые накладные (EDI) сократят ошибки до < 0.5%, автоматическая маршрутизация снизит пробег на 15-20%",
+      "Выводы легли в основу КП2 по модернизации IT-логистической системы (замена Relog)",
+      "Проблемы оцифрованы, а не описаны на словах: задержка «последней мили» ~1.5 дня, ошибки в накладных в 8% случаев, 15% возвратов без корректного оформления — это позволяет считать экономический эффект решения",
+      "Источник проблем — ручные процессы: маршруты строятся утром «на коленке», накладные пишутся от руки в трёх экземплярах, возвраты не имеют регламента",
+      "Финансовый след неэффективности: ошибки в накладных порождают споры с клиентами и лишнюю работу бухгалтерии, а неучтённые возвраты — скрытые потери",
+      "Потенциал автоматизации количественно оценён (EDI снижает ошибки до <0.5%, автомаршрутизация сокращает пробег на 15–20%) — это прямой вход в бизнес-кейс КП2",
+      "Документ переводит «водители жалуются на Relog» в измеримую проблему с цифрами — основу для замены системы, а не эмоциональное недовольство"
+    ]
+  },
+  "business-conslulting/АКСАЙ ПРОИЗВОДСТВЕННЫЙ ДЕПАРТАМЕНТ МАРТ.docx": {
+    bullets:[
+      "<strong>Аудит производственного департамента ХБК Аксай — март 2026</strong>",
+      "Объём производства: завод работает в 2 смены, производительность до 80 тонн хлебобулочных изделий в сутки в пиковый период",
+      "Проблема планирования: производственный план формируется на основе заявки отдела продаж за 2 дня до производства. Заявка составляется вручную, без AI-прогнозов → систематические перепроизводство по одним позициям и дефицит по другим",
+      "Сезонность и пики: в мае-июне (Рамадан) нагрузка на 40% выше нормы — производство не всегда успевает нарастить мощность вовремя, потому что нет раннего предупреждения о пиках",
+      "Процент брака: в пределах нормы (1.2-1.8%), но нет системного мониторинга — отчёты по браку составляются вручную раз в неделю, а не в реальном времени",
+      "Техническое обслуживание: плановое ТО есть, но не связано с фактической нагрузкой на оборудование. Незапланированные простои — в среднем 4.5 часа в месяц на основной линии",
+      "Интеграция с AI Sales: если прогнозы продаж будут доступны за 2-4 недели, производство сможет планировать мощности заблаговременно — это ключевой синергетический эффект",
+      "Ключевой вывод для КП3: AI Production Director решит 3 задачи — раннее планирование от прогнозов продаж, мониторинг качества в реальном времени, предиктивное ТО оборудования",
+      "Корень проблемы планирования — короткий горизонт: план формируется за 2 дня до производства по ручной заявке, что системно порождает перепроизводство одних SKU и дефицит других",
+      "Сезонные пики (Рамадан, +40%) разобраны как управленческий риск: без раннего предупреждения мощности не успевают разворачиваться вовремя",
+      "Качество и оборудование: брак в норме (1.2–1.8%), но контролируется вручную раз в неделю; незапланированные простои ~4.5 ч/мес на основной линии — обе зоны выигрывают от мониторинга в реальном времени",
+      "Главный синергетический эффект всего консалтинга: прогнозы AI Sales, поданные на производство за 2–4 недели, превращают реактивное планирование в проактивное",
+      "Документ — прямое техническое и экономическое обоснование КП3: он не просто описывает проблемы, а показывает, какие из них закрывает будущая AI-система производства"
+    ]
+  },
+  "business-conslulting/АКСАЙ ТЕХНИЧЕСКИЙ ДЕПАРТАМЕНТ МАРТ.docx": {
+    bullets:[
+      "<strong>Аудит IT-инфраструктуры и технического парка ХБК Аксай — март 2026</strong>",
+      "IT-ландшафт: 1С:Предприятие (основная ERP), Excel для отчётности и планирования, самописные Access-базы в 2 отделах, Telegram-группы как основной канал оперативной коммуникации",
+      "Сервер: физический сервер с Windows Server 2012 R2 (EOL с 2023 года), без активных обновлений безопасности — критический риск",
+      "Базы данных: 1С на основном сервере, 3 отдельных Excel-файла у аналитиков (каждый ведёт свою версию), локальная Access-база у логистики — нет единого источника правды для отчётности",
+      "Мониторинг: отсутствует. О сбоях узнают от пользователей, а не от систем мониторинга. Среднее время до обнаружения проблемы — 2-3 часа",
+      "Резервное копирование: настроено для 1С (ежедневно), но Excel-файлы с планами и аналитикой бэкапами не охвачены — риск потери данных",
+      "Рекомендации, воплощённые в AI Sales: новый сервер с Ubuntu 22.04 (современная, поддерживаемая ОС), PostgreSQL как единое хранилище данных для AI-системы, мониторинг через systemd и автоматические алерты",
+      "Этот аудит напрямую определил технические требования к серверной инфраструктуре (ТЗ-01-SRV-2026) и архитектуру AI Sales Director",
+      "Критический риск назван прямо: боевой сервер на Windows Server 2012 R2 (EOL с 2023) без обновлений безопасности — это не «техдолг», а реальная уязвимость бизнеса",
+      "Проблема «нет единого источника правды»: 1С, три версии Excel у аналитиков и Access у логистики — отчётность противоречива по своей природе",
+      "Слепые зоны эксплуатации: отсутствие мониторинга (о сбоях узнают от людей через 2–3 часа) и неполный бэкап (планы и аналитика в Excel не резервируются)",
+      "Каждая болевая точка превращена в конкретное архитектурное решение AI Sales: Ubuntu LTS вместо EOL-Windows, PostgreSQL как единое хранилище, мониторинг и автобэкап",
+      "Документ показывает, что AI-проект решал не только задачу прогнозирования, но и попутно закрывал инфраструктурные риски всего предприятия"
+    ]
+  },
+  "business-conslulting/АКСАЙ РОЗНИЧНАЯ СЕТЬ И БЕЗОПАСНОСТЬ МАРТ.docx": {
+    bullets:[
+      "<strong>Аудит розничной сети и информационной безопасности — март 2026</strong>",
+      "Розничное присутствие: продукция ХБК Аксай представлена в 800+ торговых точках Алматы и регионов — сетевой ритейл, магазины у дома, рынки, HoReCa",
+      "Стандарты мерчандайзинга: формально есть, но не соблюдаются системно — нет механизма проверки. Торговые представители самостоятельно решают, как выложить товар",
+      "Выкладка на полке: нет приоритизации по маржинальности. Высокомаржинальные позиции (премиальная сдоба, кондитерские) стоят хуже, чем базовый хлеб — это потери в выручке",
+      "Работа ТП в рознице: средний ТП посещает 15-18 точек в день, но нет критериев приоритизации — высокодоходная точка может получать внимание реже, чем низкодоходная",
+      "Информационная безопасность: клиентские данные (ИИН, контакты, объёмы закупок) хранятся в Excel без шифрования и без политики доступа — риск утечки",
+      "Рекомендации по ИБ: ввести политику доступа к клиентским данным, перевести ключевые данные в 1С с разграничением прав, не хранить персональные данные в незащищённых Excel",
+      "Связь с myAksay: перевод категории C-клиентов на самообслуживание через мобильное приложение автоматически решает проблему — их данные хранятся в защищённой системе, а не в Excel ТП",
+      "Упущенная выручка на полке: высокомаржинальные позиции выкладываются хуже базового хлеба — аудит указывает на прямой денежный резерв в мерчандайзинге",
+      "Отсутствие приоритизации визитов ТП: высокодоходная точка может получать внимание реже низкодоходной — те же ресурсы при перераспределении дают больше выручки",
+      "Информационная безопасность разобрана как бизнес-риск: незашифрованные клиентские данные (ИИН, контакты, объёмы) в Excel — это потенциальная утечка и репутационный удар",
+      "Рекомендации по ИБ конкретны: политика доступа, перенос данных в 1С с разграничением прав, отказ от хранения персональных данных в незащищённых файлах",
+      "Документ связывает розницу, безопасность и цифровизацию в один аргумент: myAksay — не только канал продаж, но и способ закрыть дыру в защите данных"
+    ]
+  },
+
+  /* ═══════════════════════════════════════════════════
+     МАРКЕТИНГОВАЯ СТРАТЕГИЯ
+  ═══════════════════════════════════════════════════ */
+  "ai-sales/marketing/B2B_Маркетинговая_Стратегия_ХБК_Аксай.pdf": {
+    bullets:[
+      "<strong>Маркетинговая B2B стратегия ХБК Аксай v1.0 — апрель 2026, 23 страницы</strong>",
+      "Масштаб задачи: 39,96 млрд KZT совокупной выручки за 2023–2025 гг., 2 877 уникальных контрагентов, сжатие активной базы −11,8% за два года. Критический риск: 80% выручки генерируют 161 контрагент (8,6% базы) — потеря одного крупного клиента несёт риск недополучения 200–500 млн KZT в год",
+      "Системная проблема: сигналы об уходе клиента обнаруживаются постфактум, спустя 4–8 недель после начала снижения активности. Верифицированный кейс: клиент с выручкой ~500 млн KZT/год прекратил закупки без предварительного реагирования",
+      "Методологическая основа — модель ПАУПРО (Цеховой А.Ф., КазНИТУ, 2024): 3 фазы развития + 5 доменов исполнения. AI Sales Director обеспечивает техническую инфраструктуру, ПАУПРО — управленческий фреймворк с обязательным еженедельным ритмом АУСН",
+      "Концепция «удалённого суперсотрудника»: AI мониторит 1 869 активных контрагентов 24/7, не устаёт, не забывает. Люди концентрируются на том, что требует суждения и доверия — переговорах, нестандартных решениях, развитии отношений",
+      "Операциональная матрица AS-IS → TO-BE по 5 доменам: снижение времени на рутинный мониторинг ≥60%, 100% охват базы ежемесячной коммуникацией (сейчас — избирательно, зависит от инициативы ТП), персонализированные черновики сообщений для каждого клиента от AI",
+      "Концентрация риска показана в деньгах: 80% выручки на 161 контрагенте — потеря одного крупного клиента стоит 200–500 млн KZT/год, что переводит «удержание» из лозунга в приоритет №1",
+      "Проблема позднего обнаружения оттока разобрана на верифицированном кейсе (клиент ~500 млн KZT/год ушёл незамеченным) — это эмоциональный и фактический якорь всей стратегии",
+      "Методологическая опора на модель ПАУПРО (КазНИТУ, 2024) придаёт стратегии академическую строгость: AI даёт инфраструктуру, ПАУПРО — управленческий ритм",
+      "Метафора «удалённого суперсотрудника» делает абстрактный AI понятным для команды: он мониторит 1 869 контрагентов 24/7, освобождая людей для того, что требует доверия и суждения",
+      "Документ объёмный (23 страницы) и системный — это не лозунги, а связка «данные → диагноз → методология → операционные изменения по 5 доменам»"
+    ]
+  },
+  "_slide_review/slide-01.jpg": {
+    bullets:[
+      "<strong>12 слайдов презентации B2B маркетинговой стратегии</strong> — для мастер-класса с командой продаж (25-26 мая)",
+      "Слайд 1: Контекст — где сейчас находится ХБК Аксай на рынке B2B, ключевые цифры",
+      "Слайды 2-3: Наши клиенты — ABC-сегментация, портреты каждого сегмента, чего они на самом деле хотят",
+      "Слайд 4: Проблема категории C — наглядная диаграмма 'ресурсы vs. выручка'. Ключевой инсайт для команды",
+      "Слайды 5-6: Что делать — ценностные предложения для каждого сегмента, 'продаём не хлеб, а надёжность/свежесть/удобство'",
+      "Слайд 7: Конкуренты — честный анализ, где мы лучше, где хуже, где нейтрально",
+      "Слайды 8-9: Каналы и инструменты — что работает для B2B в food FMCG, что не работает",
+      "Слайд 10: Дорожная карта на 12 месяцев — конкретные шаги по месяцам",
+      "Слайды 11-12: KPI команды и следующие шаги, Q&A",
+      "Формат разработан специально под живое обучение — минимум текста, максимум визуализации, один ключевой инсайт на слайд",
+      "Драматургия колоды выстроена: от контекста и сегментации через «болевой» слайд C-категории к решениям, конкурентам и дорожной карте — команда проживает логику, а не слушает лекцию",
+      "Слайд про категорию C («ресурсы vs выручка») сделан кульминацией намеренно: один сильный визуальный инсайт меняет отношение менеджеров к самообслуживанию",
+      "Тезис «продаём не хлеб, а надёжность/свежесть/удобство» переводит стратегию в язык, который менеджер использует в реальном разговоре с клиентом",
+      "Презентация — рабочий инструмент мастер-класса 25–26 мая, а не архивный файл: каждый слайд рассчитан на обсуждение и упражнение"
+    ]
+  },
+  "B2B_Маркетинговая_Стратегия_ХБК_Аксай_v2.pdf": {
+    bullets:[
+      "<strong>B2B Маркетинговая стратегия ХБК Аксай v2.0 — финальная версия, май 2026</strong>",
+      "Ключевое обновление vs v1: введена трёхуровневая модель A/B/C с чётким разделением роли AI и человека в каждом сегменте. A — стратегические партнёры (крупные сети, переговоры). B — клиенты роста (конвертация и удержание). C — малые клиенты (полная автоматизация через мобильное приложение)",
+      "База расширена до 4 лет: аудит данных охватывает январь 2022 — декабрь 2025 (~40 млрд KZT выручки). Расширение с 3 до 4 лет повышает статистическую значимость сезонных паттернов — сжатие базы −11,8% за два года подтверждено на большей выборке",
+      "Верифицированные сезонные паттерны: июнь–июль — минимум (−9,7% / −7,1% к среднему), декабрь — пик (+7,2%). Порог Churn-алертов автоматически повышается в спадовые периоды, чтобы избежать ложных тревог",
+      "Системные проблемы, зафиксированные в v2: отдел продаж работал без KPI, ретроспектив и стандартов мотивации. Внедрение AI — лишь половина задачи; вторая, более сложная — изменение способа работы людей",
+      "Стратегический эффект категории C: перевод малых клиентов на самообслуживание через приложение освобождает менеджерский ресурс — всё высвободившееся время перераспределяется на A и B, где ценность каждого взаимодействия кратно выше",
+      "Раздел управления переходом: поэтапное введение KPI, прозрачность перед стартом, обучение без наказаний в первые недели работы с системой, руководитель — первый пользователь AI Sales Director",
+      "Главное отличие v2 — чёткое разделение ролей AI и человека по сегментам A/B/C: где машина автоматизирует полностью, а где усиливает переговорщика",
+      "Расширение базы до 4 лет — методологическое усиление: больше данных повышает статистическую значимость сезонных паттернов и достоверность выводов об оттоке",
+      "Адаптивный порог Churn-алертов в спадовые месяцы (июнь–июль) — зрелое инженерное решение против «ложных тревог», которое сохраняет доверие пользователей к системе",
+      "v2 честно называет организационную проблему: внедрить AI — половина задачи, вторая и более трудная — изменить способ работы людей; под это выделен отдельный раздел управления переходом",
+      "Стратегический манёвр категории C: автоматизация мелких клиентов высвобождает менеджерский ресурс и перенаправляет его на A и B, где ценность каждого контакта кратно выше",
+      "Документ — «настольная» финальная версия стратегии: на неё опираются семинар отдела продаж, проект myAksay и логика приоритизации клиентов"
+    ]
+  },
+  "B2B_Маркетинговая_Стратегия_ХБК_Аксай_v2.docx": {
+    bullets:[
+      "Редактируемая DOCX-версия финальной B2B маркетинговой стратегии v2",
+      "Полностью идентична PDF по содержанию — предназначена для самостоятельной доработки командой ХБК Аксай",
+      "Клиент может добавлять собственные данные, уточнять KPI, корректировать дорожную карту под текущие реалии без обращения к Benevsky IT Hub",
+      "Передача в редактируемом формате — сознательный жест: стратегия отдаётся как «живой» рабочий документ, а не закрытый PDF, что повышает шанс её реального применения",
+      "Удобна для внутренних согласований: руководители могут оставлять правки и комментарии прямо в файле в ходе обсуждения"
+    ]
+  },
+
+  /* ═══════════════════════════════════════════════════
+     ОТДЕЛ ПРОДАЖ
+  ═══════════════════════════════════════════════════ */
+  "Семинар_Отдел_Продаж_ХБК_Аксай.pptx": {
+    bullets:[
+      "<strong>Обучающий семинар для отдела продаж ХБК Аксай</strong> — проведён 25 мая 2026",
+      "Охват: весь отдел продаж — менеджеры категорий A, B, C и региональные менеджеры. Формат: 4-часовой практический воркшоп",
+      "Блок 1 — Методология B2B-продаж: структура продажи (разведка → предложение → работа с возражениями → закрытие → сопровождение), адаптирована под специфику хлебобулочного рынка Казахстана",
+      "Блок 2 — Работа с AI Sales Director: живая демонстрация на реальных данных, как читать прогнозы, как ставить план на основе AI, как реагировать на 'тревожные сигналы' по клиентам",
+      "Блок 3 — Клиентские сегменты на практике: ролевые игры — как разговаривать с клиентом категории A vs C, скрипты типичных возражений ('у Fazer дешевле', 'нам сейчас не нужно', 'пришлите КП')",
+      "Блок 4 — KPI и самоуправление: как работать с дашбордом личных результатов в AI Sales, как использовать рекомендации системы для планирования недели",
+      "Раздаточные материалы: чек-лист визита торгового представителя, скрипт первого звонка, карточка клиента (что важно знать о каждом сегменте)",
+      "Итог семинара: команда прошла обучение и готова к работе с AI Sales Director и новой методологией",
+      "Семинар — точка, где встречаются все направления: продукт (AI Sales), стратегия (B2B-сегментация) и люди (методология) объединяются в единый рабочий навык",
+      "Практический, а не лекционный формат: ролевые игры и разбор реальных возражений («у Fazer дешевле», «пришлите КП») формируют поведение, а не знание",
+      "Раздаточные материалы (чек-лист визита, скрипт первого звонка, карточка клиента) превращают четырёхчасовой воркшоп в инструменты, которые остаются с менеджером после семинара",
+      "Блок KPI и самоуправления закрывает риск «обучили и забыли»: команда учится самостоятельно работать с дашбордом личных результатов",
+      "Документ-презентация — доказательство того, что внедрение AI сопровождалось обучением людей, а не было «брошено» на технологию"
+    ]
+  },
+
+  /* ═══════════════════════════════════════════════════
+     AKSAY GO
+  ═══════════════════════════════════════════════════ */
+  "aksay-go/AKSAY_GO_BusinessPlan_v4.pdf": {
+    bullets:[
+      "<strong>Бизнес-план партнёрства AKSAY GO v4 — ТОО ХБК Аксай × ТОО AKSAY GO, апрель 2026</strong>",
+      "Суть: в Казахстане нет нормального качественного сэндвича среднего класса — между уличной едой за 400 ₸ и рестораном за 3 000 ₸ пустота. AKSAY GO закрывает этот разрыв: бриошь собственной выпечки Аксай, MAP-упаковка (срок хранения 5–7 дней вместо 2–3), 9 позиций первой коллекции, цена до 1 600 ₸",
+      "Модель партнёрства 60/40 (ХБК Аксай / AKSAY GO). Аксай вносит: производство (37 лет, HACCP + Halal, 2 цеха), логистику (70–80 маршрутов/сутки), 15 фирменных точек в Алматы, собственный хлеб (бриошь, чиабатта, круассаны — главное УТП). AKSAY GO вносит: продуктовую концепцию, маркетинг, IT/AI-аналитику, операционную команду бренда",
+      "Целевые сегменты с ценовыми диапазонами: офисный работник 25–45 лет (700–1 600 ₸, вкус + скорость), студент 18–25 лет (500–1 200 ₸, цена + насыщение), мобильная аудитория и АЗС (800–1 600 ₸, срок + удобство), ЗОЖ-потребитель 28–40 лет (900–1 600 ₸, состав + свежесть). Прямых конкурентов в формате MAP on-the-go в Казахстане нет",
+      "Стратегический смысл для ХБК: дело не в доходе с 2 точек — это точка старта для выхода на молодёжную аудиторию в новом формате. Готовая еда + молодёжные напитки по спеццене через myAksay → клиент входит в экосистему ХБК. Синергия AKSAY GO + myAksay + розничные точки = существенный прирост внимания молодёжи и рост продаж по всем категориям бренда. Финансовая модель: инвестиции 79 771 008 ₸ (~$171 000) на 2 точки + маркетинг. Дегустация 28 апреля 2026 — продуктовая концепция подтверждена командой",
+      "Рыночная гипотеза сформулирована как «ценовой разрыв»: между уличной едой за 400 ₸ и рестораном за 3 000 ₸ нет качественного сэндвича — AKSAY GO занимает пустующую нишу",
+      "Технологическое УТП — MAP-упаковка (срок 5–7 дней вместо 2–3): это не маркетинг, а реальное операционное преимущество для логистики и снижения списаний",
+      "Модель партнёрства 60/40 разложена по вкладам сторон: у Аксай — производство, логистика, точки и собственный хлеб; у AKSAY GO — концепция, маркетинг, IT/AI и команда бренда",
+      "Сегменты с ценовыми коридорами и мотивами покупки (офис, студенты, мобильная аудитория/АЗС, ЗОЖ) — основа для ассортимента и ценообразования, а не абстрактные «портреты»",
+      "Версия v4 говорит о пройденном цикле итераций бизнес-плана — концепция вызревала, а не родилась сразу; дегустация 28 апреля закрыла главный риск «а вкусно ли»",
+      "Документ объёмный и стратегический: связывает продукт, экономику, партнёрскую модель и долгосрочный смысл (вход молодёжи в экосистему ХБК через myAksay)"
+    ]
+  },
+  "aksay-go/AKSAY_GO_Unit_Economics.xlsx": {
+    bullets:[
+      "<strong>Детальная финансовая модель AKSAY GO в Excel</strong>",
+      "Unit Economics: себестоимость одного SKU (с учётом сырья, упаковки, труда) vs. розничная цена vs. маржа. По 8 продуктовым позициям — сэндвич, круассан, бокс десертов и др.",
+      "CAC (стоимость привлечения клиента): разбит по каналам — торговая точка в ТЦ vs. Magnum vs. доставка. Cheapest channel — доставка через myAksay (нет затрат на аренду)",
+      "LTV (пожизненная ценность клиента): средняя частота покупок 2.3 раза в неделю для лояльного покупателя, LTV за 12 месяцев рассчитан по 3 когортам активности",
+      "Операционная модель: ежемесячные постоянные затраты (аренда точек, персонал, маркетинг) vs. переменные (производство, логистика). Break-even объём — X единиц в день",
+      "Три сценария: консервативный (проникновение 30% от цели), базовый (60%), оптимистичный (100%) — с разной траекторией выхода на прибыль",
+      "Чувствительность к ключевым параметрам: что будет если цена сырья вырастет на 10%, если средний чек снизится на 15%, если время выхода на рынок затянется на 3 месяца",
+      "Это «движок» бизнес-плана: цифры в презентации и BusinessPlan v4 берутся именно отсюда — модель является единым источником финансовой правды проекта",
+      "Формат Excel выбран сознательно: инвестор или руководитель может сам поменять допущение (цену, аренду, проходимость) и мгновенно увидеть новый результат",
+      "Сценарный подход (консервативный/базовый/оптимистичный) честно показывает диапазон исходов, а не один «красивый» прогноз — это повышает доверие к проекту",
+      "Анализ по каналам (точка в ТЦ vs Magnum vs доставка) сразу подсказывает стратегию выхода: самый дешёвый канал привлечения — доставка через myAksay без аренды"
+    ]
+  },
+  "aksay-go/AKSAY GO Offer.pptx": {
+    bullets:[
+      "<strong>Оффер-презентация AKSAY GO</strong> — для руководства ХБК Аксай, инвесторов и потенциальных партнёров",
+      "Структура (15 слайдов): Обложка → Боль рынка → Наше решение → Продукт → Целевая аудитория → Бизнес-модель → Unit Economics → Финансовые проекции → Конкуренты → Наши преимущества → Команда → Дорожная карта → Инвестиции → Следующий шаг → Контакты",
+      "Ключевые тезисы презентации: ХБК Аксай производит продукцию уже 30+ лет — у нас есть производство, поставщики и дистрибуция. AKSAY GO — это новое лицо старого продукта для новой аудитории",
+      "Дизайн: фирменный стиль AKSAY GO — яркий, молодёжный, контрастный. Цвета: оранжево-красный акцент на тёмном фоне (противоположность корпоративного сайта ХБК Аксай), смелая типографика",
+      "Использована на презентации бизнес-плана руководству и при дегустации 28 апреля",
+      "15 слайдов выстроены по канону инвестиционного питча: боль → решение → продукт → рынок → модель → экономика → команда → деньги → следующий шаг",
+      "Визуальный язык намеренно контрастен корпоративному сайту ХБК: яркий молодёжный стиль сигнализирует, что это новый бренд для новой аудитории",
+      "Презентация — «фасад» проекта для внешней аудитории (инвесторы, партнёры, сети), тогда как BusinessPlan и Unit Economics — его «внутренности» с доказательной базой"
+    ]
+  },
+  "aksay-go/aksay-go-kp.html": {
+    bullets:[
+      "<strong>Интерактивная HTML-страница коммерческого предложения AKSAY GO</strong>",
+      "Полноценный лендинг: концепция бренда → что предлагаем партнёрам → условия → форма обратной связи",
+      "Разработан для отправки потенциальным партнёрам по дистрибуции, торговым сетям и инвесторам — открывается прямо в браузере без скачивания",
+      "Разделы лендинга: Hero (бренд и слоган) → Проблема и решение → Продуктовые позиции с фото → Почему выгодно партнёрство → Финансовые показатели → Условия сотрудничества → Форма заявки",
+      "Мобильная адаптация: корректно отображается на телефоне — важно, так как большинство решений о партнёрстве в Казахстане принимаются в мессенджерах",
+      "CTA (призыв к действию): кнопка 'Обсудить партнёрство' открывает WhatsApp с предзаполненным сообщением",
+      "Формат лендинга выбран под реальность рынка РК: решения о партнёрстве принимаются в мессенджерах, поэтому страница ведёт прямо в WhatsApp, а не в форму с email",
+      "Открывается по ссылке без скачивания — это снижает барьер: получателю не нужно искать программу для просмотра тяжёлой презентации",
+      "Структура повторяет логику оффера, но в интерактивном вебе: hero → проблема/решение → продукт с фото → выгоды партнёрства → цифры → условия → заявка",
+      "Мобильная адаптация критична и реализована: большинство партнёров откроют ссылку с телефона"
+    ]
+  },
+  "aksay-go/aksay-go-v2.html": {
+    bullets:[
+      "<strong>Прототип мобильного приложения myAksay v2</strong> — 26 мая 2026",
+      "Обновлён по итогам обратной связи: упрощён флоу заказа (с 6 шагов до 3), улучшена навигация (bottom tab bar вместо hamburger menu)",
+      "Новые экраны v2: Профиль B2B-клиента (история заказов, задолженность, лимиты) → Быстрый повторный заказ (одна кнопка для повтора последнего заказа) → Дашборд корпоративного клиента (объёмы за месяц, экономия vs. ручных закупок)",
+      "Ключевое добавление: раздел B2B для категории C — корпоративный клиент входит в своё пространство, видит персональные цены и условия договора, оформляет заказ самостоятельно без звонка менеджеру",
+      "Программа лояльности: накопление баллов за заказы, уровни (Базовый → Серебро → Золото), бонусы за регулярность",
+      "Финальная версия для использования в КП1 и презентации концепции myAksay потенциальным инвесторам и партнёрам",
+      "v2 — результат UX-итерации: флоу заказа сокращён с 6 шагов до 3, навигация переведена на bottom tab bar — меньше трения, выше конверсия",
+      "Ключевое product-решение — раздел B2B для категории C: мелкий клиент сам видит свои цены, договор и задолженность и оформляет заказ без звонка менеджеру",
+      "Программа лояльности с уровнями (Базовый → Серебро → Золото) встроена как механизм удержания и роста частоты покупок, а не как «бонус ради бонуса»",
+      "Прототип служит наглядным доказательством концепции myAksay для КП1: инвестор видит не описание, а кликабельный продукт",
+      "Связывает две аудитории в одном приложении: B2C-покупатель готовой еды и B2B-клиент категории C — это и есть стратегический смысл myAksay"
+    ]
+  },
+
+  /* ═══════════════════════════════════════════════════
+     НОВЫЕ НАПРАВЛЕНИЯ
+  ═══════════════════════════════════════════════════ */
+  "new-potential-contracts%20%5Bfuture%5D/КП3_Аксай_Го_B2B_PRO.docx": {
+    bullets:[
+      "<strong>КП1 — myAksay: мобильное приложение B2C + B2B портал для категории C</strong>",
+      "Ключевой разрыв: ХБК Аксай генерирует 80 млн KZT в день, но у конечного покупателя нет ни приложения, ни программы лояльности, ни прямого канала. 2 877 B2B-клиентов категории C обслуживаются вручную менеджерами — без самообслуживания. Это КП закрывает оба пробела одновременно",
+      "Продукт 1 — Мобильное приложение (B2C + лояльность): каталог AKSAY GO (9+ SKU готовой еды), заказ с доставкой или самовывозом, программа лояльности с баллами, история покупок, push-уведомления об акциях. iOS + Android + PWA",
+      "Продукт 2 — B2B Портал (категория C): 2 877 клиентов оформляют заказы самостоятельно через личный кабинет — видят персональные цены, условия договора, историю и задолженность без звонка менеджеру. Высвобождённое время менеджеров перераспределяется на работу с сегментами A и B",
+      "Состав поставки: мобильное приложение iOS + Android + PWA, система лояльности, B2B личный кабинет, интеграция с 1С, аналитика по покупателям (первые данные о конечном потребителе за 30 лет работы бренда)",
+      "<strong>Стоимость: 42 000 000 KZT — два этапа, 50% / 50%</strong>. Этап 1 (21 000 000 KZT) — предоплата перед стартом разработки: проектирование архитектуры, UI/UX, разработка мобильного приложения и B2B личного кабинета. Этап 2 (21 000 000 KZT) — предоплата перед началом внедрения: интеграция с 1С, тестирование, запуск, обучение команды и техническое сопровождение",
+      "КП закрывает два разрыва одним продуктом: у бренда с оборотом 80 млн KZT/день нет ни прямого канала к покупателю, ни самообслуживания для 2 877 C-клиентов",
+      "Стратегический эффект данных: впервые за 30+ лет ХБК получает информацию о конечном потребителе — основу для будущих продуктовых и маркетинговых решений",
+      "Высвобождение менеджерского ресурса измеримо: перевод C-клиентов в самообслуживание перенаправляет время команды на сегменты A и B",
+      "Полнота поставки (iOS + Android + PWA, лояльность, B2B-кабинет, интеграция с 1С, аналитика) делает КП самодостаточным запуском экосистемы, а не «ещё одним приложением»",
+      "Это приоритетный следующий шаг (КП1) — на него прямо указывают выводы коммерческого и розничного аудитов и логика B2B-стратегии"
+    ]
+  },
+  "kp3-ai-production-concept": {
+    bullets:[
+      "<strong>КП3 — AI Production Director: концепция проработана, договор в согласовании</strong>",
+      "Суть системы: AI-прогнозирование производства и управление сырьём — от утреннего планирования смены до ежедневного отчёта руководителю. Масштаб: 300+ SKU, 80–150 тонн/сутки, 2 500 заказов в день",
+      "6 рабочих сценариев: утреннее планирование смены (05:30, задание по каждому цеху автоматически), расчёт заявки на сырьё за 72 ч с учётом остатков и сроков годности, контроль выхода готовой продукции vs норма, сезонное планирование (декабрь +7%, июнь–июль −9%), нештатная ситуация (план пересчитывается за 2 минуты), ежедневный отчёт руководству в 18:00 без ручной сборки",
+      "Состав поставки: AI-прогноз спроса на данных 2023–2025, цифровая база 300+ техкарт, автоматический расчёт потребности в сырье, мобильное приложение мастера смены (iOS + Android), двусторонняя интеграция с кастомной 1С:УПП Аксай, дашборд руководителя",
+      "Экономический эффект: снижение перезакупа сырья 5–12 млн KZT/год, снижение потерь от брака 3–8 млн KZT/год, экономия времени технологов 1,5–3 млн KZT/год. Консервативный эффект: 10–23 млн KZT/год",
+      "Статус: концепция и техническое описание готовы — финансовые условия обсуждаются с руководством, договор находится в стадии согласования",
+      "Прямое продолжение производственного аудита: КП3 отвечает на выявленные там проблемы короткого горизонта планирования и ручного контроля качества",
+      "6 сценариев описаны как рабочий день производства (от планирования смены в 05:30 до отчёта руководителю в 18:00) — это делает концепцию осязаемой, а не абстрактной",
+      "Экономический эффект посчитан в диапазоне (консервативно 10–23 млн KZT/год) по трём источникам: перезакуп сырья, брак, время технологов — есть основа для бизнес-кейса",
+      "Главная синергия экосистемы: прогнозы AI Sales становятся входными данными для AI Production — продажи и производство впервые планируются согласованно",
+      "Техническая интеграция с кастомной 1С:УПП Аксай названа отдельно как ключевой риск и одновременно условие успеха проекта"
+    ]
+  },
+  "kp5-academia-concept": {
+    bullets:[
+      "<strong>КП5 — AksayAcademia: корпоративная платформа знаний — концепция проработана, договор в согласовании</strong>",
+      "Проблема: 1 000+ сотрудников, нет единой базы знаний. Онбординг нового сотрудника — 2–4 недели и зависит от наставника. Техкарты на бумаге, не обновляются централизованно. ARTA Synergy EDO работает только на уровне директора. Три филиала (Алматы, Кокшетау, Шымкент) — без обмена опытом",
+      "Состав поставки: корпоративная база знаний (KMS) — единый источник правды; AI-тренер в WhatsApp — отвечает на 300+ типовых вопросов новичка 24/7; цифровые профили сотрудников (компетенции, достижения, карьерная история); расширение ARTA Synergy EDO на весь персонал; платформа обмена лучшими практиками между филиалами",
+      "Модуль онбординга + LMS: программы адаптации с тестами, видеоуроками, чеклистами — отслеживание прогресса каждого новичка. Модуль командировок: матрица компетенций помогает выбрать, кого из какого филиала направить",
+      "6-месячный план: месяц 1 — HR-аудит + сбор контента по 4 департаментам; месяцы 2–3 — KMS-платформа, цифровые профили, онбординг с тестами; месяц 4 — AI-тренер в WhatsApp; месяц 5 — LMS, видеоуроки, модуль командировок; месяц 6 — запуск для всех филиалов, обучение 15 HR-администраторов",
+      "Статус: концепция и план реализации готовы — финансовые условия обсуждаются с руководством, договор находится в стадии согласования",
+      "Проблема масштаба человеческого капитала: 1 000+ сотрудников, три филиала и отсутствие единой базы знаний делают онбординг медленным и зависимым от наставника",
+      "Решение собрано из взаимодополняющих модулей (KMS, AI-тренер в WhatsApp, цифровые профили, LMS, обмен практиками между филиалами) — это система, а не один инструмент",
+      "AI-тренер в WhatsApp, отвечающий на 300+ типовых вопросов новичка 24/7, прямо сокращает 2–4-недельный онбординг и снимает нагрузку с опытных сотрудников",
+      "6-месячный план разложен помесячно с понятными результатами каждого месяца — это снижает риск «вечного проекта» и даёт руководству контрольные точки",
+      "Стратегически КП5 закрывает риск, не покрытый другими проектами: технологии внедряются, но без управления знаниями эффект теряется при текучке кадров"
+    ]
+  },
+  "kp2-logistics-concept": {
+    bullets:[
+      "<strong>КП2 — Логистическая IT система: концепция в разработке</strong>",
+      "Обоснование: по результатам аудита логистики выявлены систематические жалобы водителей и логистов на систему Relog — нестабильная работа, неудобный интерфейс, ошибки при формировании накладных",
+      "Предполагаемый scope: цифровые накладные и маршрутные листы в мобильном приложении водителя, оптимизация маршрутов в реальном времени, интеграция склада с 1С, дашборд логиста",
+      "Ключевая гипотеза: замена Relog на собственную систему сократит время оформления рейса с ~25 до ~7 минут и снизит количество ошибок в накладных на 80%+",
+      "Статус: аудит завершён, концепция сформирована — КП находится в разработке, финализация ожидается в июне 2026",
+      "Опирается на цифры логистического аудита: задержки последней мили, 8% ошибок в накладных и 15% неоформленных возвратов — это и есть проблемы, которые решает система",
+      "Ключевая гипотеза измерима: сокращение оформления рейса с ~25 до ~7 минут и снижение ошибок в накладных на 80%+ — заявлен проверяемый результат, а не «улучшение»",
+      "Замена Relog обоснована не вкусовщиной, а систематическими жалобами водителей и логистов плюс данными аудита — это снижает риск «поменяли ради смены»",
+      "Предполагаемый scope (мобильное приложение водителя, цифровые накладные, оптимизация маршрутов, интеграция склада с 1С) логически продолжает уже сделанную инфраструктуру AI-направления"
+    ]
+  }
+};
+
+/* ── Modal UI
+
+/* ── Modal UI ────────────────────────────────────────────────── */
+const modalOverlay = document.getElementById('docModal');
+const dmoTitle   = document.getElementById('dmoTitle');
+const dmoSub     = document.getElementById('dmoSub');
+const dmoDate    = document.getElementById('dmoDate');
+const dmoType    = document.getElementById('dmoType');
+const dmoDetail  = document.getElementById('dmoDetail');
+const dmoLink    = document.getElementById('dmoLink');
+const dmoClose   = document.getElementById('dmoClose');
+
+function openModal(row) {
+  const href    = row.dataset.href || null;
+  const name    = row.querySelector('.doc-name')?.textContent?.trim() || '';
+  const sub     = row.querySelector('.doc-sub')?.textContent?.trim()  || '';
+  const date    = row.querySelector('.doc-date')?.textContent?.trim() || '';
+  const type    = row.querySelector('.doc-type')?.textContent?.trim() || '';
+  const detail  = href ? docDetails[href] : null;
+
+  dmoTitle.textContent = name;
+  dmoSub.textContent   = sub;
+  dmoDate.textContent  = date;
+  dmoType.textContent  = type;
+
+  if (detail?.bullets?.length) {
+    dmoDetail.innerHTML = '<ul>' + detail.bullets.map(b => `<li>${b}</li>`).join('') + '</ul>';
+  } else {
+    dmoDetail.innerHTML = '<p style="color:var(--text-faint);font-family:\'JetBrains Mono\',monospace;font-size:12px;">Подробное описание не добавлено.</p>';
+  }
+
+  // Кнопка «Открыть документ» временно отключена — функция в разработке
+  dmoLink.textContent = 'в процессе добавления';
+  dmoLink.classList.add('disabled');
+  dmoLink.setAttribute('aria-disabled', 'true');
+  dmoLink.removeAttribute('href');
+  dmoLink.style.display = '';
+
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.doc-row').forEach(row => {
+  row.addEventListener('click', e => {
+    openModal(row);
+  });
+});
+
+dmoClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ── HERO CANVAS — particle network ── */
+(function(){
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], animId;
+  const N = 60, MAXD = 150;
+
+  function accentRgb() {
+    const tmp = document.createElement('div');
+    tmp.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;color:var(--accent)';
+    document.body.appendChild(tmp);
+    const c = getComputedStyle(tmp).color;
+    document.body.removeChild(tmp);
+    const m = c.match(/\d+/g);
+    return m ? [+m[0], +m[1], +m[2]] : [184, 134, 11];
+  }
+
+  function resize() {
+    const hero = canvas.closest('.hero');
+    W = canvas.width  = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+  }
+
+  function spawn() {
+    nodes = [];
+    for (let i = 0; i < N; i++) nodes.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - .5) * .28,
+      vy: (Math.random() - .5) * .28,
+      r:  Math.random() * 1.6 + .8,
+      phase: Math.random() * Math.PI * 2
+    });
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    const [r, g, b] = accentRgb();
+
+    nodes.forEach(n => {
+      n.phase += .016;
+      n.x = (n.x + n.vx + W) % W;
+      n.y = (n.y + n.vy + H) % H;
+    });
+
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const d  = Math.sqrt(dx*dx + dy*dy);
+        if (d < MAXD) {
+          const a = (1 - d / MAXD) * .22;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(${r},${g},${b},${a})`;
+          ctx.lineWidth = .65;
+          ctx.stroke();
+        }
+      }
+    }
+
+    nodes.forEach(n => {
+      const pulse = Math.sin(n.phase) * .5 + .5;
+      const a = .18 + pulse * .38;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r + pulse * .6, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
+      ctx.fill();
+    });
+
+    animId = requestAnimationFrame(frame);
+  }
+
+  function init() {
+    resize(); spawn();
+    if (animId) cancelAnimationFrame(animId);
+    frame();
+  }
+
+  window.addEventListener('resize', init);
+  document.getElementById('themeBtn').addEventListener('click', () => setTimeout(init, 60));
+  init();
+})();
+
+/* ── SCHEMA-ROW stagger animation ── */
+(function(){
+  const rows = document.querySelectorAll('.schema-row');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('sc-vis');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  rows.forEach(r => io.observe(r));
+})();
+
+/* ── STAT ICONS draw-in + COUNTER animate ── */
+(function(){
+  const stats = document.querySelectorAll('.h-stat');
+
+  // icon draw-in via IntersectionObserver
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((entry, idx) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        setTimeout(() => el.classList.add('icon-ready'), idx * 120);
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: .4 });
+  stats.forEach(s => io.observe(s));
+
+  // counter count-up
+  const valEls = document.querySelectorAll('.hs-val[data-count]');
+  const co = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el     = entry.target;
+      const target = +el.dataset.count;
+      const suffix = el.dataset.suffix || '';
+      const dur    = 1400;
+      const start  = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(ease * target) + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      co.unobserve(el);
+    });
+  }, { threshold: .6 });
+  valEls.forEach(el => co.observe(el));
+})();
+
+
+/* ── PASSWORD GATE ── */
+(function(){
+  const PWD = 'aksaynan#260526';
+  const gate = document.getElementById('gate');
+  const loader = document.getElementById('gate-loader');
+  const passPane = document.getElementById('gate-pass');
+  const input = document.getElementById('gate-input');
+  const btn = document.getElementById('gate-btn');
+  const err = document.getElementById('gate-error');
+
+  // Already unlocked this session?
+  if (sessionStorage.getItem('bih_unlocked') === '1') {
+    gate.style.display = 'none';
+    return;
+  }
+
+  // Prevent body scroll while gate is up
+  document.body.style.overflow = 'hidden';
+
+  // After loader bar finishes (~2.5s), show password pane
+  setTimeout(() => {
+    loader.style.transition = 'opacity .4s ease';
+    loader.style.opacity = '0';
+    loader.style.pointerEvents = 'none';
+    setTimeout(() => {
+      loader.style.display = 'none';
+      passPane.classList.add('visible');
+      setTimeout(() => input.focus(), 100);
+    }, 420);
+  }, 2550);
+
+  function tryUnlock() {
+    if (input.value === PWD) {
+      sessionStorage.setItem('bih_unlocked', '1');
+      gate.classList.add('gate-hide');
+      document.body.style.overflow = '';
+      setTimeout(() => gate.style.display = 'none', 650);
+    } else {
+      input.classList.add('error');
+      err.classList.add('show');
+      input.value = '';
+      setTimeout(() => { input.classList.remove('error'); }, 400);
+      setTimeout(() => { err.classList.remove('show'); }, 2000);
+      input.focus();
+    }
+  }
+
+  btn.addEventListener('click', tryUnlock);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+})();
+
+</script>
+</body>
+</html>
